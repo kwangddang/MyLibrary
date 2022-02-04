@@ -1,5 +1,6 @@
 package com.example.mylibrary
 
+import com.example.mylibrary.data.api.NaverApi
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +13,6 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+
     }
 }
