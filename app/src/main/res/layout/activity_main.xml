@@ -5,7 +5,7 @@
     android:id="@+id/fragment_container_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.mylibrary.view.home.HomeFragment"
+    android:name="com.example.mylibrary.view.root.RootFragment"
     app:defaultNavHost="true"
     app:navGraph="@navigation/navigation_main"
     tools:context=".MainActivity" />

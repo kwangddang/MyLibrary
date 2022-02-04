@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.home
+package com.example.mylibrary.view.root.home
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
