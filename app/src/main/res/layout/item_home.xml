@@ -34,10 +34,10 @@
             android:paddingTop="16dp"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:text="@{book.title}"
             app:layout_constraintTop_toBottomOf="@id/img_ihome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            bind:titleFilter="@{book.title}"
             tools:text="미움 받을 용기"/>
 
         <androidx.constraintlayout.widget.Guideline
