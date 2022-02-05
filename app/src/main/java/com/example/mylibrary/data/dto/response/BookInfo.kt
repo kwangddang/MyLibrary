@@ -1,6 +1,6 @@
 package com.example.mylibrary.data.dto.response
 
-data class Book(
+data class BookInfo(
     val author: String,
     val description: String,
     val discount: String,

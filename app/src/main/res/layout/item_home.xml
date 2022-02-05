@@ -7,7 +7,7 @@
     <data>
         <variable
             name="book"
-            type="com.example.mylibrary.data.dto.response.Book" />
+            type="com.example.mylibrary.data.dto.response.BookInfo" />
     </data>
 
     <androidx.cardview.widget.CardView

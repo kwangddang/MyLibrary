@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class BookResponse(
     val display: Int,
     @SerializedName("items")
-    val books: List<Book>,
+    val bookInfos: List<BookInfo>,
     val lastBuildDate: String,
     val start: Int,
     val total: Int
