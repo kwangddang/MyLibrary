@@ -14,13 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:cardElevation="4dp"
+        app:contentPadding="24dp"
         app:cardCornerRadius="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/constraint_ihome_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        app:layoutDescription="@xml/item_home_scene">
 
         <ImageView
             android:id="@+id/img_ihome"
@@ -28,7 +30,7 @@
             android:layout_height="144dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:bookImage="@{book.image}"
+            bind:imageBook="@{book.image}"
             tools:background="@color/secondaryDarkColor" />
 
         <TextView
@@ -39,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/img_ihome"
             app:layout_constraintEnd_toEndOf="parent"
-            bind:titleFilter="@{book.title}"
+            bind:textTitle="@{book.title}"
             tools:text="미움 받을 용기"/>
 
         <TextView
@@ -75,9 +77,9 @@
             style="@style/Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{book.price}"
             app:layout_constraintStart_toEndOf="@id/text_ihome_label_publisher"
             app:layout_constraintTop_toTopOf="@id/text_ihome_label_price"
+            bind:textPrice="@{book.price}"
             tools:text="15000원"/>
 
         <View
@@ -95,13 +97,22 @@
             style="@style/Description"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/view_ihome_divider"
-            app:layout_constraintBottom_toBottomOf="@id/img_ihome"
             app:layout_constraintStart_toEndOf="@id/img_ihome"
             app:layout_constraintEnd_toEndOf="parent"
-            bind:descriptionFilter="@{book.description}"
+            bind:textDescription="@{book.description}"
             tools:text="미움 받을 용기입니다."/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_ihome_desc_full"
+            style="@style/DescriptionFull"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            bind:textDescription="@{book.description}"/>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.cardview.widget.CardView>
 </layout>

@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 object HomeBindingAdapter {
 
     @JvmStatic
-    @BindingAdapter("bookImage")
-    fun setBookImage(view: ImageView, url: String?){
+    @BindingAdapter("imageBook")
+    fun setImageBook(view: ImageView, url: String?){
         view.context.apply {
             Glide.with(this)
                 .load(url)
@@ -20,14 +20,20 @@ object HomeBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("titleFilter")
-    fun setTitleFilter(view: TextView, text: String?){
+    @BindingAdapter("textPrice")
+    fun setTextPrice(view: TextView, text: String){
+        view.text = "${text}원"
+    }
+
+    @JvmStatic
+    @BindingAdapter("textTitle")
+    fun setTextTitle(view: TextView, text: String?){
         view.text = text?.replace("<b>","")?.replace("</b>","")
     }
 
     @JvmStatic
-    @BindingAdapter("descriptionFilter")
-    fun setDescriptionFilter(view: TextView, text: String?){
-        view.text = text?.replace("<b>","")?.replace("</b>","")
+    @BindingAdapter("textDescription")
+    fun setTextDescription(view: TextView, text: String?){
+        view.text = text?.replace("<b>","")?.replace("</b>","") + "\n"
     }
 }
