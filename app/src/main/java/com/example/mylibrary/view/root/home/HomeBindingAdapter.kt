@@ -24,4 +24,10 @@ object HomeBindingAdapter {
     fun setTitleFilter(view: TextView, text: String?){
         view.text = text?.replace("<b>","")?.replace("</b>","")
     }
+
+    @JvmStatic
+    @BindingAdapter("descriptionFilter")
+    fun setDescriptionFilter(view: TextView, text: String?){
+        view.text = text?.replace("<b>","")?.replace("</b>","")
+    }
 }
