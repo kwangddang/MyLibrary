@@ -1,18 +1,17 @@
 package com.example.mylibrary.data.room.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.mylibrary.data.room.entity.Book
 
 @Dao
 interface BookDao {
     @Query("SELECT * FROM book")
-    fun getAll(): List<Book>
+    fun getMyBook(): List<Book>
 
-    @Insert
-    fun insertAll(vararg books: Book)
+//    @Query("SELECT isbn FROM book ")    //TODO 데이터베이스 검색 구현
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(book: Book)
 
     @Delete
     fun delete(book: Book)

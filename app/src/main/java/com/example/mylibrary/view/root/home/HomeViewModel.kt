@@ -13,7 +13,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val naverRepository: NaverRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val naverRepository: NaverRepository
+) : ViewModel() {
 
     private val _book = MutableLiveData<BookResponse>()
     val book: LiveData<BookResponse> get() = _book

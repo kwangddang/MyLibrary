@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.data.dto.response.BookResponse
 import com.example.mylibrary.databinding.ItemHomeBinding
+import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 
-class HomeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class HomeAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var content = emptyList<BookInfo>()
     var item: BookResponse? = null
@@ -19,6 +20,9 @@ class HomeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     inner class HomeViewHolder(private val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(bookInfo: BookInfo){
             binding.book = bookInfo
+            binding.setOnClickItem { view ->
+                itemOnClickListener(ItemClickArgs(binding,view))
+            }
         }
     }
 

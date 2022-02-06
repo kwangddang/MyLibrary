@@ -1,5 +1,7 @@
 package com.example.mylibrary.di
 
+import com.example.mylibrary.data.repository.BookRepository
+import com.example.mylibrary.data.repository.BookRepositoryImpl
 import com.example.mylibrary.data.repository.NaverRepository
 import com.example.mylibrary.data.repository.NaverRepositoryImpl
 import dagger.Binds
@@ -14,4 +16,9 @@ abstract class RepositoryModule {
     abstract fun provideNaverRepository(
         repository: NaverRepositoryImpl
     ): NaverRepository
+
+    @Binds
+    abstract fun provideBookRepository(
+        repository: BookRepositoryImpl
+    ): BookRepository
 }

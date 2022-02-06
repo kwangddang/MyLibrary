@@ -8,18 +8,30 @@
         <variable
             name="book"
             type="com.example.mylibrary.data.dto.response.BookInfo" />
+
+        <variable
+            name="onClickItem"
+            type="android.view.View.OnClickListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_ihome_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardElevation="4dp"
+        android:layout_margin="16dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_ihome_innercontainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:contentPadding="24dp"
         app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraint_ihome_container"
+        android:id="@+id/motion_ihome_innercontainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutDescription="@xml/item_home_scene">
@@ -80,7 +92,7 @@
             app:layout_constraintStart_toEndOf="@id/text_ihome_label_publisher"
             app:layout_constraintTop_toTopOf="@id/text_ihome_label_price"
             bind:textPrice="@{book.price}"
-            tools:text="15000원"/>
+            tools:text="15000원" />
 
         <View
             android:id="@+id/view_ihome_divider"
@@ -115,4 +127,13 @@
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/test"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:onClick="@{onClickItem}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:backgroundTint="@color/black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
