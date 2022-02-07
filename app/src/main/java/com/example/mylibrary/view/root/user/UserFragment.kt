@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mylibrary.data.room.entity.Book
 import com.example.mylibrary.databinding.FragmentUserBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
@@ -24,6 +25,11 @@ class UserFragment: Fragment() {
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
 
+    }
+
+    private val swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+        refresh()
+        binding.swipeUserContainer.isRefreshing = false
     }
 
     private val bookObserver: (List<Book>) -> Unit = { book ->
@@ -47,11 +53,16 @@ class UserFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeData()
-        initViews()
+        refresh()
         initAdapter()
+        setOnRefreshListener()
     }
 
-    private fun initViews(){
+    private fun setOnRefreshListener(){
+        binding.swipeUserContainer.setOnRefreshListener(swipeRefreshListener)
+    }
+
+    private fun refresh(){
         viewModel.getMyBook()
     }
 

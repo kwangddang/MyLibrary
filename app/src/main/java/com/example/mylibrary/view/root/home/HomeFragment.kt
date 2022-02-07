@@ -12,18 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
-import com.example.mylibrary.data.database.BookDatabase
+import com.example.mylibrary.bookInfoToBook
 import com.example.mylibrary.data.dto.request.BookRequest
 import com.example.mylibrary.data.dto.response.BookResponse
 import com.example.mylibrary.data.room.dao.BookDao
-import com.example.mylibrary.data.room.entity.Book
 import com.example.mylibrary.databinding.FragmentHomeBinding
 import com.example.mylibrary.databinding.ItemHomeBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -58,36 +54,6 @@ class HomeFragment : Fragment() {
 
             R.id.lottie_ihome_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemHomeBinding)
         }
-
-//        val appLinkAction = requireActivity().intent.action
-//        val appLinkData: Uri? = requireActivity().intent.data
-//        Log.d("Test",link!!)
-//
-//        if(Intent.ACTION_VIEW == appLinkAction){
-//            appLinkData?.lastPathSegment?.also {
-//                Log.d("Test",link!!)
-//                Log.d("Test",it)
-//            }
-//        }
-
-//        val book = (args?.item as ItemHomeBinding).book
-//        Log.d("Test", "?")
-//        CoroutineScope(Dispatchers.IO).launch {
-//            bookDao.insert(
-//                Book(
-//                    author = book?.author,
-//                    description = book?.description,
-//                    discount = book?.discount,
-//                    image = book?.image,
-//                    isbn = book?.isbn,
-//                    link = book?.link,
-//                    price = book?.price,
-//                    pubdate = book?.pubdate,
-//                    publisher = book?.publisher,
-//                    title = book?.title
-//                )
-//            )
-//        }
     }
 
     override fun onCreateView(
@@ -130,12 +96,12 @@ class HomeFragment : Fragment() {
             val animator = getValueAnimator(0f,0.5f, view)
             animator.start()
             item.book?.isBookMark = true
-            //viewModel.likeAlbum(item.album!!.albumId)
+            viewModel.insert(bookInfoToBook(item.book!!))
         } else {
             val animator = getValueAnimator(0.5f,0.0f, view)
             animator.start()
             item.book?.isBookMark = false
-            //viewModel.unlikeAlbum(item.album!!.albumId)
+            viewModel.delete(item.book!!.isbn)
         }
     }
 
