@@ -10,5 +10,6 @@ data class BookInfo(
     val price: String,
     val pubdate: String,
     val publisher: String,
-    val title: String
+    val title: String,
+    var isBookMark: Boolean?
 )

@@ -9,6 +9,8 @@ import com.example.mylibrary.data.room.entity.Book
 interface BookRepository {
     fun getMyBook(): List<Book>
 
+    fun checkMyBook(isbn: String): String
+
     fun insert(book: Book)
 
     fun delete(book: Book)

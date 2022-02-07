@@ -3,4 +3,6 @@
     <string name="btn_home_search">검색</string>
     <string name="text_ihome_label_publisher">출판사</string>
     <string name="text_ihome_label_price">가격</string>
+    <string name="text_ihome_label_author">작가</string>
+    <string name="text_ihome_link"><u>링크</u></string>
 </resources>

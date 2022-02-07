@@ -8,7 +8,8 @@ interface BookDao {
     @Query("SELECT * FROM book")
     fun getMyBook(): List<Book>
 
-//    @Query("SELECT isbn FROM book ")    //TODO 데이터베이스 검색 구현
+    @Query("SELECT isbn FROM book WHERE isbn LIKE :isbn")
+    fun checkMyBook(isbn: String): String
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: Book)
