@@ -20,5 +20,6 @@ data class Book(
     @ColumnInfo(name = "pubdate")val pubdate: String,
     @ColumnInfo(name = "publisher") val publisher: String,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "bookmark") val isBookMark: Boolean?
+    @ColumnInfo(name = "bookmark") val isBookMark: Boolean?,
+    @ColumnInfo(name = "category") val category: String? = null
 ) : Parcelable

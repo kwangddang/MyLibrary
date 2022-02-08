@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="category"
+            type="com.example.mylibrary.data.room.entity.Category" />
+
+        <variable
+            name="onClickItem"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_iusercategory_container"
+        style="@style/RippleEffect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/img_iusercategory_folder"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_folder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_iusercategory_title"
+        style="@style/Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@{category.category}"
+        android:onClick="@{onClickItem}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_iusercategory_folder"
+        tools:text="로드캡처"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

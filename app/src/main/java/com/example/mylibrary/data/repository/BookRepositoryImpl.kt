@@ -9,6 +9,8 @@ class BookRepositoryImpl @Inject constructor(private val bookDao: BookDao): Book
 
     override fun checkMyBook(isbn: String): String = bookDao.checkMyBook(isbn)
 
+    override fun getCategoryBook(category: String): List<Book> = bookDao.getCategoryBook(category)
+
     override suspend fun insert(book: Book) = bookDao.insert(book)
 
     override suspend fun delete(isbn: String) = bookDao.delete(isbn)

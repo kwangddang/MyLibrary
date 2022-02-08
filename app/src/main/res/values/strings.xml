@@ -5,4 +5,7 @@
     <string name="text_ihome_label_price">가격</string>
     <string name="text_ihome_label_author">작가</string>
     <string name="text_ihome_link"><u>링크</u></string>
+    <string name="edit_home_search_hint">검색어를 입력하세요</string>
+    <string name="text_bottomsheet_category_creation_title">추가할 폴더의 이름을 입력해주세요.</string>
+    <string name="text_user_add">추가</string>
 </resources>

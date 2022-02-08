@@ -2,6 +2,7 @@ package com.example.mylibrary.di
 
 import com.example.mylibrary.data.database.BookDatabase
 import com.example.mylibrary.data.room.dao.BookDao
+import com.example.mylibrary.data.room.dao.CategoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +16,12 @@ abstract class DaoModule {
 
         @Singleton
         @Provides
-        fun providePictureDao(bookDatabase: BookDatabase): BookDao =
+        fun provideBookDao(bookDatabase: BookDatabase): BookDao =
             bookDatabase.bookDao()
+
+        @Singleton
+        @Provides
+        fun provideCategoryDao(bookDatabase: BookDatabase): CategoryDao =
+            bookDatabase.categoryDao()
     }
 }

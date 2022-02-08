@@ -7,6 +7,8 @@ interface BookRepository {
 
     fun checkMyBook(isbn: String): String
 
+    fun getCategoryBook(category: String): List<Book>
+
     suspend fun insert(book: Book)
 
     suspend fun delete(isbn: String)

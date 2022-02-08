@@ -5,14 +5,20 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
 import com.example.mylibrary.common.bookInfoToBook
+import com.example.mylibrary.common.hideKeyboard
 import com.example.mylibrary.data.dto.request.BookRequest
 import com.example.mylibrary.data.dto.response.BookResponse
 import com.example.mylibrary.data.room.dao.BookDao
@@ -32,8 +38,18 @@ class HomeFragment : Fragment() {
         HomeAdapter(itemOnClickListener)
     }
 
-    private val btnOnClickListener: (View) -> Unit = {
-        viewModel.getBook(BookRequest(query = binding.editHomeSearch.text.toString()))
+    private val searchEditActionListener: (TextView, Int, KeyEvent?) -> Boolean = { view, actionId, event ->
+        when(actionId){
+            EditorInfo.IME_ACTION_SEARCH -> {
+                view.text.toString().run {
+                    if(isNullOrBlank()) Toast.makeText(requireContext(),"검색어를 입력해 주세요.",Toast.LENGTH_SHORT).show()
+                    else viewModel.getBook(BookRequest(query = this))
+                }
+                requireActivity().hideKeyboard(view as EditText)
+                true
+            }
+            else -> false
+        }
     }
 
     private val bookObserver: (BookResponse?) -> Unit = { response ->
@@ -69,15 +85,15 @@ class HomeFragment : Fragment() {
 
         observeData()
         initAdapter()
-        setOnClickListener()
+        setOnEditorActionListener()
     }
 
     private fun observeData() {
         viewModel.book.observe(viewLifecycleOwner, bookObserver)
     }
 
-    private fun setOnClickListener() {
-        binding.btnHomeSearch.setOnClickListener(btnOnClickListener)
+    private fun setOnEditorActionListener() {
+        binding.editHomeSearch.setOnEditorActionListener(searchEditActionListener)
     }
 
     private fun initAdapter() {

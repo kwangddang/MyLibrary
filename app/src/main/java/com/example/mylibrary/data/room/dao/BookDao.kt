@@ -16,4 +16,7 @@ interface BookDao {
 
     @Query("DELETE FROM book WHERE isbn LIKE :isbn")
     fun delete(isbn: String)
+
+    @Query("SELECT * FROM book WHERE category LIKE :category")
+    fun getCategoryBook(category: String): List<Book>
 }
