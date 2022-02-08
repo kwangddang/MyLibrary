@@ -23,4 +23,16 @@ class UserViewModel @Inject constructor(
             _book.postValue(bookRepository.getMyBook())
         }
     }
+
+    fun delete(isbn:String){
+        CoroutineScope(Dispatchers.IO).launch {
+            bookRepository.delete(isbn)
+        }
+    }
+
+    fun insert(book: Book){
+        CoroutineScope(Dispatchers.IO).launch {
+            bookRepository.insert(book)
+        }
+    }
 }

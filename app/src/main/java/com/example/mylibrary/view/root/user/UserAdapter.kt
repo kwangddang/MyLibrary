@@ -1,5 +1,6 @@
 package com.example.mylibrary.view.root.user
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,13 +10,13 @@ import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 
 class UserAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var content = emptyList<Book>()
+    var content = mutableListOf<Book>()
 
     inner class UserViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(book: Book){
+        fun bind(book: Book, position: Int){
             binding.book = book
             binding.setOnClickItem { view ->
-                itemOnClickListener(ItemClickArgs(binding,view))
+                itemOnClickListener(ItemClickArgs(binding,view, position))
             }
         }
     }
@@ -25,7 +26,7 @@ class UserAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): Re
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as UserViewHolder).bind(content[position])
+        (holder as UserViewHolder).bind(content[position],position)
     }
 
     override fun getItemCount(): Int = content.size

@@ -1,15 +1,13 @@
-package com.example.mylibrary.view.root.home
+package com.example.mylibrary.common
 
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-import com.example.mylibrary.data.repository.BookRepository
-import javax.inject.Inject
 
 
-object HomeBindingAdapter {
+object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("imageBook")

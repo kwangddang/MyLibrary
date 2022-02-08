@@ -15,44 +15,67 @@
             type="android.view.View.OnClickListener" />
     </data>
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_iuser_container"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_user_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:contentPadding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_iuser_innercontainer"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_iuser_innercontainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            app:contentPadding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/img_iuser"
-                android:layout_width="108dp"
-                android:layout_height="144dp"
-                android:background="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                bind:imageBook="@{book.image}"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_iuser_innercontainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text_iuser_title"
-                style="@style/DescriptionFull"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxLines="2"
-                android:ellipsize="end"
-                app:layout_constraintTop_toBottomOf="@id/img_iuser"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                bind:textTitle="@{book.title}"
-                tools:text="달을 닮은 너에게"/>
+                <ImageView
+                    android:id="@+id/img_iuser"
+                    android:layout_width="108dp"
+                    android:layout_height="144dp"
+                    android:background="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    bind:imageBook="@{book.image}" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/text_iuser_title"
+                    style="@style/DescriptionFull"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:ellipsize="end"
+                    android:gravity="center|top"
+                    android:maxLines="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_iuser"
+                    bind:textTitle="@{book.title}"
+                    tools:text="달을 닮은 너에게" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_ihome_bookmark"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:elevation="2dp"
+            android:onClick="@{onClickItem}"
+            app:layout_constraintBottom_toBottomOf="@id/card_iuser_innercontainer"
+            app:layout_constraintStart_toEndOf="@id/card_iuser_innercontainer"
+            app:layout_constraintEnd_toEndOf="@id/card_iuser_innercontainer"
+            app:layout_constraintTop_toBottomOf="@id/card_iuser_innercontainer"
+            app:layout_constraintVertical_bias="1.0"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/bookmark"
+            bind:checkBookMark="@{book.isBookMark()}"
+            tools:src="@drawable/ic_home" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

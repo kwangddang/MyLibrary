@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
-import com.example.mylibrary.bookInfoToBook
+import com.example.mylibrary.common.bookInfoToBook
 import com.example.mylibrary.data.dto.request.BookRequest
 import com.example.mylibrary.data.dto.response.BookResponse
 import com.example.mylibrary.data.room.dao.BookDao
@@ -47,8 +47,6 @@ class HomeFragment : Fragment() {
     lateinit var bookDao: BookDao
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-
-        Log.d("Test",args?.view.toString())
         when(args?.view?.id){
             R.id.text_ihome_link -> startActivity(Intent(Intent.ACTION_VIEW,Uri.parse((args?.item as ItemHomeBinding).book?.link)))
 

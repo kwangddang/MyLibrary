@@ -18,10 +18,10 @@ class HomeAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): Re
         }
 
     inner class HomeViewHolder(private val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(bookInfo: BookInfo){
+        fun bind(bookInfo: BookInfo, position: Int){
             binding.book = bookInfo
             binding.setOnClickItem { view ->
-                itemOnClickListener(ItemClickArgs(binding,view))
+                itemOnClickListener(ItemClickArgs(binding,view,position))
             }
         }
     }
@@ -31,7 +31,7 @@ class HomeAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): Re
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as HomeViewHolder).bind(content[position])
+        (holder as HomeViewHolder).bind(content[position],position)
     }
 
     override fun getItemCount(): Int = content.size

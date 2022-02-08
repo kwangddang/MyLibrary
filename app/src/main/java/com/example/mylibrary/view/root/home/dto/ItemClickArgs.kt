@@ -5,5 +5,6 @@ import androidx.databinding.ViewDataBinding
 
 data class ItemClickArgs(
     val item: ViewDataBinding?,
-    val view: View?
+    val view: View?,
+    val position: Int
 )

@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.mylibrary.common
 
 import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.data.room.entity.Book
@@ -33,4 +33,6 @@ fun bookInfoToBook(bookInfo: BookInfo): Book =
         bookInfo.title,
         bookInfo.isBookMark
     )
+
+
 
