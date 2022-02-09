@@ -27,8 +27,8 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("textTitle")
-    fun setTextTitle(view: TextView, text: String?){
+    @BindingAdapter("searchText")
+    fun setSearchText(view: TextView, text: String?){
         view.text = text?.replace("<b>","")?.replace("</b>","")
     }
 

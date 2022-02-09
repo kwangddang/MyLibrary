@@ -35,8 +35,10 @@ fun bookInfoToBook(bookInfo: BookInfo): Book =
         bookInfo.pubdate,
         bookInfo.publisher,
         bookInfo.title,
-        bookInfo.isBookMark
+        bookInfo.isBookMark,
     )
+
+fun filteringText(text: String): String = text.replace("<b>","").replace("</b>","")
 
 fun Activity.hideKeyboard(editText: EditText) {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

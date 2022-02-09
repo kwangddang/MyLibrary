@@ -2,18 +2,25 @@ package com.example.mylibrary.view.root.user
 
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
+import com.example.mylibrary.common.TagConstant
+import com.example.mylibrary.common.filteringText
 import com.example.mylibrary.data.room.entity.Book
 import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.FragmentUserBinding
 import com.example.mylibrary.databinding.ItemUserBookBinding
+import com.example.mylibrary.databinding.ItemUserCategoryBinding
+import com.example.mylibrary.view.root.RootFragment
+import com.example.mylibrary.view.root.RootFragmentDirections
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,21 +32,37 @@ class UserFragment : Fragment() {
     private val viewModel: UserViewModel by viewModels()
 
     private val bookAdapter: UserBookAdapter by lazy {
-        UserBookAdapter(bookItemOnClickListener)
+        UserBookAdapter(bookItemOnClickListener, bookItemOnLongClickListener)
     }
 
     private val categoryAdapter: UserCategoryAdapter by lazy {
         UserCategoryAdapter(categoryItemOnClickListener)
     }
 
+    private val bookItemOnLongClickListener: (ItemClickArgs?) -> Boolean = { args ->
+        Navigation.findNavController((parentFragment as RootFragment).binding.root)
+            .navigate(RootFragmentDirections.actionRootFragmentToEditCategoryFragment((args?.item as ItemUserBookBinding).book!!.isbn))
+        true
+    }
+
     private val bookItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when (args?.view?.id) {
-            R.id.lottie_ihome_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemUserBookBinding, args.position)
+            R.id.lottie_iuserbook_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemUserBookBinding, args.position)
+            R.id.card_iuserbook_innercontainer -> {
+                val book = (args.item as ItemUserBookBinding).book
+                binding.textUserTitle.text = filteringText(book!!.title)
+                binding.textUserDesc.text = filteringText(book!!.description)
+            }
         }
     }
 
     private val categoryItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-
+        when(args?.view?.id){
+            R.id.constraint_iusercategory_container -> {
+                if(args.position == 0) viewModel.getMyBook()
+                else viewModel.getCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
+            }
+        }
     }
 
     private val swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
@@ -55,10 +78,19 @@ class UserFragment : Fragment() {
     }
 
     private val categoryObserver: (List<Category>) -> Unit = { category ->
+        val list = category as MutableList<Category>
+        list.add(0, Category("전체"))
         categoryAdapter.apply {
-            content = category as MutableList<Category>
+            content = list
             notifyDataSetChanged()
         }
+    }
+
+    private val categoryAddOnClickListener: (View) -> Unit = {
+        CategoryCreationBottomSheetDialog().show(
+            childFragmentManager,
+            TagConstant.BOTTOM_SHEET_CATEGORY_FRAGMENT
+        )
     }
 
     override fun onCreateView(
@@ -82,19 +114,14 @@ class UserFragment : Fragment() {
     }
 
     private fun setOnClickListener(){
-        binding.textUserAdd.setOnClickListener {
-            CategoryCreationBottomSheetDialog().show(
-                childFragmentManager,
-                "test"
-            )
-        }
+        binding.textUserAdd.setOnClickListener(categoryAddOnClickListener)
     }
 
     private fun setOnRefreshListener() {
         binding.swipeUserContainer.setOnRefreshListener(swipeRefreshListener)
     }
 
-    private fun refresh() {
+    fun refresh() {
         viewModel.getMyBook()
         viewModel.getCategory()
     }
@@ -111,6 +138,7 @@ class UserFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("Test","user destroy")
         _binding = null
     }
 

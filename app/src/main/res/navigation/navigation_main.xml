@@ -6,13 +6,22 @@
     app:startDestination="@id/rootFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.mylibrary.view.root.home.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
-    <fragment
         android:id="@+id/rootFragment"
         android:name="com.example.mylibrary.view.root.RootFragment"
         android:label="RootFragment"
-        tools:layout="@layout/fragment_root"/>
+        tools:layout="@layout/fragment_root">
+        <action
+            android:id="@+id/action_rootFragment_to_editCategoryFragment"
+            app:destination="@id/editCategoryFragment"
+            app:popUpTo="@id/rootFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCategoryFragment"
+        android:name="com.example.mylibrary.view.edit.EditCategoryFragment"
+        android:label="EditCategoryFragment"
+        tools:layout="@layout/fragment_edit_category">
+        <argument
+            android:name="isbn"
+            app:argType="string" />
+    </fragment>
 </navigation>

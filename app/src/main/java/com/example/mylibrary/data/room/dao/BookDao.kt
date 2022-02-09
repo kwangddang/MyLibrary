@@ -19,4 +19,7 @@ interface BookDao {
 
     @Query("SELECT * FROM book WHERE category LIKE :category")
     fun getCategoryBook(category: String): List<Book>
+
+    @Query("UPDATE book SET category = :category WHERE isbn LIKE :isbn")
+    fun setBookCategory(category: String, isbn: String)
 }

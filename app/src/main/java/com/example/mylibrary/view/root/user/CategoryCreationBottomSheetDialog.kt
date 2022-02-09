@@ -19,6 +19,12 @@ class CategoryCreationBottomSheetDialog : BottomSheetDialogFragment() {
 
     private val viewModel: UserViewModel by viewModels({requireParentFragment()})
 
+    private val btnOnClickListener: (View) -> Unit = {
+        viewModel.insertCategory(Category(binding.editBottomsheetCategoryCreation.text.toString()))
+        dismiss()
+        (parentFragment as UserFragment).refresh()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,10 +40,7 @@ class CategoryCreationBottomSheetDialog : BottomSheetDialogFragment() {
     }
 
     private fun setOnClickListener(){
-        binding.btnBottomsheetCategory.setOnClickListener {
-            viewModel.insertCategory(Category(binding.editBottomsheetCategoryCreation.text.toString()))
-            dismiss()
-        }
+        binding.btnBottomsheetCategory.setOnClickListener (btnOnClickListener)
     }
 
     override fun onDestroyView() {

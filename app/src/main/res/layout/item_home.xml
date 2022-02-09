@@ -53,7 +53,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/img_ihome"
                     app:layout_constraintTop_toTopOf="parent"
-                    bind:textTitle="@{book.title}"
+                    bind:searchText="@{book.title}"
                     tools:text="미움 받을 용기" />
 
                 <TextView
@@ -71,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{book.author}"
                     app:layout_constraintStart_toEndOf="@id/text_ihome_label_publisher"
                     app:layout_constraintTop_toTopOf="@id/text_ihome_label_author"
+                    bind:searchText="@{book.author}"
                     tools:text="최광현" />
 
                 <TextView
@@ -90,9 +90,9 @@
                     style="@style/Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{book.publisher}"
                     app:layout_constraintStart_toEndOf="@id/text_ihome_label_publisher"
                     app:layout_constraintTop_toTopOf="@id/text_ihome_label_publisher"
+                    bind:searchText="@{book.publisher}"
                     tools:text="산기대" />
 
                 <TextView

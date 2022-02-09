@@ -7,7 +7,7 @@ import com.example.mylibrary.data.room.entity.Book
 import com.example.mylibrary.databinding.ItemUserBookBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 
-class UserBookAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UserBookAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit, private val itemOnLongClickListener: (ItemClickArgs?) -> Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var content = mutableListOf<Book>()
 
@@ -16,6 +16,9 @@ class UserBookAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit)
             binding.book = book
             binding.setOnClickItem { view ->
                 itemOnClickListener(ItemClickArgs(binding,view, position))
+            }
+            binding.setOnLongClickItem { view ->
+                itemOnLongClickListener(ItemClickArgs(binding,view,position))
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.mylibrary.view.root
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,13 @@ import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.databinding.FragmentRootBinding
 import com.example.mylibrary.view.root.home.HomeFragment
 import com.example.mylibrary.view.root.user.UserFragment
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+@AndroidEntryPoint
 class RootFragment: Fragment() {
     private var _binding: FragmentRootBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     private lateinit var userFragment: UserFragment
     private lateinit var homeFragment: HomeFragment
@@ -32,10 +36,18 @@ class RootFragment: Fragment() {
         }.commit()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("Test",savedInstanceState.toString())
+
+        if(savedInstanceState == null) {
+            initChildFragment()
+        }
+        else loadChildFragment()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentRootBinding.inflate(inflater,container,false)
-
-        setChildFragmentTransaction()
 
         return binding.root
     }
@@ -46,12 +58,7 @@ class RootFragment: Fragment() {
         setOnClickListeners()
     }
 
-    private fun setOnClickListeners(){
-        binding.imgRootHome.setOnClickListener (homeSetOnClickListener)
-        binding.imgRootUser.setOnClickListener (userSetOnClickListener)
-    }
-
-    private fun setChildFragmentTransaction(){
+    private fun initChildFragment(){
         homeFragment = HomeFragment()
         userFragment = UserFragment()
 
@@ -70,9 +77,28 @@ class RootFragment: Fragment() {
         }.commit()
     }
 
+    private fun loadChildFragment(){
+        userFragment = childFragmentManager.findFragmentByTag(TagConstant.USER_FRAGMENT) as UserFragment
+        homeFragment = childFragmentManager.findFragmentByTag(TagConstant.HOME_FRAGMENT) as HomeFragment
+        childFragmentManager.beginTransaction().apply {
+            show(userFragment)
+            hide(homeFragment)
+        }.commit()
+    }
+
+    private fun setOnClickListeners(){
+        binding.imgRootHome.setOnClickListener (homeSetOnClickListener)
+        binding.imgRootUser.setOnClickListener (userSetOnClickListener)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
         _binding = null
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("save", 0)
     }
 }

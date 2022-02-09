@@ -102,6 +102,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("Test","book destroy")
         _binding = null
     }
 

@@ -1,5 +1,6 @@
 package com.example.mylibrary.view.root.user
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,6 +29,13 @@ class UserViewModel @Inject constructor(
     fun getMyBook(){
         CoroutineScope(Dispatchers.IO).launch {
             _book.postValue(bookRepository.getMyBook())
+        }
+    }
+
+    fun getCategoryBook(category: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d("Test",bookRepository.getCategoryBook(category).toString())
+            _book.postValue(bookRepository.getCategoryBook(category))
         }
     }
 
