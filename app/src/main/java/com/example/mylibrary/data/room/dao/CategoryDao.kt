@@ -13,8 +13,8 @@ interface CategoryDao {
     fun getCategory(): List<Category>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(category: Category)
+    suspend fun insert(category: Category)
 
     @Query("DELETE FROM category WHERE category LIKE :category")
-    fun delete(category: String)
+    suspend fun delete(category: String)
 }

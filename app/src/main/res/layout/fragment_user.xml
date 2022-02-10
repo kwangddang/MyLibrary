@@ -24,13 +24,8 @@
 
         <TextView
             android:id="@+id/text_user_add"
-            style="@style/RippleEffect"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:padding="24dp"
+            style="@style/AddText"
             android:text="@string/text_user_add"
-            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/recycler_user_category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/recycler_user_category"
@@ -76,11 +71,12 @@
             android:textSize="14sp"
             android:padding="16dp"
             android:textColor="@color/black"
+            android:gravity="center|top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_user_title"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="밀머니ㅏ;럼ㄴ;ㅣ러ㅏㄴ밍러ㅣㅏㄴㅇ른ㅇ,ㄹ.ㅢㅏ;ㅁㄴ;ㅇ림너이ㅓ미ㅏㄴ어ㅣ;ㅏㅁㄴㅇㄹ;ㅏ먼ㅇ;미ㅓㄴ어ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅇㅇㅇㅇㅇㅇㅇㅇㅇ"/>
+            tools:text="설명"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,4 +12,6 @@
     <string name="text_edit_category_nocontent_head">아직 폴더가 없어요</string>
     <string name="btn_edit_category_nocontent">추가</string>
     <string name="text_dlg_delete_category_title">폴더를\n삭제하시겠습니까?</string>
+    <string name="text_home_nosearch">검색 결과가 없어요</string>
+    <string name="text_home_nosearch_subhead">다시 한번 검색해주세요 :)</string>
 </resources>

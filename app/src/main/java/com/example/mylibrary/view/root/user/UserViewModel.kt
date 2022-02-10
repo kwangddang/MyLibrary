@@ -1,6 +1,5 @@
 package com.example.mylibrary.view.root.user
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +34,6 @@ class UserViewModel @Inject constructor(
 
     fun getCategoryBook(category: String){
         CoroutineScope(Dispatchers.IO).launch {
-            Log.d("Test",bookRepository.getCategoryBook(category).toString())
             _book.postValue(bookRepository.getCategoryBook(category))
         }
     }
@@ -45,12 +44,6 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun insertBook(book: Book){
-        CoroutineScope(Dispatchers.IO).launch {
-            bookRepository.insert(book)
-        }
-    }
-
     fun getCategory(){
         CoroutineScope(Dispatchers.IO).launch {
             _category.postValue(categoryRepository.getCategory())
@@ -58,15 +51,22 @@ class UserViewModel @Inject constructor(
     }
 
     fun deleteCategory(category: String){
-        CoroutineScope(Dispatchers.IO).launch {
-            categoryRepository.delete(category)
-            bookRepository.deleteBookCategory(category)
+        runBlocking {
+            CoroutineScope(Dispatchers.IO).launch {
+                categoryRepository.delete(category)
+                bookRepository.deleteBookCategory(category)
+            }.join()
         }
+        getMyBook()
+        getCategory()
     }
 
     fun insertCategory(category: Category){
-        CoroutineScope(Dispatchers.IO).launch {
-            categoryRepository.insert(category)
+        runBlocking {
+            CoroutineScope(Dispatchers.IO).launch {
+                categoryRepository.insert(category)
+            }.join()
         }
+        getCategory()
     }
 }

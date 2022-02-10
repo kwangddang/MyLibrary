@@ -52,7 +52,7 @@
 
                 <TextView
                     android:id="@+id/text_iuserbook_title"
-                    style="@style/DescriptionFull"
+                    style="@style/Description"
                     android:layout_width="0dp"
                     android:layout_height="64dp"
                     android:ellipsize="end"

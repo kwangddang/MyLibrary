@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,8 +34,11 @@ class EditCategoryViewModel @Inject constructor(
     }
 
     fun insertCategory(category: Category){
-        CoroutineScope(Dispatchers.IO).launch {
-            categoryRepository.insert(category)
+        runBlocking {
+            CoroutineScope(Dispatchers.IO).launch {
+                categoryRepository.insert(category)
+            }.join()
         }
+        getCategory()
     }
 }

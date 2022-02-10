@@ -2,7 +2,6 @@ package com.example.mylibrary.view.root.user
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
-import com.example.mylibrary.common.CategoryCreationDialog
+import com.example.mylibrary.common.CreateCategoryDialog
 import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.common.filteringText
 import com.example.mylibrary.data.room.entity.Book
@@ -49,11 +48,7 @@ class UserFragment : Fragment() {
     private val bookItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when (args?.view?.id) {
             R.id.lottie_iuserbook_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemUserBookBinding, args.position)
-            R.id.card_iuserbook_innercontainer -> {
-                val book = (args.item as ItemUserBookBinding).book
-                binding.textUserTitle.text = filteringText(book!!.title)
-                binding.textUserDesc.text = filteringText(book!!.description)
-            }
+            R.id.card_iuserbook_innercontainer -> showBookDetail(args)
         }
     }
 
@@ -67,7 +62,7 @@ class UserFragment : Fragment() {
     }
 
     private val categoryItemOnLongClickListener: (ItemClickArgs?) -> Boolean = { args ->
-        DeleteCategoryDialog((args?.item as ItemUserCategoryBinding).category!!.category).show(childFragmentManager,"test")
+        DeleteCategoryDialog((args?.item as ItemUserCategoryBinding).category!!.category).show(childFragmentManager,TagConstant.DELETE_CATEGORY_DIALOG)
         true
     }
 
@@ -84,8 +79,7 @@ class UserFragment : Fragment() {
     }
 
     private val categoryObserver: (List<Category>) -> Unit = { category ->
-        val list = category as MutableList<Category>
-        list.add(0, Category("전체"))
+        val list = setDefaultItem(category)
         categoryAdapter.apply {
             content = list
             notifyDataSetChanged()
@@ -93,10 +87,7 @@ class UserFragment : Fragment() {
     }
 
     private val categoryAddOnClickListener: (View) -> Unit = {
-        CategoryCreationDialog().show(
-            childFragmentManager,
-            TagConstant.BOTTOM_SHEET_CATEGORY_FRAGMENT
-        )
+        CreateCategoryDialog().show(childFragmentManager, TagConstant.CREATE_CATEGORY_DIALOG)
     }
 
     override fun onCreateView(
@@ -144,7 +135,6 @@ class UserFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("Test","user destroy")
         _binding = null
     }
 
@@ -156,6 +146,10 @@ class UserFragment : Fragment() {
             content.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position,content.size)
+            if(content.isEmpty()){
+                binding.textUserDesc.visibility = View.INVISIBLE
+                binding.textUserTitle.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -165,6 +159,20 @@ class UserFragment : Fragment() {
                 view.progress = it.animatedValue as Float
             }
         }
+    }
+
+    private fun showBookDetail(args: ItemClickArgs) {
+        binding.textUserDesc.visibility = View.VISIBLE
+        binding.textUserTitle.visibility = View.VISIBLE
+        val book = (args.item as ItemUserBookBinding).book
+        binding.textUserTitle.text = filteringText(book!!.title)
+        binding.textUserDesc.text = filteringText(book.description)
+    }
+
+    private fun setDefaultItem(category: List<Category>): MutableList<Category> {
+        val list = category as MutableList<Category>
+        list.add(0, Category("전체"))
+        return list
     }
 }
 

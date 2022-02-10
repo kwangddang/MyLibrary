@@ -19,6 +19,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
 import com.example.mylibrary.common.bookInfoToBook
 import com.example.mylibrary.common.hideKeyboard
+import com.example.mylibrary.common.showNoContentToast
 import com.example.mylibrary.data.dto.request.BookRequest
 import com.example.mylibrary.data.dto.response.BookResponse
 import com.example.mylibrary.data.room.dao.BookDao
@@ -40,32 +41,18 @@ class HomeFragment : Fragment() {
 
     private val searchEditActionListener: (TextView, Int, KeyEvent?) -> Boolean = { view, actionId, event ->
         when(actionId){
-            EditorInfo.IME_ACTION_SEARCH -> {
-                view.text.toString().run {
-                    if(isNullOrBlank()) Toast.makeText(requireContext(),"검색어를 입력해 주세요.",Toast.LENGTH_SHORT).show()
-                    else viewModel.getBook(BookRequest(query = this))
-                }
-                requireActivity().hideKeyboard(view as EditText)
-                true
-            }
+            EditorInfo.IME_ACTION_SEARCH -> setSearchResult(view)
             else -> false
         }
     }
 
     private val bookObserver: (BookResponse?) -> Unit = { response ->
-        adapter.apply {
-            item = response
-            notifyDataSetChanged()
-        }
+        showProperViews(response)
     }
-
-    @Inject
-    lateinit var bookDao: BookDao
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when(args?.view?.id){
             R.id.text_ihome_link -> startActivity(Intent(Intent.ACTION_VIEW,Uri.parse((args?.item as ItemHomeBinding).book?.link)))
-
             R.id.lottie_ihome_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemHomeBinding)
         }
     }
@@ -102,7 +89,6 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("Test","book destroy")
         _binding = null
     }
 
@@ -124,6 +110,33 @@ class HomeFragment : Fragment() {
         return ValueAnimator.ofFloat(start, end).setDuration(500).apply {
             addUpdateListener {
                 view.progress = it.animatedValue as Float
+            }
+        }
+    }
+
+    private fun setSearchResult(view: TextView): Boolean {
+        view.text.toString().run {
+            if (isNullOrBlank()) showNoContentToast()
+            else viewModel.getBook(BookRequest(query = this))
+        }
+        requireActivity().hideKeyboard(view as EditText)
+        return true
+    }
+
+    private fun showProperViews(response: BookResponse?) {
+        if (response?.bookInfos!!.isEmpty()) {
+            binding.imgHomeNosearch.visibility = View.VISIBLE
+            binding.textHomeNosearchHead.visibility = View.VISIBLE
+            binding.textHomeNosearchSubhead.visibility = View.VISIBLE
+            binding.recyclerHome.visibility = View.INVISIBLE
+        } else {
+            binding.imgHomeNosearch.visibility = View.INVISIBLE
+            binding.textHomeNosearchHead.visibility = View.INVISIBLE
+            binding.textHomeNosearchSubhead.visibility = View.INVISIBLE
+            binding.recyclerHome.visibility = View.VISIBLE
+            adapter.apply {
+                item = response
+                notifyDataSetChanged()
             }
         }
     }

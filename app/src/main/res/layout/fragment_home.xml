@@ -14,8 +14,8 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:background="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -29,7 +29,7 @@
                     android:id="@+id/toolbar_home"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    app:layout_collapseMode="parallax"/>
+                    app:layout_collapseMode="parallax" />
 
                 <LinearLayout
                     android:id="@+id/linear_home_search_innercontainer"
@@ -80,6 +80,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appbar_home"
             tools:listitem="@layout/item_home" />
+
+        <ImageView
+            android:id="@+id/img_home_nosearch"
+            android:layout_width="192dp"
+            android:layout_height="192dp"
+            android:src="@drawable/ic_nosearch"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            app:tint="@color/gray" />
+
+        <TextView
+            android:id="@+id/text_home_nosearch_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="16dp"
+            android:text="@string/text_home_nosearch"
+            android:textColor="@color/gray"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_home_nosearch" />
+
+        <TextView
+            android:id="@+id/text_home_nosearch_subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_home_nosearch_subhead"
+            android:textColor="@color/gray"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_home_nosearch_head"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

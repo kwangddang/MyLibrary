@@ -13,7 +13,7 @@ import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
-import com.example.mylibrary.common.CategoryCreationDialog
+import com.example.mylibrary.common.CreateCategoryDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -36,19 +36,7 @@ class EditCategoryFragment: Fragment() {
     }
 
     private val categoryObserver: (List<Category>) -> Unit = { category ->
-        if(category.isEmpty()){
-            binding.textEditCategoryNocontentHead.visibility = View.VISIBLE
-            binding.textEditCategoryNocontentSubhead.visibility = View.VISIBLE
-            binding.btnEditCategoryNocontent.visibility = View.VISIBLE
-        } else{
-            binding.textEditCategoryNocontentHead.visibility = View.INVISIBLE
-            binding.textEditCategoryNocontentSubhead.visibility = View.INVISIBLE
-            binding.btnEditCategoryNocontent.visibility = View.INVISIBLE
-        }
-        adapter.apply {
-            content = category as MutableList<Category>
-            notifyDataSetChanged()
-        }
+        showProperViews(category)
     }
 
     override fun onCreateView(
@@ -72,16 +60,15 @@ class EditCategoryFragment: Fragment() {
     }
 
     private fun setOnClickListener(){
-        binding.btnEditCategoryNocontent.setOnClickListener {
-            CategoryCreationDialog().show(childFragmentManager,TagConstant.BOTTOM_SHEET_CATEGORY_FRAGMENT)
-        }
+        binding.btnEditCategoryNocontent.setOnClickListener { CreateCategoryDialog().show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
+        binding.textEditCategoryAdd.setOnClickListener { CreateCategoryDialog().show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
     }
 
     private fun observeData() {
         viewModel.category.observe(viewLifecycleOwner, categoryObserver)
     }
 
-    fun refresh() {
+    private fun refresh() {
         viewModel.getCategory()
     }
 
@@ -95,4 +82,19 @@ class EditCategoryFragment: Fragment() {
         _binding = null
     }
 
+    private fun showProperViews(category: List<Category>) {
+        if (category.isEmpty()) {
+            binding.textEditCategoryNocontentHead.visibility = View.VISIBLE
+            binding.textEditCategoryNocontentSubhead.visibility = View.VISIBLE
+            binding.btnEditCategoryNocontent.visibility = View.VISIBLE
+        } else {
+            binding.textEditCategoryNocontentHead.visibility = View.INVISIBLE
+            binding.textEditCategoryNocontentSubhead.visibility = View.INVISIBLE
+            binding.btnEditCategoryNocontent.visibility = View.INVISIBLE
+            adapter.apply {
+                content = category as MutableList<Category>
+                notifyDataSetChanged()
+            }
+        }
+    }
 }

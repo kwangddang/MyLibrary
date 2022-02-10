@@ -12,8 +12,7 @@
         tools:layout="@layout/fragment_root">
         <action
             android:id="@+id/action_rootFragment_to_editCategoryFragment"
-            app:destination="@id/editCategoryFragment"
-            app:popUpTo="@id/rootFragment" />
+            app:destination="@id/editCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/editCategoryFragment"

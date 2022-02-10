@@ -11,8 +11,6 @@ class CategoryRepositoryImpl@Inject constructor(private val categoryDao: Categor
 
     override suspend fun insert(category: Category) = categoryDao.insert(category)
 
-    override suspend fun delete(category: String)  {
-        Log.d("Test",category)
-        categoryDao.delete(category)
-    }
+    override suspend fun delete(category: String)  = categoryDao.delete(category)
+
 }

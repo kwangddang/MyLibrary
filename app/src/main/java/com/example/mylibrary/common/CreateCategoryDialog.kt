@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.mylibrary.data.room.entity.Category
@@ -19,7 +18,7 @@ import com.example.mylibrary.view.root.user.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoryCreationDialog : DialogFragment() {
+class CreateCategoryDialog : DialogFragment() {
 
     private var _binding: DlgCreateCategoryBinding? = null
     private val binding get() = _binding!!
@@ -29,23 +28,7 @@ class CategoryCreationDialog : DialogFragment() {
 
     private val searchEditActionListener: (TextView, Int, KeyEvent?) -> Boolean = { view, actionId, event ->
         when(actionId){
-            EditorInfo.IME_ACTION_DONE -> {
-                view.text.toString().run {
-                    if(isNullOrBlank()) Toast.makeText(requireContext(),"폴더 이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
-                    else {
-                        if(parentFragment is UserFragment) {
-                            userViewModel.insertCategory(Category(binding.editCreateCategoryCreation.text.toString()))
-                            (parentFragment as UserFragment).refresh()
-                        }
-                        else if(parentFragment is EditCategoryFragment) {
-                            editCategoryViewModel.insertCategory(Category(binding.editCreateCategoryCreation.text.toString()))
-                            (parentFragment as EditCategoryFragment).refresh()
-                        }
-                    }
-                }
-                dismiss()
-                true
-            }
+            EditorInfo.IME_ACTION_DONE -> setCategory(view)
             else -> false
         }
     }
@@ -62,19 +45,31 @@ class CategoryCreationDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
-        setOnEditorActionListener()
     }
 
     private fun setOnClickListener(){
         binding.editCreateCategoryCreation.setOnEditorActionListener(searchEditActionListener)
     }
 
-    private fun setOnEditorActionListener(){
-
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setCategory(view: TextView): Boolean {
+        view.text.toString().run {
+            if (isNullOrBlank()) showNoContentToast()
+            else insertCategory()
+        }
+        dismiss()
+        return true
+    }
+
+    private fun insertCategory() {
+        if (parentFragment is UserFragment) {
+            userViewModel.insertCategory(Category(binding.editCreateCategoryCreation.text.toString()))
+        } else if (parentFragment is EditCategoryFragment) {
+            editCategoryViewModel.insertCategory(Category(binding.editCreateCategoryCreation.text.toString()))
+        }
     }
 }

@@ -23,26 +23,18 @@ class RootFragment: Fragment() {
     private lateinit var homeFragment: HomeFragment
 
     private val homeSetOnClickListener: (View) -> Unit = {
-        childFragmentManager.beginTransaction().apply {
-            show(homeFragment)
-            hide(userFragment)
-        }.commit()
+        showHomeFragment()
     }
 
     private val userSetOnClickListener: (View) -> Unit = {
-        childFragmentManager.beginTransaction().apply {
-            show(userFragment)
-            hide(homeFragment)
-        }.commit()
+        userFragment.refresh()
+        showUserFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("Test",savedInstanceState.toString())
 
-        if(savedInstanceState == null) {
-            initChildFragment()
-        }
+        if(savedInstanceState == null) initChildFragment()
         else loadChildFragment()
     }
 
@@ -80,15 +72,26 @@ class RootFragment: Fragment() {
     private fun loadChildFragment(){
         userFragment = childFragmentManager.findFragmentByTag(TagConstant.USER_FRAGMENT) as UserFragment
         homeFragment = childFragmentManager.findFragmentByTag(TagConstant.HOME_FRAGMENT) as HomeFragment
-        childFragmentManager.beginTransaction().apply {
-            show(userFragment)
-            hide(homeFragment)
-        }.commit()
+        showUserFragment()
     }
 
     private fun setOnClickListeners(){
         binding.imgRootHome.setOnClickListener (homeSetOnClickListener)
         binding.imgRootUser.setOnClickListener (userSetOnClickListener)
+    }
+
+    private fun showHomeFragment() {
+        childFragmentManager.beginTransaction().apply {
+            show(homeFragment)
+            hide(userFragment)
+        }.commit()
+    }
+
+    private fun showUserFragment() {
+        childFragmentManager.beginTransaction().apply {
+            show(userFragment)
+            hide(homeFragment)
+        }.commit()
     }
 
     override fun onDestroyView() {
@@ -101,4 +104,5 @@ class RootFragment: Fragment() {
         super.onSaveInstanceState(outState)
         outState.putInt("save", 0)
     }
+
 }

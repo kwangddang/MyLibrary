@@ -1,15 +1,12 @@
 package com.example.mylibrary.common
 
-import android.os.Build
 import android.text.InputFilter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-
 
 object BindingAdapter {
 

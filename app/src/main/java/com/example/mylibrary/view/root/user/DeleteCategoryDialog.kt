@@ -14,10 +14,8 @@ class DeleteCategoryDialog(private val category: String): DialogFragment() {
 
     val viewModel: UserViewModel by viewModels({requireParentFragment()})
 
-
     private val textConfirmOnClickListener: (View) -> Unit = {
         viewModel.deleteCategory(category)
-        (parentFragment as UserFragment).refresh()
         dismiss()
     }
 

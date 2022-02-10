@@ -17,6 +17,7 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
 
+    <color name="gray">#8c8c8c</color>
     <color name="divider">#EFEFEF</color>
     <color name="background">#F6F6F6</color>
     <color name="edit_background">#EFEFEF</color>
