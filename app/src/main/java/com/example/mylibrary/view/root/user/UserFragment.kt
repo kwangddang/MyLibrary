@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
-import com.example.mylibrary.common.CategoryCreationBottomSheetDialog
+import com.example.mylibrary.common.CategoryCreationDialog
 import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.common.filteringText
 import com.example.mylibrary.data.room.entity.Book
@@ -93,7 +93,7 @@ class UserFragment : Fragment() {
     }
 
     private val categoryAddOnClickListener: (View) -> Unit = {
-        CategoryCreationBottomSheetDialog().show(
+        CategoryCreationDialog().show(
             childFragmentManager,
             TagConstant.BOTTOM_SHEET_CATEGORY_FRAGMENT
         )

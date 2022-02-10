@@ -6,9 +6,10 @@
     <string name="text_ihome_label_author">작가</string>
     <string name="text_ihome_link"><u>링크</u></string>
     <string name="edit_home_search_hint">검색어를 입력하세요</string>
-    <string name="text_bottomsheet_category_creation_title">추가할 폴더의 이름을 입력해주세요.</string>
+    <string name="text_dlg_create_category_title">추가할 폴더의 이름을\n입력해주세요.</string>
     <string name="text_user_add">추가</string>
     <string name="text_edit_category_nocontent_subhead">버튼을 눌러 폴더를 추가해주세요 :)</string>
     <string name="text_edit_category_nocontent_head">아직 폴더가 없어요</string>
     <string name="btn_edit_category_nocontent">추가</string>
+    <string name="text_dlg_delete_category_title">폴더를\n삭제하시겠습니까?</string>
 </resources>

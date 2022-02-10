@@ -1,25 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/btn_delete_category_confirm"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="확인"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_dlg_delete_category_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
 
-    <Button
-        android:id="@+id/btn_delete_category_cancel"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_delete_category_confirm"
-        android:text="취소"/>
+        <TextView
+            android:id="@+id/text_dlg_delete_category_title"
+            style="@style/BottomSheetHead"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="24dp"
+            android:text="@string/text_dlg_delete_category_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_dlg_delete_cancel"
+            style="@style/RippleEffect"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:text="취소"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_dlg_delete_confirm"
+            app:layout_constraintTop_toBottomOf="@id/text_dlg_delete_category_title"/>
+        
+        <TextView
+            android:id="@+id/text_dlg_delete_confirm"
+            style="@style/RippleEffect"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:text="확인"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/text_dlg_delete_cancel"
+            app:layout_constraintStart_toEndOf="@id/text_dlg_delete_cancel"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

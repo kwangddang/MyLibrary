@@ -1,6 +1,5 @@
 package com.example.mylibrary.view.root.user
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,13 @@ class DeleteCategoryDialog(private val category: String): DialogFragment() {
     private val binding get() = _binding!!
 
     val viewModel: UserViewModel by viewModels({requireParentFragment()})
+
+
+    private val textConfirmOnClickListener: (View) -> Unit = {
+        viewModel.deleteCategory(category)
+        (parentFragment as UserFragment).refresh()
+        dismiss()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +38,8 @@ class DeleteCategoryDialog(private val category: String): DialogFragment() {
     }
 
     private fun setOnClickListeners(){
-        binding.btnDeleteCategoryConfirm.setOnClickListener {
-            viewModel.deleteCategory(category)
-            (parentFragment as UserFragment).refresh()
-            dismiss()
-        }
+        binding.textDlgDeleteCancel.setOnClickListener { dismiss() }
+        binding.textDlgDeleteConfirm.setOnClickListener (textConfirmOnClickListener)
     }
 
     override fun onDestroyView() {

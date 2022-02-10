@@ -13,7 +13,7 @@ import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
-import com.example.mylibrary.common.CategoryCreationBottomSheetDialog
+import com.example.mylibrary.common.CategoryCreationDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -73,7 +73,7 @@ class EditCategoryFragment: Fragment() {
 
     private fun setOnClickListener(){
         binding.btnEditCategoryNocontent.setOnClickListener {
-            CategoryCreationBottomSheetDialog().show(childFragmentManager,TagConstant.BOTTOM_SHEET_CATEGORY_FRAGMENT)
+            CategoryCreationDialog().show(childFragmentManager,TagConstant.BOTTOM_SHEET_CATEGORY_FRAGMENT)
         }
     }
 

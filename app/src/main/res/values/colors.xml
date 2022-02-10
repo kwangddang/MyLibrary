@@ -19,4 +19,6 @@
 
     <color name="divider">#EFEFEF</color>
     <color name="background">#F6F6F6</color>
+    <color name="edit_background">#EFEFEF</color>
+    <color name="edit_background_stroke">#DFDFDF</color>
 </resources>
