@@ -31,4 +31,10 @@ class EditCategoryViewModel @Inject constructor(
             bookRepository.setBookCategory(category, isbn)
         }
     }
+
+    fun insertCategory(category: Category){
+        CoroutineScope(Dispatchers.IO).launch {
+            categoryRepository.insert(category)
+        }
+    }
 }

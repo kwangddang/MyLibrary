@@ -8,12 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import com.example.mylibrary.R
+import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
-import com.example.mylibrary.view.root.user.UserCategoryAdapter
+import com.example.mylibrary.common.CategoryCreationBottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -36,6 +36,15 @@ class EditCategoryFragment: Fragment() {
     }
 
     private val categoryObserver: (List<Category>) -> Unit = { category ->
+        if(category.isEmpty()){
+            binding.textEditCategoryNocontentHead.visibility = View.VISIBLE
+            binding.textEditCategoryNocontentSubhead.visibility = View.VISIBLE
+            binding.btnEditCategoryNocontent.visibility = View.VISIBLE
+        } else{
+            binding.textEditCategoryNocontentHead.visibility = View.INVISIBLE
+            binding.textEditCategoryNocontentSubhead.visibility = View.INVISIBLE
+            binding.btnEditCategoryNocontent.visibility = View.INVISIBLE
+        }
         adapter.apply {
             content = category as MutableList<Category>
             notifyDataSetChanged()
@@ -63,14 +72,16 @@ class EditCategoryFragment: Fragment() {
     }
 
     private fun setOnClickListener(){
-
+        binding.btnEditCategoryNocontent.setOnClickListener {
+            CategoryCreationBottomSheetDialog().show(childFragmentManager,TagConstant.BOTTOM_SHEET_CATEGORY_FRAGMENT)
+        }
     }
 
     private fun observeData() {
         viewModel.category.observe(viewLifecycleOwner, categoryObserver)
     }
 
-    private fun refresh() {
+    fun refresh() {
         viewModel.getCategory()
     }
 

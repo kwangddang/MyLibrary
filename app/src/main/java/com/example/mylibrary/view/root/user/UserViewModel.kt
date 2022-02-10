@@ -60,6 +60,7 @@ class UserViewModel @Inject constructor(
     fun deleteCategory(category: String){
         CoroutineScope(Dispatchers.IO).launch {
             categoryRepository.delete(category)
+            bookRepository.deleteBookCategory(category)
         }
     }
 

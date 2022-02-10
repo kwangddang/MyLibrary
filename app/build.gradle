@@ -38,6 +38,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -53,8 +54,12 @@ def rx_version = "3.0.0"
 def glide_version = '4.12.0'
 def room_version = "2.3.0"
 def lottie_version = "4.1.0"
+def desugar_version = "1.1.5"
 def swipe_refresh_layout_version = "1.1.0"
 dependencies {
+
+    //desugar
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:${desugar_version}"
 
     //SwipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"

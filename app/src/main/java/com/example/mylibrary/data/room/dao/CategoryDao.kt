@@ -15,6 +15,6 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(category: Category)
 
-    @Query("DELETE FROM book WHERE isbn LIKE :category")
+    @Query("DELETE FROM category WHERE category LIKE :category")
     fun delete(category: String)
 }

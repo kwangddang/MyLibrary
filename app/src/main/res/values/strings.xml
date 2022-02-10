@@ -8,4 +8,7 @@
     <string name="edit_home_search_hint">검색어를 입력하세요</string>
     <string name="text_bottomsheet_category_creation_title">추가할 폴더의 이름을 입력해주세요.</string>
     <string name="text_user_add">추가</string>
+    <string name="text_edit_category_nocontent_subhead">버튼을 눌러 폴더를 추가해주세요 :)</string>
+    <string name="text_edit_category_nocontent_head">아직 폴더가 없어요</string>
+    <string name="btn_edit_category_nocontent">추가</string>
 </resources>

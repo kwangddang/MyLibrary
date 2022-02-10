@@ -1,62 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator_home_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_home"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/coordinator_home_container"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/white"
-        android:paddingHorizontal="24dp">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/ctoolbar_home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_home"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar_home"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/ctoolbar_home"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                app:layout_collapseMode="parallax"/>
+                android:paddingVertical="4dp"
+                app:layout_scrollFlags="scroll|enterAlways">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_home_toolbar_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:layout_collapseMode="parallax"/>
 
-                <EditText
-                    android:id="@+id/edit_home_search"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:textSize="14sp"
-                    android:hint="@string/edit_home_search_hint"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <LinearLayout
+                    android:id="@+id/linear_home_search_innercontainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="12dp"
+                    android:background="@drawable/edit_search"
+                    android:orientation="horizontal">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/img_home_search"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_search"
+                        app:tint="#999999" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                    <EditText
+                        android:id="@+id/edit_home_search"
+                        style="@style/Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:hint="검색어를 입력해주세요."
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        bind:searchEditText="@{null}" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+                </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_home"/>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_home"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar_home"
+            tools:listitem="@layout/item_home" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

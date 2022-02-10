@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
+import com.example.mylibrary.common.CategoryCreationBottomSheetDialog
 import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.common.filteringText
 import com.example.mylibrary.data.room.entity.Book
@@ -36,7 +37,7 @@ class UserFragment : Fragment() {
     }
 
     private val categoryAdapter: UserCategoryAdapter by lazy {
-        UserCategoryAdapter(categoryItemOnClickListener)
+        UserCategoryAdapter(categoryItemOnClickListener, categoryItemOnLongClickListener)
     }
 
     private val bookItemOnLongClickListener: (ItemClickArgs?) -> Boolean = { args ->
@@ -63,6 +64,11 @@ class UserFragment : Fragment() {
                 else viewModel.getCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
             }
         }
+    }
+
+    private val categoryItemOnLongClickListener: (ItemClickArgs?) -> Boolean = { args ->
+        DeleteCategoryDialog((args?.item as ItemUserCategoryBinding).category!!.category).show(childFragmentManager,"test")
+        true
     }
 
     private val swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {

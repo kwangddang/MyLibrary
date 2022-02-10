@@ -8,7 +8,7 @@ import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 
-class UserCategoryAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UserCategoryAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit, private val itemOnLongClickListener: (ItemClickArgs?) -> Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var content = mutableListOf<Category>()
 
@@ -17,6 +17,9 @@ class UserCategoryAdapter(private val itemOnClickListener: (ItemClickArgs?) -> U
             binding.category = category
             binding.setOnClickItem { view ->
                 itemOnClickListener(ItemClickArgs(binding,view,position))
+            }
+            binding.setOnLongClickItem { view ->
+                itemOnLongClickListener(ItemClickArgs(binding,view,position))
             }
         }
     }

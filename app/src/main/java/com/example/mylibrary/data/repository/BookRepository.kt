@@ -14,4 +14,6 @@ interface BookRepository {
     suspend fun insert(book: Book)
 
     suspend fun delete(isbn: String)
+
+    suspend fun deleteBookCategory(category: String)
 }

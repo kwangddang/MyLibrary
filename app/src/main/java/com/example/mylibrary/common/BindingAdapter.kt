@@ -1,7 +1,11 @@
 package com.example.mylibrary.common
 
+import android.os.Build
+import android.text.InputFilter
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
@@ -43,6 +47,19 @@ object BindingAdapter {
     fun checkBookMark(view: LottieAnimationView, isBookMark: Boolean?){
         if(isBookMark!!) view.progress = 0.5f
         else view.progress = 0f
+    }
+
+    @JvmStatic
+    @BindingAdapter("searchEditText")
+    fun setSearchEditText(view: EditText, any: Any?) {
+        val context = view.context
+        context.apply {
+            view.minHeight = getPxFromDp(0.0f)
+            view.setPadding(0, getPxFromDp(12.0f), 0, getPxFromDp(12.0f))
+            view.maxLines = 1
+            view.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(15))
+            view.setBackgroundColor(context.getColor(android.R.color.transparent))
+        }
     }
 
 }

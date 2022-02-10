@@ -12,6 +12,10 @@
             name="onClickItem"
             type="android.view.View.OnClickListener" />
 
+        <variable
+            name="onLongClickItem"
+            type="android.view.View.OnLongClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="@{onClickItem}"
+        android:onLongClick="@{onLongClickItem}"
         android:padding="16dp">
 
     <ImageView

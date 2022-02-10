@@ -32,13 +32,53 @@
         app:layout_constraintTop_toTopOf="@id/recycler_edit_category_category" />
 
     <View
-        android:id="@+id/view_category_edit_overlay"
+        android:id="@+id/view_edit_category_overlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/overlay_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recycler_edit_category_category"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_edit_category_nocontent_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_edit_category_nocontent_subhead"
+        android:text="@string/text_edit_category_nocontent_head"/>
+
+    <TextView
+        android:id="@+id/text_edit_category_nocontent_subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:paddingVertical="16dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_edit_category_nocontent"
+        android:text="@string/text_edit_category_nocontent_subhead"/>
+
+    <Button
+        android:id="@+id/btn_edit_category_nocontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_edit_category_nocontent"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        style="@style/RippleEffect"
+        app:backgroundTint="@color/white"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
