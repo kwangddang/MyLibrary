@@ -1,18 +1,19 @@
 package com.example.mylibrary.view.root
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.example.mylibrary.R
 import com.example.mylibrary.common.TagConstant
+import com.example.mylibrary.common.getColor
 import com.example.mylibrary.databinding.FragmentRootBinding
 import com.example.mylibrary.view.root.home.HomeFragment
 import com.example.mylibrary.view.root.user.UserFragment
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class RootFragment: Fragment() {
@@ -23,10 +24,14 @@ class RootFragment: Fragment() {
     private lateinit var homeFragment: HomeFragment
 
     private val homeSetOnClickListener: (View) -> Unit = {
+        SELECT = SELECTED_HOME
+        setSelected()
         showHomeFragment()
     }
 
     private val userSetOnClickListener: (View) -> Unit = {
+        SELECT = SELECTED_USER
+        setSelected()
         userFragment.refresh()
         showUserFragment()
     }
@@ -34,8 +39,7 @@ class RootFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(savedInstanceState == null) initChildFragment()
-        else loadChildFragment()
+        initChildFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,6 +52,7 @@ class RootFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setOnClickListeners()
+        setSelected()
     }
 
     private fun initChildFragment(){
@@ -69,12 +74,6 @@ class RootFragment: Fragment() {
         }.commit()
     }
 
-    private fun loadChildFragment(){
-        userFragment = childFragmentManager.findFragmentByTag(TagConstant.USER_FRAGMENT) as UserFragment
-        homeFragment = childFragmentManager.findFragmentByTag(TagConstant.HOME_FRAGMENT) as HomeFragment
-        showUserFragment()
-    }
-
     private fun setOnClickListeners(){
         binding.imgRootHome.setOnClickListener (homeSetOnClickListener)
         binding.imgRootUser.setOnClickListener (userSetOnClickListener)
@@ -94,15 +93,38 @@ class RootFragment: Fragment() {
         }.commit()
     }
 
+    private fun setSelected(){
+        when(SELECT){
+            SELECTED_HOME ->{
+                setImageTint(binding.imgRootHome, getColor(R.color.selected))
+                setImageTint(binding.imgRootUser, getColor(R.color.black))
+            }
+
+            SELECTED_USER ->{
+                setImageTint(binding.imgRootUser, getColor(R.color.selected))
+                setImageTint(binding.imgRootHome, getColor(R.color.black))
+            }
+        }
+    }
+
+    private fun setImageTint(view: ImageView, colorId: Int) {
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(view.drawable),
+            colorId
+        )
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
         _binding = null
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt("save", 0)
+
+    companion object{
+        const val SELECTED_HOME = 1
+        const val SELECTED_USER = 2
+        var SELECT = SELECTED_HOME
     }
 
 }

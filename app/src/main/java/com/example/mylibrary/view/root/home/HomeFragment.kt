@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when(args?.view?.id){
-            R.id.text_ihome_link -> startActivity(Intent(Intent.ACTION_VIEW,Uri.parse((args?.item as ItemHomeBinding).book?.link)))
+            R.id.card_ihome_innercontainer -> startActivity(Intent(Intent.ACTION_VIEW,Uri.parse((args.item as ItemHomeBinding).book?.link)))
             R.id.lottie_ihome_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemHomeBinding)
         }
     }

@@ -2,10 +2,12 @@ package com.example.mylibrary.common
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.TypedValue
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.example.mylibrary.data.dto.response.BookInfo
@@ -36,3 +38,5 @@ fun Context.getPxFromDp(dp: Float) = TypedValue.applyDimension(TypedValue.COMPLE
 fun Fragment.showNoContentToast() {
     Toast.makeText(requireContext(), "텍스트를 입력해주세요.", Toast.LENGTH_SHORT).show()
 }
+
+fun Fragment.getColor(colorId: Int): Int = requireContext().getColor(colorId)

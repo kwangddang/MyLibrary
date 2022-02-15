@@ -25,6 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
+            android:onClick="@{onClickItem}"
             app:cardCornerRadius="8dp"
             app:contentPadding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -113,16 +114,6 @@
                     app:layout_constraintTop_toTopOf="@id/text_ihome_label_price"
                     bind:textPrice="@{book.price}"
                     tools:text="15000원" />
-
-                <TextView
-                    android:id="@+id/text_ihome_link"
-                    style="@style/Label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{onClickItem}"
-                    android:text="@string/text_ihome_link"
-                    app:layout_constraintStart_toEndOf="@id/img_ihome"
-                    app:layout_constraintTop_toBottomOf="@id/text_ihome_label_price" />
 
                 <View
                     android:id="@+id/view_ihome_divider"
