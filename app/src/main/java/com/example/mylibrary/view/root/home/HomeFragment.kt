@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
 import com.example.mylibrary.common.bookInfoToBook
@@ -27,6 +28,8 @@ import com.example.mylibrary.databinding.FragmentHomeBinding
 import com.example.mylibrary.databinding.ItemHomeBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -117,7 +120,13 @@ class HomeFragment : Fragment() {
     private fun setSearchResult(view: TextView): Boolean {
         view.text.toString().run {
             if (isNullOrBlank()) showNoContentToast()
-            else viewModel.getBook(BookRequest(query = this))
+            else {
+                lifecycleScope.launch {
+                    viewModel.getBook(view.text.toString()).collect {
+                        adapter.submitData(it)
+                    }
+                }
+            }
         }
         requireActivity().hideKeyboard(view as EditText)
         return true
@@ -134,10 +143,6 @@ class HomeFragment : Fragment() {
             binding.textHomeNosearchHead.visibility = View.INVISIBLE
             binding.textHomeNosearchSubhead.visibility = View.INVISIBLE
             binding.recyclerHome.visibility = View.VISIBLE
-            adapter.apply {
-                item = response
-                notifyDataSetChanged()
-            }
         }
     }
 }

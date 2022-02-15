@@ -57,6 +57,7 @@ def lottie_version = "4.1.0"
 def desugar_version = "1.1.5"
 def swipe_refresh_layout_version = "1.1.0"
 def paging_version = "3.1.0"
+def okhttp_version = "4.6.0"
 
 dependencies {
 
@@ -99,6 +100,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+
+    //okhttp3
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     //RxJava
     implementation "io.reactivex.rxjava3:rxandroid:${rx_version}"

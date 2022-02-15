@@ -12,14 +12,14 @@ import retrofit2.http.Query
 interface NaverApi {
 
     @GET("search/book.json")
-    fun getBook(
+    suspend fun getBook(
         @Header("X-Naver-Client-Id") clientId: String? = BuildConfig.NAVER_CLIENT_ID,
         @Header("X-Naver-Client-Secret") clientPw: String? = BuildConfig.NAVER_CLIENT_SECRET,
         @Query("query") query: String?,
         @Query("display") display: Int?,
         @Query("start") start: Int?,
         @Query("sort") sort: String?
-    ): Single<BookResponse>
+    ): BookResponse
 
     companion object{
         fun create(retrofitBuilder: Retrofit.Builder): NaverApi{

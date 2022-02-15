@@ -61,7 +61,9 @@
         <item name="android:layout_width">240dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">24dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
     </style>
 
     <style name="Description">

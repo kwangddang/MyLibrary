@@ -1,6 +1,5 @@
 package com.example.mylibrary.view.root.user
 
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
 import com.example.mylibrary.common.CreateCategoryDialog
@@ -47,7 +45,7 @@ class UserFragment : Fragment() {
 
     private val bookItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when (args?.view?.id) {
-            R.id.lottie_iuserbook_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemUserBookBinding, args.position)
+            R.id.lottie_iuserbook_bookmark -> deleteBookMark(args.item as ItemUserBookBinding, args.position)
             R.id.card_iuserbook_innercontainer -> showBookDetail(args)
         }
     }
@@ -64,11 +62,6 @@ class UserFragment : Fragment() {
     private val categoryItemOnLongClickListener: (ItemClickArgs?) -> Boolean = { args ->
         DeleteCategoryDialog((args?.item as ItemUserCategoryBinding).category!!.category).show(childFragmentManager,TagConstant.DELETE_CATEGORY_DIALOG)
         true
-    }
-
-    private val swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        refresh()
-        binding.swipeUserContainer.isRefreshing = false
     }
 
     private val bookObserver: (List<Book>) -> Unit = { book ->
@@ -106,16 +99,11 @@ class UserFragment : Fragment() {
         observeData()
         refresh()
         initAdapter()
-        setOnRefreshListener()
         setOnClickListener()
     }
 
     private fun setOnClickListener(){
         binding.textUserAdd.setOnClickListener(categoryAddOnClickListener)
-    }
-
-    private fun setOnRefreshListener() {
-        binding.swipeUserContainer.setOnRefreshListener(swipeRefreshListener)
     }
 
     fun refresh() {
@@ -138,9 +126,7 @@ class UserFragment : Fragment() {
         _binding = null
     }
 
-    private fun setBookMark(view: LottieAnimationView, item: ItemUserBookBinding, position: Int) {
-        val animator = getValueAnimator(0.5f, 0.0f, view)
-        animator.start()
+    private fun deleteBookMark(item: ItemUserBookBinding, position: Int) {
         viewModel.deleteBook(item.book!!.isbn)
         bookAdapter.apply {
             content.removeAt(position)
@@ -149,14 +135,6 @@ class UserFragment : Fragment() {
             if(content.isEmpty()){
                 binding.textUserDesc.visibility = View.INVISIBLE
                 binding.textUserTitle.visibility = View.INVISIBLE
-            }
-        }
-    }
-
-    private fun getValueAnimator(start: Float, end: Float, view: LottieAnimationView): ValueAnimator {
-        return ValueAnimator.ofFloat(start, end).setDuration(500).apply {
-            addUpdateListener {
-                view.progress = it.animatedValue as Float
             }
         }
     }
