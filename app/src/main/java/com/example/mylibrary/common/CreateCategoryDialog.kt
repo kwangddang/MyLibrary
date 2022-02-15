@@ -58,8 +58,11 @@ class CreateCategoryDialog : DialogFragment() {
 
     private fun setCategory(view: TextView): Boolean {
         view.text.toString().run {
-            if (isNullOrBlank()) showNoContentToast()
-            else insertCategory()
+            when {
+                isNullOrBlank() -> showToast("폴더명을 입력해주세요.")
+                this == "전체" -> showToast("'전체' 폴더명은 사용하실 수 없습니다.")
+                else -> insertCategory()
+            }
         }
         dismiss()
         return true

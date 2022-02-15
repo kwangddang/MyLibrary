@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,17 +18,14 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
 import com.example.mylibrary.common.bookInfoToBook
 import com.example.mylibrary.common.hideKeyboard
-import com.example.mylibrary.common.showNoContentToast
-import com.example.mylibrary.data.dto.request.BookRequest
+import com.example.mylibrary.common.showToast
 import com.example.mylibrary.data.dto.response.BookResponse
-import com.example.mylibrary.data.room.dao.BookDao
 import com.example.mylibrary.databinding.FragmentHomeBinding
 import com.example.mylibrary.databinding.ItemHomeBinding
 import com.example.mylibrary.view.root.home.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -44,7 +39,10 @@ class HomeFragment : Fragment() {
 
     private val searchEditActionListener: (TextView, Int, KeyEvent?) -> Boolean = { view, actionId, event ->
         when(actionId){
-            EditorInfo.IME_ACTION_SEARCH -> setSearchResult(view)
+            EditorInfo.IME_ACTION_SEARCH -> {
+                binding.recyclerHome.smoothScrollToPosition(0)
+                setSearchResult(view)
+            }
             else -> false
         }
     }
@@ -119,7 +117,7 @@ class HomeFragment : Fragment() {
 
     private fun setSearchResult(view: TextView): Boolean {
         view.text.toString().run {
-            if (isNullOrBlank()) showNoContentToast()
+            if (isNullOrBlank()) showToast("검색어를 입력해주세요.")
             else {
                 lifecycleScope.launch {
                     viewModel.getBook(view.text.toString()).collect {

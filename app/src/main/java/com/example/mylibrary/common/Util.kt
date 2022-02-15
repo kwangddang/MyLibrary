@@ -35,8 +35,8 @@ fun Activity.hideKeyboard(editText: EditText) {
 
 fun Context.getPxFromDp(dp: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 
-fun Fragment.showNoContentToast() {
-    Toast.makeText(requireContext(), "텍스트를 입력해주세요.", Toast.LENGTH_SHORT).show()
+fun Fragment.showToast(text: String) {
+    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
 }
 
 fun Fragment.getColor(colorId: Int): Int = requireContext().getColor(colorId)

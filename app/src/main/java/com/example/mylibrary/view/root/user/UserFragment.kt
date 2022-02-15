@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.R
 import com.example.mylibrary.common.CreateCategoryDialog
 import com.example.mylibrary.common.TagConstant
@@ -51,6 +50,7 @@ class UserFragment : Fragment() {
     }
 
     private val categoryItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
+        hideBookDetail()
         when(args?.view?.id){
             R.id.constraint_iusercategory_container -> {
                 if(args.position == 0) viewModel.getMyBook()
@@ -126,16 +126,18 @@ class UserFragment : Fragment() {
         _binding = null
     }
 
+    private fun hideBookDetail(){
+        binding.textUserDesc.visibility = View.INVISIBLE
+        binding.textUserTitle.visibility = View.INVISIBLE
+    }
+
     private fun deleteBookMark(item: ItemUserBookBinding, position: Int) {
         viewModel.deleteBook(item.book!!.isbn)
         bookAdapter.apply {
             content.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position,content.size)
-            if(content.isEmpty()){
-                binding.textUserDesc.visibility = View.INVISIBLE
-                binding.textUserTitle.visibility = View.INVISIBLE
-            }
+            if(content.isEmpty()) hideBookDetail()
         }
     }
 
