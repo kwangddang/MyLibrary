@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.example.mylibrary.common.setStatusBarOrigin
+import com.example.mylibrary.common.setTransparentStatusBar
 import com.example.mylibrary.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +28,13 @@ class LoginFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setTransparentStatusBar()
         setOnClickListeners()
+    }
+
+    private fun setTransparentStatusBar(){
+        requireActivity().setTransparentStatusBar()
+        binding.constraintLoginInnerContainer.setTransparentStatusBar(requireActivity())
     }
 
     private fun setOnClickListeners(){
@@ -40,6 +48,7 @@ class LoginFragment: Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        requireActivity().setStatusBarOrigin()
         _binding = null
     }
 }
