@@ -12,6 +12,8 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.data.room.entity.Book
+import com.example.mylibrary.view.login.signup.SignupFragment
+
 fun bookInfoToBook(bookInfo: BookInfo): Book =
     Book(bookInfo.author,
         bookInfo.description,
@@ -38,5 +40,7 @@ fun Context.getPxFromDp(dp: Float) = TypedValue.applyDimension(TypedValue.COMPLE
 fun Fragment.showToast(text: String) {
     Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
 }
+
+fun Fragment.signupFrom2Depth(): SignupFragment = (parentFragment?.parentFragment as SignupFragment)
 
 fun Fragment.getColor(colorId: Int): Int = requireContext().getColor(colorId)

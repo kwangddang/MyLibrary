@@ -48,7 +48,8 @@
             android:hint="@string/edit_signup_username_input"
             app:layout_constraintEnd_toStartOf="@+id/guideline_signup_username_end_56dp"
             app:layout_constraintStart_toStartOf="@+id/text_signup_username_label"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_username_label" />
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_username_label"
+            bind:usernameValidation="@={vm.username}"/>
 
         <Button
             android:id="@+id/btn_signup_username_confirm"

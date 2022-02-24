@@ -33,6 +33,9 @@ class LoginFragment: Fragment() {
         binding.constraintLoginBtnContainer.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToLoginEmailFragment())
         }
+        binding.textLoginSignup.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment())
+        }
     }
 
     override fun onDestroyView() {
