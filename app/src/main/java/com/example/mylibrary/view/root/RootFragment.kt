@@ -13,6 +13,8 @@ import com.example.mylibrary.common.getColor
 import com.example.mylibrary.databinding.FragmentRootBinding
 import com.example.mylibrary.view.root.home.HomeFragment
 import com.example.mylibrary.view.root.user.UserFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

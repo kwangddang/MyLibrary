@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.mylibrary.view.login.signup.SignupViewModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_signup_pwd_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutDescription="@xml/password_input_signup_xml_scene"
+        tools:context=".features.signup.SignupPasswordFragment">
+
+        <TextView
+            android:id="@+id/text_signup_pwd_title"
+            style="@style/HeadBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/text_signup_pwd_title"
+            app:layout_constraintStart_toStartOf="@+id/guideline_signup_pwd_start_56dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_signup_pwd_label"
+            style="@style/SubHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/text_signup_pwd_label"
+            app:layout_constraintStart_toStartOf="@+id/guideline_signup_pwd_start_56dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_pwd_title" />
+
+
+        <EditText
+            android:id="@+id/edit_signup_pwd_input"
+            style="@style/SubHead"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/edit_signup_pwd_input"
+            android:inputType="textPassword"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_signup_pwd_end_56dp"
+            app:layout_constraintStart_toStartOf="@+id/text_signup_pwd_label"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_pwd_label" />
+
+
+        <TextView
+            android:id="@+id/text_signup_pwd_label_confirm"
+            style="@style/SubHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/text_signup_pwd_label_confirm"
+            app:layout_constraintStart_toStartOf="@+id/guideline_signup_pwd_start_56dp"
+            app:layout_constraintTop_toBottomOf="@+id/edit_signup_pwd_input" />
+
+
+        <EditText
+            android:id="@+id/edit_signup_pwd_confirm_input"
+            style="@style/SubHead"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/edit_signup_pwd_confirm_input"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_signup_pwd_end_56dp"
+            app:layout_constraintStart_toStartOf="@+id/text_signup_pwd_label"
+            app:layout_constraintTop_toBottomOf="@+id/text_signup_pwd_label_confirm" />
+
+
+        <Button
+            android:id="@+id/btn_signup_pwd_confirm"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="@string/btn_signup_pwd_confirm"
+            android:layout_marginTop="200dp"
+            android:visibility="invisible"
+            app:backgroundTint="@color/selected"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_signup_pwd_start_56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="56dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_signup_pwd_end_56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="56dp" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

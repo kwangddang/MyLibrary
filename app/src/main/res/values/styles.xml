@@ -29,12 +29,44 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="Head" parent="android:TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="HeadBold" parent="android:TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="SubHeadBold" parent="android:TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="SubHead" parent="android:TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="Label">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:paddingBottom">12dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BackArrow" parent="android:TextAppearance">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:src">@drawable/ic_back</item>
     </style>
 
     <style name="Link">
