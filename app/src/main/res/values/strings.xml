@@ -41,4 +41,6 @@
     <string name="text_signup_username_label">닉네임 입력</string>
     <string name="edit_signup_username_input">두 글자 이상 입력</string>
     <string name="btn_signup_username_confirm">완료</string>
+    <string name="facebook_app_id">989505941705090</string>
+    <string name="fb_login_protocol_scheme">fb989505941705090</string>
 </resources>

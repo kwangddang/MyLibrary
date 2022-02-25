@@ -2,6 +2,7 @@ package com.example.mylibrary.di
 
 import com.example.mylibrary.BuildConfig
 import com.example.mylibrary.data.api.NaverApi
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +29,10 @@ class NetworkModule {
             }
         }
     }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Singleton
     @Provides

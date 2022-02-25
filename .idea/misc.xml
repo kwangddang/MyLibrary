@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kwang/.gradle/caches/transforms-3/7ca1b74afdcb08e8967e8109550895d0/transformed/jetified-facebook-share-4.42.0/res/drawable/com_facebook_button_send_background.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable-hdpi/btn_login.xml" value="0.36041666666666666" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable-hdpi/edit_search.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable-hdpi/overlay_gradient_login.xml" value="0.36041666666666666" />

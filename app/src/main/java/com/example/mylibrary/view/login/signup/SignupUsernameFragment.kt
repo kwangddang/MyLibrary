@@ -2,6 +2,7 @@ package com.example.mylibrary.view.login.signup
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class SignupUsernameFragment: Fragment() {
     }
 
     private val btnOnClickListener:(View) -> Unit = {
+        viewModel.signup()
         Navigation.findNavController(signupFrom2Depth().binding.root).navigate(
             SignupFragmentDirections.actionSignupFragmentToRootFragment()
         )
