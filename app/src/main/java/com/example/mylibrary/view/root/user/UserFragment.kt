@@ -18,7 +18,7 @@ import com.example.mylibrary.databinding.ItemUserBookBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.RootFragment
 import com.example.mylibrary.view.root.RootFragmentDirections
-import com.example.mylibrary.view.root.home.dto.ItemClickArgs
+import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,13 +44,12 @@ class UserFragment : Fragment() {
 
     private val bookItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when (args?.view?.id) {
-            R.id.lottie_iuserbook_bookmark -> deleteBookMark(args.item as ItemUserBookBinding, args.position)
-            R.id.card_iuserbook_innercontainer -> showBookDetail(args)
+            //R.id.lottie_iuserbook_bookmark -> deleteBookMark(args.item as ItemUserBookBinding, args.position)
+            //R.id.card_iuserbook_innercontainer -> showBookDetail(args)
         }
     }
 
     private val categoryItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-        hideBookDetail()
         when(args?.view?.id){
             R.id.constraint_iusercategory_container -> {
                 if(args.position == 0) viewModel.getMyBook()
@@ -126,28 +125,24 @@ class UserFragment : Fragment() {
         _binding = null
     }
 
-    private fun hideBookDetail(){
-        binding.textUserDesc.visibility = View.INVISIBLE
-        binding.textUserTitle.visibility = View.INVISIBLE
-    }
 
-    private fun deleteBookMark(item: ItemUserBookBinding, position: Int) {
-        viewModel.deleteBook(item.book!!.isbn)
-        bookAdapter.apply {
-            content.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position,content.size)
-            if(content.isEmpty()) hideBookDetail()
-        }
-    }
+//    private fun deleteBookMark(item: ItemUserBookBinding, position: Int) {
+//        viewModel.deleteBook(item.book!!.isbn)
+//        bookAdapter.apply {
+//            content.removeAt(position)
+//            notifyItemRemoved(position)
+//            notifyItemRangeChanged(position,content.size)
+//            if(content.isEmpty()) hideBookDetail()
+//        }
+//    }
 
-    private fun showBookDetail(args: ItemClickArgs) {
-        binding.textUserDesc.visibility = View.VISIBLE
-        binding.textUserTitle.visibility = View.VISIBLE
-        val book = (args.item as ItemUserBookBinding).book
-        binding.textUserTitle.text = filteringText(book!!.title)
-        binding.textUserDesc.text = filteringText(book.description)
-    }
+//    private fun showBookDetail(args: ItemClickArgs) {
+//        binding.textUserDesc.visibility = View.VISIBLE
+//        binding.textUserTitle.visibility = View.VISIBLE
+//        val book = (args.item as ItemUserBookBinding).book
+//        binding.textUserTitle.text = filteringText(book!!.title)
+//        binding.textUserDesc.text = filteringText(book.description)
+//    }
 
     private fun setDefaultItem(category: List<Category>): MutableList<Category> {
         val list = category as MutableList<Category>

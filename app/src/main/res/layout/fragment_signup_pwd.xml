@@ -86,7 +86,7 @@
             android:text="@string/btn_signup_pwd_confirm"
             android:layout_marginTop="200dp"
             android:visibility="invisible"
-            app:backgroundTint="@color/selected"/>
+            app:backgroundTint="@color/secondaryDarkColor"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_signup_pwd_start_56dp"

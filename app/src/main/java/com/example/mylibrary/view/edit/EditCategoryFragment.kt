@@ -12,7 +12,7 @@ import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
-import com.example.mylibrary.view.root.home.dto.ItemClickArgs
+import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import com.example.mylibrary.common.CreateCategoryDialog
 import dagger.hilt.android.AndroidEntryPoint
 

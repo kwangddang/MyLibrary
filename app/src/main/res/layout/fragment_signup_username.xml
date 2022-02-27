@@ -57,7 +57,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="200dp"
             android:text="@string/btn_signup_username_confirm"
-            app:backgroundTint="@color/selected"/>
+            app:backgroundTint="@color/secondaryDarkColor"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_signup_username_start_56dp"

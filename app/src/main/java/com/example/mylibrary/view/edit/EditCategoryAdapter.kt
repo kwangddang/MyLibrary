@@ -1,13 +1,11 @@
 package com.example.mylibrary.view.edit
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
-import com.example.mylibrary.view.root.home.dto.ItemClickArgs
-import com.example.mylibrary.view.root.user.UserCategoryAdapter
+import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 
 class EditCategoryAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

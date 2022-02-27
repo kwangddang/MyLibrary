@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="book"
+            type="com.example.mylibrary.data.dto.response.BookInfo" />
+
+        <variable
+            name="onClickItem"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_isearch_innercontainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:onClick="@{onClickItem}"
+        android:padding="20dp"
+        android:background="@drawable/background_radius"
+        android:elevation="1dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_isearch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/text_isearch_author"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:imageBook="@{book.image}"
+            tools:background="@color/secondaryDarkColor" />
+
+        <TextView
+            android:id="@+id/text_isearch_title"
+            style="@style/BookTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_isearch"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:searchText="@{book.title}"
+            tools:text="미움 받을 용기" />
+
+        <TextView
+            android:id="@+id/text_isearch_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingStart="16dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/text_isearch_title"
+            app:layout_constraintTop_toBottomOf="@id/text_isearch_title"
+            bind:searchText="@{book.author}"
+            tools:text="최광현" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

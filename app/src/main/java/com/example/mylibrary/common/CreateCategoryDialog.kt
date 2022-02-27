@@ -18,7 +18,7 @@ import com.example.mylibrary.view.root.user.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateCategoryDialog : DialogFragment() {
+class CreateCategoryDialog: DialogFragment() {
 
     private var _binding: DlgCreateCategoryBinding? = null
     private val binding get() = _binding!!

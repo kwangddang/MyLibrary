@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.root.home
+package com.example.mylibrary.view.root.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,15 +6,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibrary.data.dto.response.BookInfo
-import com.example.mylibrary.data.dto.response.BookResponse
-import com.example.mylibrary.databinding.ItemHomeBinding
-import com.example.mylibrary.view.root.home.dto.ItemClickArgs
+import com.example.mylibrary.databinding.ItemSearchBinding
+import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 
-class HomeAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): PagingDataAdapter<BookInfo, HomeAdapter.HomeViewHolder>(
+class SearchAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): PagingDataAdapter<BookInfo, SearchAdapter.SearchViewHolder>(
     COMPARATOR
 ){
 
-    inner class HomeViewHolder(private val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root){
+    inner class SearchViewHolder(private val binding: ItemSearchBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(bookInfo: BookInfo, position: Int){
             binding.book = bookInfo
             binding.setOnClickItem { view ->
@@ -23,11 +22,11 @@ class HomeAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): Pa
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder(ItemHomeBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
+        return SearchViewHolder(ItemSearchBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it,position)
         }

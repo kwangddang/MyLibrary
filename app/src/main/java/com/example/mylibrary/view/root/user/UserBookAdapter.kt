@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibrary.data.room.entity.Book
 import com.example.mylibrary.databinding.ItemUserBookBinding
-import com.example.mylibrary.view.root.home.dto.ItemClickArgs
+import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 
 class UserBookAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit, private val itemOnLongClickListener: (ItemClickArgs?) -> Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

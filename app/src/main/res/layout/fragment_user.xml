@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/constraint_user_innercontainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_user"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/ctoolbar_user"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:layout_collapseMode="parallax" />
+
+                <TextView
+                    android:id="@+id/text_user_title"
+                    style="@style/AppbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="최광현"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/text_user_label_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Label"
+            android:text="카테고리"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar_user" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_user_category"
@@ -17,7 +61,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toStartOf="@+id/text_user_add"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_user_label_category"
             tools:listitem="@layout/item_user_category" />
 
         <TextView
@@ -29,52 +73,28 @@
             app:layout_constraintStart_toEndOf="@id/recycler_user_category"
             app:layout_constraintTop_toTopOf="@id/recycler_user_category" />
 
-        <View
-            android:id="@+id/view_user_divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/divider"
+        <TextView
+            android:id="@+id/text_user_label_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Label"
+            android:text="@string/text_user_label_bookmark"
+            android:layout_marginTop="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_user_category"/>
+            app:layout_constraintTop_toBottomOf="@id/recycler_user_category" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_user_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_user_category"
+            app:layout_constraintTop_toBottomOf="@id/text_user_label_bookmark"
             tools:listitem="@layout/item_user_book" />
 
-        <TextView
-            android:id="@+id/text_user_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:padding="16dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_user_book"
-            tools:text="고요할수록 밝아지는 것들"/>
-
-        <TextView
-            android:id="@+id/text_user_desc"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:textSize="14sp"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:gravity="center|top"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_user_title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="설명"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 

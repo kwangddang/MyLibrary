@@ -19,70 +19,39 @@
             type="android.view.View.OnLongClickListener" />
     </data>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="24dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_iuserbook_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/background_radius"
+        android:elevation="1dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_iuserbook_innercontainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            style="@style/RippleEffect"
-            android:onClick="@{onClickItem}"
-            android:onLongClick="@{onLongClickItem}"
-            app:contentPadding="8dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_iuserbook"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            android:background="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            bind:imageBook="@{book.image}" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_iuserbook_innercontainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/img_iuserbook"
-                    android:layout_width="108dp"
-                    android:layout_height="144dp"
-                    android:background="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    bind:imageBook="@{book.image}" />
-
-                <TextView
-                    android:id="@+id/text_iuserbook_title"
-                    style="@style/Description"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:ellipsize="end"
-                    android:gravity="center|top"
-                    android:maxLines="2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/img_iuserbook"
-                    bind:searchText="@{book.title}"
-                    tools:text="달을 닮은 너에게" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_iuserbook_bookmark"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:elevation="2dp"
-            android:onClick="@{onClickItem}"
-            app:layout_constraintBottom_toBottomOf="@id/card_iuserbook_innercontainer"
-            app:layout_constraintStart_toEndOf="@id/card_iuserbook_innercontainer"
-            app:layout_constraintEnd_toEndOf="@id/card_iuserbook_innercontainer"
-            app:layout_constraintTop_toBottomOf="@id/card_iuserbook_innercontainer"
-            app:layout_constraintVertical_bias="1.0"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="false"
-            app:lottie_rawRes="@raw/bookmark"
-            bind:checkBookMark="@{book.isBookMark()}"
-            tools:src="@drawable/ic_home" />
+        <TextView
+            android:id="@+id/text_iuserbook_title"
+            style="@style/BookTitleSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_iuserbook"
+            bind:searchText="@{book.title}"
+            tools:text="달을 닮은 너에게" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

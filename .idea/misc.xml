@@ -13,18 +13,21 @@
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable/overlay_background.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_main.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/bottomsheet_category_creation.xml" value="0.34375" />
+        <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/dlg_book_detail.xml" value="0.34427083333333336" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/dlg_create_category.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/dlg_delete_category.xml" value="0.264" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_edit_category.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_home.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_login.xml" value="0.335" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_root.xml" value="0.34375" />
+        <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_search.xml" value="0.34427083333333336" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_signup.xml" value="0.34427083333333336" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_signup_email.xml" value="0.34427083333333336" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_signup_pwd.xml" value="0.24930747922437674" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_signup_username.xml" value="0.335" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_user.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_home.xml" value="0.34375" />
+        <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_search.xml" value="0.25" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_user.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_user_book.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_user_category.xml" value="0.33" />

@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="200dp"
-            app:backgroundTint="@color/selected"
+            app:backgroundTint="@color/secondaryDarkColor"
             android:text="@string/btn_signup_emali_confirm"/>
 
         <androidx.constraintlayout.widget.Guideline

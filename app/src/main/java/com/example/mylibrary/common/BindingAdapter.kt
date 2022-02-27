@@ -7,13 +7,21 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.example.mylibrary.R
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.CornerFamily
 
 object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("imageBook")
-    fun setImageBook(view: ImageView, url: String?){
+    fun setImageBook(view: ShapeableImageView, url: String?){
         view.context.apply {
+            val radius = resources.getDimension(R.dimen.album_corner_radius)
+            val shapeAppearanceModel = view.shapeAppearanceModel.toBuilder()
+                .setAllCorners(CornerFamily.ROUNDED,radius)
+                .build()
+            view.shapeAppearanceModel = shapeAppearanceModel
             Glide.with(this)
                 .load(url)
                 .centerCrop()
