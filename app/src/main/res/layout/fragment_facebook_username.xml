@@ -8,72 +8,70 @@
 
         <variable
             name="vm"
-            type="com.example.mylibrary.view.login.signup.SignupViewModel" />
+            type="com.example.mylibrary.view.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/motion_signup_email_container"
+        android:id="@+id/motion_facebook_username_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutDescription="@xml/signup_email_scene"
-        tools:context=".features.signup.SignupEmailFragment">
+        app:layoutDescription="@xml/facebook_username_scene"
+        tools:context=".features.signup.SignupUsernameFragment">
 
         <TextView
-            android:id="@+id/text_signup_email_title"
+            android:id="@+id/text_facebook_username_title"
             style="@style/HeadBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/text_signup_email_title"
-            app:layout_constraintStart_toStartOf="@+id/guideline_signup_username_start_56dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/text_facebook_username_title"
+            app:layout_constraintStart_toStartOf="@+id/guideline_facebook_username_start_56dp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_signup_email_label"
+            android:id="@+id/text_facebook_username_label"
             style="@style/SubHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="@string/text_signup_email_label"
-            app:layout_constraintStart_toStartOf="@+id/guideline_signup_username_start_56dp"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_email_title" />
+            android:text="@string/text_facebook_username_label"
+            app:layout_constraintStart_toStartOf="@+id/guideline_facebook_username_start_56dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_facebook_username_title" />
 
 
         <EditText
-            android:id="@+id/edit_signup_email_input"
+            android:id="@+id/edit_facebook_username_input"
             style="@style/SubHead"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/edit_signup_email_input"
-            android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_signup_email_end_56dp"
-            app:layout_constraintStart_toStartOf="@+id/text_signup_email_label"
-            app:layout_constraintTop_toBottomOf="@+id/text_signup_email_label"
-            bind:emailValidation="@={vm.email}"/>
+            android:hint="@string/edit_facebook_username_input"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_facebook_username_end_56dp"
+            app:layout_constraintStart_toStartOf="@+id/text_facebook_username_label"
+            app:layout_constraintTop_toBottomOf="@+id/text_facebook_username_label"
+            bind:usernameValidation="@={vm.username}"/>
 
         <Button
-            android:id="@+id/btn_signup_email_confirm"
+            android:id="@+id/btn_facebook_username_confirm"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="200dp"
-            app:backgroundTint="@color/secondaryDarkColor"
-            android:text="@string/btn_signup_emali_confirm"/>
+            android:text="@string/btn_facebook_username_confirm"
+            app:backgroundTint="@color/secondaryDarkColor"/>
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_signup_username_start_56dp"
+            android:id="@+id/guideline_facebook_username_start_56dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="56dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_signup_email_end_56dp"
+            android:id="@+id/guideline_facebook_username_end_56dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_end="56dp" />
-
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

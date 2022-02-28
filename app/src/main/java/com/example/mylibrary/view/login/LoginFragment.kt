@@ -2,7 +2,6 @@ package com.example.mylibrary.view.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +36,15 @@ class LoginFragment: Fragment() {
         override fun onCancel() {
         }
 
-        override fun onError(error: FacebookException?) {
+        override fun onError(error: FacebookException) {
+        }
+    }
+
+    private val dataObserver: (Any?) -> Unit = {
+        if(it == null){
+            Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToFacebookUsernameFragment())
+        } else{
+            Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
         }
     }
 
@@ -58,9 +65,14 @@ class LoginFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeData()
         setFacebookLogin()
         setTransparentStatusBar()
         setOnClickListeners()
+    }
+
+    private fun observeData(){
+        viewModel.facebookSuccess.observe(viewLifecycleOwner,dataObserver)
     }
 
     private fun setFacebookLogin(){
@@ -84,6 +96,8 @@ class LoginFragment: Fragment() {
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment())
         }
     }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode,resultCode,data)

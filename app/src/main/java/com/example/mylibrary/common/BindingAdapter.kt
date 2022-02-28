@@ -1,10 +1,14 @@
 package com.example.mylibrary.common
 
+import android.text.Editable
 import android.text.InputFilter
+import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.mylibrary.R
@@ -65,6 +69,37 @@ object BindingAdapter {
             view.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(15))
             view.setBackgroundColor(context.getColor(android.R.color.transparent))
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("usernameValidation")
+    fun setUsernameValidation(view: EditText, text: String){
+
+    }
+
+    @JvmStatic
+    @BindingAdapter("usernameValidationAttrChanged")
+    fun setUsernameValidationInverseBindingListener(view: EditText, listener: InverseBindingListener){
+        view.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                listener.onChange()
+            }
+
+        })
+    }
+
+    @JvmStatic
+    @InverseBindingAdapter(attribute = "usernameValidation", event = "usernameValidationAttrChanged")
+    fun getUsernameValidation(view: EditText): String{
+        return view.text.toString()
     }
 
 }

@@ -44,4 +44,8 @@
     <string name="text_ihome_label_publisher">출판사</string>
     <string name="text_ihome_label_price">가격</string>
     <string name="text_ihome_link"><u>링크</u></string>
+    <string name="text_facebook_username_title">페이스북 회원가입</string>
+    <string name="text_facebook_username_label">닉네임 입력</string>
+    <string name="edit_facebook_username_input">두 글자 이상 입력</string>
+    <string name="btn_facebook_username_confirm">완료</string>
 </resources>

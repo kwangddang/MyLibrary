@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_facebookUsernameFragment"
+            app:destination="@id/facebookUsernameFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -54,6 +57,15 @@
         tools:layout="@layout/fragment_signup">
         <action
             android:id="@+id/action_signupFragment_to_rootFragment"
+            app:destination="@id/rootFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/facebookUsernameFragment"
+        android:name="com.example.mylibrary.view.login.FacebookUsernameFragment"
+        android:label="FacebookUsernameFragment"
+        tools:layout="@layout/fragment_facebook_username">
+        <action
+            android:id="@+id/action_facebookUsernameFragment_to_rootFragment"
             app:destination="@id/rootFragment" />
     </fragment>
 </navigation>

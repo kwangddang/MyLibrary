@@ -83,6 +83,10 @@ fun Context.navigationHeight(): Int {
     else 0
 }
 
+fun showToast(context: Context, text: String){
+    Toast.makeText(context,text,Toast.LENGTH_SHORT).show()
+}
+
 fun Fragment.signupFrom2Depth(): SignupFragment = (parentFragment?.parentFragment as SignupFragment)
 
 fun Fragment.getColor(colorId: Int): Int = requireContext().getColor(colorId)

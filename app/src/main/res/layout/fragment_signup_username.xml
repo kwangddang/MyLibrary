@@ -15,7 +15,7 @@
         android:id="@+id/motion_signup_username_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutDescription="@xml/username_input_signup_scene"
+        app:layoutDescription="@xml/signup_username_scene"
         tools:context=".features.signup.SignupUsernameFragment">
 
         <TextView

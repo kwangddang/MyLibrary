@@ -2,7 +2,9 @@ package com.example.mylibrary.common
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,10 +41,8 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Ba
     }
 
     private fun setOnClickListeners(){
-        binding.textDlgBookDetailLink.setOnClickListener {  }
-        binding.lottieDlgBookDetailBookmark.apply {
-            setOnClickListener { setBookMark(this,binding) }
-        }
+        binding.textDlgBookDetailLink.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(binding.book?.link))) }
+        binding.lottieDlgBookDetailBookmark.apply { setOnClickListener { setBookMark(this,binding) } }
     }
 
     override fun onResume() {

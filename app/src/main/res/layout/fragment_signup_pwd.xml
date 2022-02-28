@@ -15,7 +15,7 @@
         android:id="@+id/motion_signup_pwd_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutDescription="@xml/password_input_signup_xml_scene"
+        app:layoutDescription="@xml/signup_pwd_scene"
         tools:context=".features.signup.SignupPasswordFragment">
 
         <TextView

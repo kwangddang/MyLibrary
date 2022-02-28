@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.mylibrary.common.showToast
 import com.example.mylibrary.common.signupFrom2Depth
 import com.example.mylibrary.databinding.FragmentSignupUsernameBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,11 +30,14 @@ class SignupUsernameFragment: Fragment() {
             binding.motionSignupUsernameContainer.transitionToEnd()
     }
 
-    private val btnOnClickListener:(View) -> Unit = {
-        viewModel.signup()
-        Navigation.findNavController(signupFrom2Depth().binding.root).navigate(
-            SignupFragmentDirections.actionSignupFragmentToRootFragment()
-        )
+    private val successObserver: (Any?) -> Unit = {
+        if(it == null){
+            showToast(requireContext(),"오류가 발생하였습니다. 잠시 후 다시 시도해주세요.")
+        } else{
+            Navigation.findNavController(signupFrom2Depth().binding.root).navigate(
+                SignupFragmentDirections.actionSignupFragmentToRootFragment()
+            )
+        }
     }
 
     override fun onCreateView(
@@ -54,12 +58,13 @@ class SignupUsernameFragment: Fragment() {
     }
 
     private fun setOnClickListeners(){
-        binding.btnSignupUsernameConfirm.setOnClickListener (btnOnClickListener)
+        binding.btnSignupUsernameConfirm.setOnClickListener {viewModel.signup()}
         signupFrom2Depth().binding.imgSignupBack.setOnClickListener { requireActivity().onBackPressed() }
     }
 
     private fun observeData(){
         viewModel.username.observe(viewLifecycleOwner,usernameObserver)
+        viewModel.success.observe(viewLifecycleOwner,successObserver)
     }
 
     private lateinit var callback: OnBackPressedCallback

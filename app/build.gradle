@@ -65,6 +65,9 @@ def firebase_auth_version = "20.0.4"
 def facebooklogin_version = "[8,9)"
 dependencies {
 
+    implementation 'androidx.work:work-runtime-ktx:2.7.0'
+
+
     //Facebook
     implementation "com.facebook.android:facebook-login:${facebooklogin_version}"
 

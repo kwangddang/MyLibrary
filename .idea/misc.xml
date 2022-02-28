@@ -17,6 +17,7 @@
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/dlg_create_category.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/dlg_delete_category.xml" value="0.264" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_edit_category.xml" value="0.34375" />
+        <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_facebook_username.xml" value="0.34427083333333336" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_home.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_login.xml" value="0.335" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/fragment_root.xml" value="0.34375" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_user.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_user_book.xml" value="0.34375" />
         <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/item_user_category.xml" value="0.33" />
+        <entry key="..\:/Users/kwang/AndroidStudioProjects/MyLibrary/app/src/main/res/xml/facebook_username_scene.xml" value="0.34427083333333336" />
       </map>
     </option>
   </component>
