@@ -17,6 +17,8 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
 
+    <color name="btn_email">#6CBA5E</color>
+
 
     <color name="gray">#8c8c8c</color>
     <color name="divider">#EFEFEF</color>

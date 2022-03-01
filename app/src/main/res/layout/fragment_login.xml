@@ -60,9 +60,45 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginBottom="24dp"
-                app:layout_constraintStart_toStartOf="@id/constraint_login_btn_container"
-                app:layout_constraintEnd_toEndOf="@id/constraint_login_btn_container"
-                app:layout_constraintBottom_toTopOf="@id/constraint_login_btn_container"/>
+                app:layout_constraintStart_toStartOf="@id/constraint_login_email_btn_container"
+                app:layout_constraintEnd_toEndOf="@id/constraint_login_email_btn_container"
+                app:layout_constraintBottom_toTopOf="@id/constraint_login_email_btn_container"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_login_email_btn_container"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/btn_login"
+                android:elevation="10dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/constraint_login_btn_container"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/img_login_email_btn_ic"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_email"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/text_login_email_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_login_email_btn"
+                    style="@style/Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_login_email_btn"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_login_btn_container"
@@ -70,6 +106,7 @@
                 android:layout_height="40dp"
                 android:layout_marginBottom="48dp"
                 android:background="@drawable/btn_login"
+                android:backgroundTint="@color/gray"
                 android:elevation="10dp"
                 android:paddingVertical="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_login_label_signup"
@@ -80,7 +117,8 @@
                     android:id="@+id/img_login_btn_ic"
                     android:layout_width="24dp"
                     android:layout_height="18dp"
-                    android:src="@drawable/ic_email"
+                    android:src="@drawable/ic_user"
+                    app:tint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/text_login_btn"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +129,7 @@
                     style="@style/Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_login_btn"
+                    android:text="계정 없이 로그인"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +137,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/text_login_label_signup"

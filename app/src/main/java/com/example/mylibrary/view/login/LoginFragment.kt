@@ -89,8 +89,11 @@ class LoginFragment: Fragment() {
     }
 
     private fun setOnClickListeners(){
-        binding.constraintLoginBtnContainer.setOnClickListener {
+        binding.constraintLoginEmailBtnContainer.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToLoginEmailFragment())
+        }
+        binding.constraintLoginBtnContainer.setOnClickListener{
+            Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
         }
         binding.textLoginSignup.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment())

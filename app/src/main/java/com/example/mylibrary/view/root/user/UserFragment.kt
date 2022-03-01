@@ -11,6 +11,7 @@ import com.example.mylibrary.R
 import com.example.mylibrary.common.CreateCategoryDialog
 import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.common.filteringText
+import com.example.mylibrary.data.firebase.User
 import com.example.mylibrary.data.room.entity.Book
 import com.example.mylibrary.data.room.entity.Category
 import com.example.mylibrary.databinding.FragmentUserBinding
@@ -82,6 +83,10 @@ class UserFragment : Fragment() {
         CreateCategoryDialog().show(childFragmentManager, TagConstant.CREATE_CATEGORY_DIALOG)
     }
 
+    private val userObserver: (User) -> Unit = { user ->
+        binding.user = user
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -89,6 +94,7 @@ class UserFragment : Fragment() {
     ): View? {
         _binding = FragmentUserBinding.inflate(inflater, container, false)
 
+        initUser()
         return binding.root
     }
 
@@ -101,6 +107,10 @@ class UserFragment : Fragment() {
         setOnClickListener()
     }
 
+    private fun initUser(){
+        viewModel.getUser()
+    }
+
     private fun setOnClickListener(){
         binding.textUserAdd.setOnClickListener(categoryAddOnClickListener)
     }
@@ -111,6 +121,7 @@ class UserFragment : Fragment() {
     }
 
     private fun observeData() {
+        viewModel.user.observe(viewLifecycleOwner,userObserver)
         viewModel.book.observe(viewLifecycleOwner, bookObserver)
         viewModel.category.observe(viewLifecycleOwner, categoryObserver)
     }

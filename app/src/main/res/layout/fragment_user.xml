@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="user"
+            type="com.example.mylibrary.data.firebase.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +40,8 @@
                     style="@style/AppbarTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:text="최광현"/>
+                    android:text="@{user.username}"
+                    tools:text="user1"/>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
