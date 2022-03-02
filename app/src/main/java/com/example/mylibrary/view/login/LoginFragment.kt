@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.mylibrary.common.KotPrefModel
 import com.example.mylibrary.common.setStatusBarOrigin
 import com.example.mylibrary.common.setTransparentStatusBar
 import com.example.mylibrary.databinding.FragmentLoginBinding
@@ -40,10 +41,11 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private val dataObserver: (Any?) -> Unit = {
+    private val facebookSuccessObserver: (Any?) -> Unit = {
         if(it == null){
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToFacebookUsernameFragment())
         } else{
+            KotPrefModel.loginMethod = "facebook"
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
         }
     }
@@ -64,15 +66,27 @@ class LoginFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setTransparentStatusBar()
+        autoLogin()
         observeData()
         setFacebookLogin()
-        setTransparentStatusBar()
         setOnClickListeners()
     }
 
+    private fun autoLogin(){
+        viewModel.autoLogin()
+    }
+
     private fun observeData(){
-        viewModel.facebookSuccess.observe(viewLifecycleOwner,dataObserver)
+        viewModel.facebookSuccess.observe(viewLifecycleOwner,facebookSuccessObserver)
+        viewModel.autoLoginSuccess.observe(viewLifecycleOwner,autoLoginSuccessObserver)
+    }
+
+    private val autoLoginSuccessObserver:(Boolean) -> Unit = {
+        if(it){
+            KotPrefModel.loginMethod = "auto"
+            Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
+        }
     }
 
     private fun setFacebookLogin(){
@@ -93,13 +107,13 @@ class LoginFragment: Fragment() {
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToLoginEmailFragment())
         }
         binding.constraintLoginBtnContainer.setOnClickListener{
+            KotPrefModel.loginMethod = "noAccount"
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
         }
         binding.textLoginSignup.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment())
         }
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

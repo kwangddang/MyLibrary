@@ -3,7 +3,7 @@ package com.example.mylibrary.view.edit
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mylibrary.data.room.entity.Category
+import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 

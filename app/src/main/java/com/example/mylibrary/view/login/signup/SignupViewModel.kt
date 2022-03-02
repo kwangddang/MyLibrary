@@ -3,7 +3,7 @@ package com.example.mylibrary.view.login.signup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mylibrary.data.firebase.User
+import com.example.mylibrary.data.entity.firebase.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase

@@ -1,7 +1,7 @@
-package com.example.mylibrary.data.room.dao
+package com.example.mylibrary.data.dao
 
 import androidx.room.*
-import com.example.mylibrary.data.room.entity.Book
+import com.example.mylibrary.data.entity.room.Book
 
 @Dao
 interface BookDao {
@@ -18,11 +18,11 @@ interface BookDao {
     fun delete(isbn: String)
 
     @Query("SELECT * FROM book WHERE category LIKE :category")
-    fun getCategoryBook(category: String): List<Book>
+    fun getMyCategoryBook(category: String): List<Book>
 
     @Query("UPDATE book SET category = :category WHERE isbn LIKE :isbn")
-    fun setBookCategory(category: String, isbn: String)
+    fun setMyBookCategory(category: String, isbn: String)
 
     @Query("UPDATE book SET category = null WHERE category LIKE :category")
-    fun deleteBookCategory(category: String)
+    fun deleteMyBookCategory(category: String)
 }

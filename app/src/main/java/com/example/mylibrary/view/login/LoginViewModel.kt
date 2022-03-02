@@ -1,10 +1,9 @@
 package com.example.mylibrary.view.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mylibrary.data.firebase.User
+import com.example.mylibrary.data.entity.firebase.User
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -17,6 +16,9 @@ class LoginViewModel @Inject constructor(
     private val firebaseDB: DatabaseReference
 ) : ViewModel() {
 
+    private val _autoLoginSuccess = MutableLiveData<Boolean>()
+    val autoLoginSuccess: LiveData<Boolean> get() = _autoLoginSuccess
+
     private val _facebookSuccess = MutableLiveData<Any?>()
     val facebookSuccess: LiveData<Any?> get() = _facebookSuccess
 
@@ -24,6 +26,13 @@ class LoginViewModel @Inject constructor(
     val emailSuccess: LiveData<Any?> get() = _emailSuccess
 
     val username = MutableLiveData("")
+
+    fun autoLogin(){
+        if(firebaseAuth.currentUser != null)
+            _autoLoginSuccess.postValue(true)
+        else
+            _autoLoginSuccess.postValue(false)
+    }
 
     fun facebookLogin(credential: AuthCredential) {
         firebaseAuth.signInWithCredential(credential)

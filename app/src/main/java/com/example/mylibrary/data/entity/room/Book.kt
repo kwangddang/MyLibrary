@@ -1,4 +1,4 @@
-package com.example.mylibrary.data.room.entity
+package com.example.mylibrary.data.entity.room
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="user"
-            type="com.example.mylibrary.data.firebase.User" />
+            type="com.example.mylibrary.data.entity.firebase.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,6 +42,15 @@
                     android:layout_height="48dp"
                     android:text="@{user.username}"
                     tools:text="user1"/>
+
+                <ImageView
+                    android:id="@+id/img_user_setting"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_setting"
+                    android:padding="12dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_gravity="end"/>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>

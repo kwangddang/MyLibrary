@@ -48,4 +48,9 @@
     <string name="text_facebook_username_label">닉네임 입력</string>
     <string name="edit_facebook_username_input">두 글자 이상 입력</string>
     <string name="btn_facebook_username_confirm">완료</string>
+    <string name="text_setting_title">설정</string>
+    <string name="text_setting_label_username">닉네임 변경</string>
+    <string name="text_setting_label_account">연결된 계정</string>
+    <string name="text_setting_label_logout">로그아웃</string>
+    <string name="text_setting_label_servicewithdrawal">서비스 탈퇴</string>
 </resources>

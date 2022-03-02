@@ -9,13 +9,12 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.example.mylibrary.data.dto.response.BookInfo
-import com.example.mylibrary.data.room.entity.Book
+import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.view.login.signup.SignupFragment
+import com.example.mylibrary.view.root.RootFragment
 
 fun bookInfoToBook(bookInfo: BookInfo): Book =
     Book(bookInfo.author,
@@ -87,6 +86,9 @@ fun showToast(context: Context, text: String){
     Toast.makeText(context,text,Toast.LENGTH_SHORT).show()
 }
 
+fun Fragment.rootFrom1Depth(): RootFragment = (parentFragment as RootFragment)
+
 fun Fragment.signupFrom2Depth(): SignupFragment = (parentFragment?.parentFragment as SignupFragment)
 
 fun Fragment.getColor(colorId: Int): Int = requireContext().getColor(colorId)
+

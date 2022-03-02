@@ -1,6 +1,7 @@
 package com.example.mylibrary.view.root.user
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.mylibrary.R
 import com.example.mylibrary.common.CreateCategoryDialog
+import com.example.mylibrary.common.KotPrefModel
 import com.example.mylibrary.common.TagConstant
-import com.example.mylibrary.common.filteringText
-import com.example.mylibrary.data.firebase.User
-import com.example.mylibrary.data.room.entity.Book
-import com.example.mylibrary.data.room.entity.Category
+import com.example.mylibrary.common.rootFrom1Depth
+import com.example.mylibrary.data.entity.firebase.User
+import com.example.mylibrary.data.entity.room.Book
+import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.FragmentUserBinding
 import com.example.mylibrary.databinding.ItemUserBookBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
@@ -38,7 +40,7 @@ class UserFragment : Fragment() {
     }
 
     private val bookItemOnLongClickListener: (ItemClickArgs?) -> Boolean = { args ->
-        Navigation.findNavController((parentFragment as RootFragment).binding.root)
+        Navigation.findNavController(rootFrom1Depth().binding.root)
             .navigate(RootFragmentDirections.actionRootFragmentToEditCategoryFragment((args?.item as ItemUserBookBinding).book!!.isbn))
         true
     }
@@ -54,7 +56,7 @@ class UserFragment : Fragment() {
         when(args?.view?.id){
             R.id.constraint_iusercategory_container -> {
                 if(args.position == 0) viewModel.getMyBook()
-                else viewModel.getCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
+                else viewModel.getMyCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
             }
         }
     }
@@ -64,14 +66,22 @@ class UserFragment : Fragment() {
         true
     }
 
-    private val bookObserver: (List<Book>) -> Unit = { book ->
+    private val myBookObserver: (List<Book>) -> Unit = { book ->
         bookAdapter.apply {
             content = book as MutableList<Book>
             notifyDataSetChanged()
         }
     }
 
-    private val categoryObserver: (List<Category>) -> Unit = { category ->
+    private val userCategoryObserver: (List<Category>) -> Unit = { category ->
+        val list = setDefaultItem(category)
+        categoryAdapter.apply {
+            content = list
+            notifyDataSetChanged()
+        }
+    }
+
+    private val myCategoryObserver: (List<Category>) -> Unit = { category ->
         val list = setDefaultItem(category)
         categoryAdapter.apply {
             content = list
@@ -108,22 +118,30 @@ class UserFragment : Fragment() {
     }
 
     private fun initUser(){
-        viewModel.getUser()
+        viewModel.getUserInfo()
     }
 
     private fun setOnClickListener(){
         binding.textUserAdd.setOnClickListener(categoryAddOnClickListener)
+        binding.imgUserSetting.setOnClickListener { Navigation.findNavController(rootFrom1Depth().binding.root)
+            .navigate(RootFragmentDirections.actionRootFragmentToSettingFragment()) }
     }
 
     fun refresh() {
-        viewModel.getMyBook()
-        viewModel.getCategory()
+        Log.d("Test",KotPrefModel.loginMethod)
+        if(KotPrefModel.loginMethod == "noAccount"){
+            viewModel.getMyBook()
+            viewModel.getMyCategory()
+        } else{
+            viewModel.getUserCategory()
+        }
     }
 
     private fun observeData() {
         viewModel.user.observe(viewLifecycleOwner,userObserver)
-        viewModel.book.observe(viewLifecycleOwner, bookObserver)
-        viewModel.category.observe(viewLifecycleOwner, categoryObserver)
+        viewModel.book.observe(viewLifecycleOwner, myBookObserver)
+        viewModel.myCategory.observe(viewLifecycleOwner, myCategoryObserver)
+        viewModel.userCategory.observe(viewLifecycleOwner,userCategoryObserver)
     }
 
     private fun initAdapter() {

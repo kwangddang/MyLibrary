@@ -1,4 +1,4 @@
-package com.example.mylibrary.data.room.entity
+package com.example.mylibrary.data.entity.room
 
 import android.os.Parcelable
 import androidx.annotation.NonNull
@@ -12,5 +12,5 @@ import org.jetbrains.annotations.NotNull
 @Parcelize
 data class Category(
     @PrimaryKey
-    @ColumnInfo(name = "category") val category: String
+    @ColumnInfo(name = "category") val category: String,
 ) : Parcelable

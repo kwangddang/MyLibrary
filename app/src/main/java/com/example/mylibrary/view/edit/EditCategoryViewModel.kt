@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mylibrary.data.repository.BookRepository
 import com.example.mylibrary.data.repository.CategoryRepository
-import com.example.mylibrary.data.room.entity.Category
+import com.example.mylibrary.data.entity.room.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,13 +23,13 @@ class EditCategoryViewModel @Inject constructor(
 
     fun getCategory(){
         CoroutineScope(Dispatchers.IO).launch {
-            _category.postValue(categoryRepository.getCategory())
+            _category.postValue(categoryRepository.getMyCategory())
         }
     }
 
     fun setBookCategory(category: String, isbn: String){
         CoroutineScope(Dispatchers.IO).launch {
-            bookRepository.setBookCategory(category, isbn)
+            bookRepository.setMyBookCategory(category, isbn)
         }
     }
 

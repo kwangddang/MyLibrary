@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.mylibrary.common.KotPrefModel
 import com.example.mylibrary.common.showToast
 import com.example.mylibrary.databinding.FragmentLoginEmailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +20,15 @@ class LoginEmailFragment: Fragment() {
     val binding get() = _binding!!
 
     private val viewModel: LoginViewModel by viewModels({requireParentFragment()})
+
+    private val emailSuccessObserver: (Any?) -> Unit = {
+        if(it == null){
+            showToast(requireContext(),"유효하지 않은 계정입니다. 다시 한번 입력해주세요.")
+        } else{
+            KotPrefModel.loginMethod = "email"
+            Navigation.findNavController(binding.root).navigate(LoginEmailFragmentDirections.actionLoginEmailFragmentToRootFragment())
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,14 +49,6 @@ class LoginEmailFragment: Fragment() {
 
     private fun observeData(){
         viewModel.emailSuccess.observe(viewLifecycleOwner,emailSuccessObserver)
-    }
-
-    private val emailSuccessObserver: (Any?) -> Unit = {
-        if(it == null){
-            showToast(requireContext(),"유효하지 않은 계정입니다. 다시 한번 입력해주세요.")
-        } else{
-            Navigation.findNavController(binding.root).navigate(LoginEmailFragmentDirections.actionLoginEmailFragmentToRootFragment())
-        }
     }
 
     private fun setOnClickListeners(){

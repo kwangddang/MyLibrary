@@ -15,7 +15,6 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.BaseViewModel
 import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.databinding.DlgBookDetailBinding
-import com.example.mylibrary.databinding.ItemSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,12 +66,12 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Ba
             val animator = getValueAnimator(0f,0.5f, view)
             animator.start()
             item.book?.isBookMark = true
-            viewModel.insert(bookInfoToBook(item.book!!))
+            viewModel.insertMyBook(bookInfoToBook(item.book!!))
         } else {
             val animator = getValueAnimator(0.5f,0.0f, view)
             animator.start()
             item.book?.isBookMark = false
-            viewModel.delete(item.book!!.isbn)
+            viewModel.deleteMyBook(item.book!!.isbn)
         }
     }
 

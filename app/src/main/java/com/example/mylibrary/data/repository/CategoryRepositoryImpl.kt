@@ -1,13 +1,11 @@
 package com.example.mylibrary.data.repository
 
-import android.util.Log
-import com.example.mylibrary.data.room.dao.BookDao
-import com.example.mylibrary.data.room.dao.CategoryDao
-import com.example.mylibrary.data.room.entity.Category
+import com.example.mylibrary.data.dao.CategoryDao
+import com.example.mylibrary.data.entity.room.Category
 import javax.inject.Inject
 
 class CategoryRepositoryImpl@Inject constructor(private val categoryDao: CategoryDao): CategoryRepository {
-    override suspend fun getCategory(): List<Category> = categoryDao.getCategory()
+    override suspend fun getMyCategory(): List<Category> = categoryDao.getMyCategory()
 
     override suspend fun insert(category: Category) = categoryDao.insert(category)
 

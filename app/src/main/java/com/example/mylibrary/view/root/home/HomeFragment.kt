@@ -5,13 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.databinding.FragmentHomeBinding
+import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment: Fragment() {
     private var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
+
+    private val viewModel: HomeViewModel by viewModels()
+
+    private val bookAdapter: HomeAdapter by lazy {
+        HomeAdapter(bookItemOnClickListener)
+    }
+
+    private val bookItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
+        when (args?.view?.id) {
+            //R.id.lottie_iuserbook_bookmark -> deleteBookMark(args.item as ItemUserBookBinding, args.position)
+            //R.id.card_iuserbook_innercontainer -> showBookDetail(args)
+        }
+    }
+
+    private val bookObserver: (List<Book>) -> Unit = { book ->
+        bookAdapter.apply {
+            content = book as MutableList<Book>
+            notifyDataSetChanged()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,6 +43,22 @@ class HomeFragment: Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        observeData()
+        initAdapter()
+        viewModel.getMyBook()
+    }
+
+    private fun initAdapter() {
+        binding.recyclerHomePopular.adapter = bookAdapter
+    }
+
+    private fun observeData() {
+        viewModel.book.observe(viewLifecycleOwner, bookObserver)
     }
 
     override fun onDestroyView() {

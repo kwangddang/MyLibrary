@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.mylibrary.data.room.dao.BookDao
-import com.example.mylibrary.data.room.dao.CategoryDao
-import com.example.mylibrary.data.room.entity.Book
-import com.example.mylibrary.data.room.entity.Category
+import com.example.mylibrary.data.dao.BookDao
+import com.example.mylibrary.data.dao.CategoryDao
+import com.example.mylibrary.data.entity.room.Book
+import com.example.mylibrary.data.entity.room.Category
 
 @Database(entities = [Book::class, Category::class], version = 1)
 abstract class BookDatabase : RoomDatabase() {

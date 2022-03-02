@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.mylibrary.common.KotPrefModel
 import com.example.mylibrary.databinding.FragmentFacebookUsernameBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +18,7 @@ class FacebookUsernameFragment: Fragment() {
     val binding get() = _binding!!
 
     private val btnOnClickListener: (View) -> Unit = {
+        KotPrefModel.loginMethod = "facebook"
         viewModel.setUserInfo(binding.editFacebookUsernameInput.text.toString())
         Navigation.findNavController(binding.root).navigate(FacebookUsernameFragmentDirections.actionFacebookUsernameFragmentToRootFragment())
     }

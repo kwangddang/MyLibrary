@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.mylibrary.common.TagConstant
-import com.example.mylibrary.data.room.entity.Category
+import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs

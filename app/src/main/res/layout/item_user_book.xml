@@ -8,7 +8,7 @@
 
         <variable
             name="book"
-            type="com.example.mylibrary.data.room.entity.Book" />
+            type="com.example.mylibrary.data.entity.room.Book" />
 
         <variable
             name="onClickItem"
@@ -34,8 +34,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_iuserbook"
-            android:layout_width="256dp"
-            android:layout_height="256dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:background="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -1,8 +1,8 @@
 package com.example.mylibrary.di
 
 import com.example.mylibrary.data.database.BookDatabase
-import com.example.mylibrary.data.room.dao.BookDao
-import com.example.mylibrary.data.room.dao.CategoryDao
+import com.example.mylibrary.data.dao.BookDao
+import com.example.mylibrary.data.dao.CategoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

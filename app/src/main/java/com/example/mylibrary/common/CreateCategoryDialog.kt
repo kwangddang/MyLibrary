@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import com.example.mylibrary.data.room.entity.Category
+import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.DlgCreateCategoryBinding
 import com.example.mylibrary.view.edit.EditCategoryFragment
 import com.example.mylibrary.view.edit.EditCategoryViewModel
@@ -70,7 +70,7 @@ class CreateCategoryDialog: DialogFragment() {
 
     private fun insertCategory() {
         if (parentFragment is UserFragment) {
-            userViewModel.insertCategory(Category(binding.editCreateCategoryCreation.text.toString()))
+            userViewModel.insertMyCategory(Category(binding.editCreateCategoryCreation.text.toString()))
         } else if (parentFragment is EditCategoryFragment) {
             editCategoryViewModel.insertCategory(Category(binding.editCreateCategoryCreation.text.toString()))
         }

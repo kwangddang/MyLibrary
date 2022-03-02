@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.mylibrary.common.showToast
@@ -20,7 +19,7 @@ class DeleteCategoryDialog(private val category: String): DialogFragment() {
         if(category == "전체")
             showToast("'전체' 폴더는 삭제하실 수 없습니다.")
         else
-            viewModel.deleteCategory(category)
+            viewModel.deleteMyCategory(category)
         dismiss()
     }
 

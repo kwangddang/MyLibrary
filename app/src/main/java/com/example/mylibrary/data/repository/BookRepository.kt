@@ -1,19 +1,19 @@
 package com.example.mylibrary.data.repository
 
-import com.example.mylibrary.data.room.entity.Book
+import com.example.mylibrary.data.entity.room.Book
 
 interface BookRepository {
     suspend fun getMyBook(): List<Book>
 
     suspend fun checkMyBook(isbn: String): String
 
-    suspend fun getCategoryBook(category: String): List<Book>
+    suspend fun getMyCategoryBook(category: String): List<Book>
 
-    suspend fun setBookCategory(category: String, isbn: String)
+    suspend fun setMyBookCategory(category: String, isbn: String)
 
     suspend fun insert(book: Book)
 
     suspend fun delete(isbn: String)
 
-    suspend fun deleteBookCategory(category: String)
+    suspend fun deleteMyBookCategory(category: String)
 }

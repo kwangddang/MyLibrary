@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.root.user
+package com.example.mylibrary.view.root.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,29 +7,27 @@ import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.databinding.ItemUserBookBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 
-class UserBookAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit, private val itemOnLongClickListener: (ItemClickArgs?) -> Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var content = mutableListOf<Book>()
 
-    inner class UserBookViewHolder(private val binding: ItemUserBookBinding): RecyclerView.ViewHolder(binding.root){
+    inner class HomeViewHolder(private val binding: ItemUserBookBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(book: Book, position: Int){
             binding.book = book
             binding.setOnClickItem { view ->
                 itemOnClickListener(ItemClickArgs(binding,view, position))
             }
-            binding.setOnLongClickItem { view ->
-                itemOnLongClickListener(ItemClickArgs(binding,view,position))
-            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return UserBookViewHolder(ItemUserBookBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return HomeViewHolder(ItemUserBookBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as UserBookViewHolder).bind(content[position],position)
+        (holder as HomeViewHolder).bind(content[position],position)
     }
 
     override fun getItemCount(): Int = content.size
+
 }

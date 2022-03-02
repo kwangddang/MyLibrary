@@ -6,7 +6,7 @@
     <data>
         <variable
             name="category"
-            type="com.example.mylibrary.data.room.entity.Category" />
+            type="com.example.mylibrary.data.entity.room.Category" />
 
         <variable
             name="onClickItem"
