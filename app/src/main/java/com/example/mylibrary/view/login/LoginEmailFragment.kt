@@ -21,12 +21,14 @@ class LoginEmailFragment: Fragment() {
 
     private val viewModel: LoginViewModel by viewModels({requireParentFragment()})
 
-    private val emailSuccessObserver: (Any?) -> Unit = {
-        if(it == null){
-            showToast(requireContext(),"유효하지 않은 계정입니다. 다시 한번 입력해주세요.")
-        } else{
-            KotPrefModel.loginMethod = "email"
-            Navigation.findNavController(binding.root).navigate(LoginEmailFragmentDirections.actionLoginEmailFragmentToRootFragment())
+    private val emailSuccessObserver: (Boolean?) -> Unit = {
+        when(it){
+            true -> {
+                KotPrefModel.loginMethod = "email"
+                Navigation.findNavController(binding.root).navigate(LoginEmailFragmentDirections.actionLoginEmailFragmentToRootFragment())
+                viewModel.initSuccessValue()
+            }
+            false -> showToast(requireContext(),"유효하지 않은 계정입니다. 다시 한번 입력해주세요.")
         }
     }
 

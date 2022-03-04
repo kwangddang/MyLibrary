@@ -57,7 +57,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="200dp"
             android:text="@string/btn_facebook_username_confirm"
-            app:backgroundTint="@color/secondaryDarkColor"/>
+            app:backgroundTint="@color/secondaryColor"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_facebook_username_start_56dp"

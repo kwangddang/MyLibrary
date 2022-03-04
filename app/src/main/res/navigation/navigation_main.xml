@@ -83,5 +83,17 @@
         android:id="@+id/settingFragment"
         android:name="com.example.mylibrary.view.setting.SettingFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/fragment_setting"/>
+        tools:layout="@layout/fragment_setting">
+        <action
+            android:id="@+id/action_settingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_settingUsernameFragment"
+            app:destination="@id/settingUsernameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingUsernameFragment"
+        android:name="com.example.mylibrary.view.setting.SettingUsernameFragment"
+        android:label="SettingUsernameFragment"
+        tools:layout="@layout/fragment_setting_username"/>
 </navigation>

@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class NetworkModule {
+object NetworkModule {
 
     @Singleton
     @Provides
@@ -32,14 +32,6 @@ class NetworkModule {
             }
         }
     }
-
-    @Singleton
-    @Provides
-    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
-
-    @Singleton
-    @Provides
-    fun provideFirebaseDB(): DatabaseReference = Firebase.database.reference
 
     @Singleton
     @Provides

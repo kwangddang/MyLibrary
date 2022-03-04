@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mylibrary.data.entity.firebase.User
-import com.example.mylibrary.data.repository.BookRepository
-import com.example.mylibrary.data.repository.CategoryRepository
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
+import com.example.mylibrary.data.repository.BookRepository
+import com.example.mylibrary.data.repository.CategoryRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -104,18 +104,13 @@ class UserViewModel @Inject constructor(
     fun getUserBook(){
         firebaseDB.child("User").child(userId).child("category").get().addOnCompleteListener { task ->
             task.result.children.forEach { book ->
-                Log.d("Test",book.key.toString())
-                Log.d("Test",book.value.toString())
             }
         }
     }
 
     fun getUserCategoryBook(category: String){
         firebaseDB.child("User").child(userId).child("category").child(category).get().addOnSuccessListener {
-            Log.d("Test",it.toString())
-            Log.d("Test",it.children.toString())
-            Log.d("Test",it.key.toString())
-            Log.d("Test",it.value.toString())
+
         }
 
         firebaseDB.child("User").child(userId).child("category").child(category).get().addOnCompleteListener {
@@ -131,7 +126,6 @@ class UserViewModel @Inject constructor(
     fun getUserInfo() {
         firebaseDB.child("User").child(userId).get().addOnSuccessListener { data ->
             val userInfo = data.getValue(User::class.java)
-            Log.d("Test",userInfo.toString())
             _user.postValue(userInfo!!)
         }
     }

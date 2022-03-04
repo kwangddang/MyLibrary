@@ -11,18 +11,15 @@
     <color name="primaryColor">#ffffff</color>
     <color name="primaryLightColor">#ffffff</color>
     <color name="primaryDarkColor">#cccccc</color>
-    <color name="secondaryColor">#f4f6fa</color>
-    <color name="secondaryLightColor">#ffffff</color>
-    <color name="secondaryDarkColor">#c1c3c7</color>
+    <color name="secondaryColor">#75d36a</color>
+    <color name="secondaryLightColor">#a8ff9a</color>
+    <color name="secondaryDarkColor">#41a13c</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
 
-    <color name="btn_email">#6CBA5E</color>
-
-
     <color name="gray">#8c8c8c</color>
     <color name="divider">#EFEFEF</color>
-    <color name="background">#F6F6F6</color>
+    <color name="background">#f4f6fa</color>
     <color name="edit_background">#EFEFEF</color>
     <color name="edit_background_stroke">#DFDFDF</color>
 </resources>

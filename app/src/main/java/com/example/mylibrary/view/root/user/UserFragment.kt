@@ -1,7 +1,6 @@
 package com.example.mylibrary.view.root.user
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.FragmentUserBinding
 import com.example.mylibrary.databinding.ItemUserBookBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
-import com.example.mylibrary.view.root.RootFragment
 import com.example.mylibrary.view.root.RootFragmentDirections
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
@@ -104,20 +102,21 @@ class UserFragment : Fragment() {
     ): View? {
         _binding = FragmentUserBinding.inflate(inflater, container, false)
 
-        initUser()
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getUser()
+        getCategory()
         observeData()
-        refresh()
         initAdapter()
         setOnClickListener()
     }
 
-    private fun initUser(){
+    private fun getUser(){
         viewModel.getUserInfo()
     }
 
@@ -127,8 +126,7 @@ class UserFragment : Fragment() {
             .navigate(RootFragmentDirections.actionRootFragmentToSettingFragment()) }
     }
 
-    fun refresh() {
-        Log.d("Test",KotPrefModel.loginMethod)
+    fun getCategory() {
         if(KotPrefModel.loginMethod == "noAccount"){
             viewModel.getMyBook()
             viewModel.getMyCategory()

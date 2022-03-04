@@ -2,6 +2,7 @@ package com.example.mylibrary.view.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,6 @@ class LoginFragment: Fragment() {
             val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
             viewModel.facebookLogin(credential)
         }
-
         override fun onCancel() {
         }
 
@@ -41,12 +41,13 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private val facebookSuccessObserver: (Any?) -> Unit = {
-        if(it == null){
-            Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToFacebookUsernameFragment())
-        } else{
-            KotPrefModel.loginMethod = "facebook"
-            Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
+    private val facebookSuccessObserver: (Boolean?) -> Unit = {
+        when(it){
+            true -> {
+                KotPrefModel.loginMethod = "facebook"
+                Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
+            }
+            false -> Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToFacebookUsernameFragment())
         }
     }
 
