@@ -95,6 +95,7 @@ class LoginFragment: Fragment() {
             setPermissions("email","public_profile")
             fragment = this@LoginFragment
             registerCallback(callbackManager,facebookCallback)
+
         }
     }
 

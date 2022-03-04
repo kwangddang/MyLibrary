@@ -87,6 +87,7 @@ fun showToast(context: Context, text: String){
 }
 
 fun Fragment.rootFrom1Depth(): RootFragment = (parentFragment as RootFragment)
+fun Fragment.rootFrom2Depth(): RootFragment = (parentFragment?.parentFragment as RootFragment)
 
 fun Fragment.signupFrom2Depth(): SignupFragment = (parentFragment?.parentFragment as SignupFragment)
 

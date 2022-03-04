@@ -46,6 +46,7 @@ class SettingUsernameFragment: Fragment() {
     ): View? {
         _binding = FragmentSettingUsernameBinding.inflate(inflater,container,false)
         binding.vm = viewModel
+
         return binding.root
     }
 

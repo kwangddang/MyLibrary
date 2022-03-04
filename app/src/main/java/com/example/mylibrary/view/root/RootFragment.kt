@@ -46,7 +46,7 @@ class RootFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        SELECT = SELECTED_HOME
         initChildFragment()
     }
 
@@ -151,12 +151,10 @@ class RootFragment: Fragment() {
         _binding = null
     }
 
-
     companion object{
         const val SELECTED_HOME = 1
         const val SELECTED_SEARCH = 2
         const val SELECTED_USER = 3
         var SELECT = SELECTED_HOME
     }
-
 }

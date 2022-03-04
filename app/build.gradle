@@ -62,7 +62,7 @@ def okhttp_version = "4.6.0"
 def firebase_bom_version = "29.1.0"
 def firebase_db_version = "20.0.3"
 def firebase_auth_version = "20.0.4"
-def facebooklogin_version = "[8,9)"
+def facebooklogin_version = "12.3.0"
 def kotpref_version = "2.13.1"
 dependencies {
 
