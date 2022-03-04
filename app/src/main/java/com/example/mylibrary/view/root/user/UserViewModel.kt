@@ -90,9 +90,6 @@ class UserViewModel @Inject constructor(
 
     fun getUserCategory(){
         val tempList = mutableListOf<Category>()
-//        val book = mutableMapOf<String,Any>()
-//        book["블랭"] = "19970411"
-//        db.updateChildren(book)
         firebaseDB.child("User").child(userId).child("category").get().addOnCompleteListener { task ->
             task.result.children.forEach { category ->
                 tempList.add(Category(category.key.toString()))

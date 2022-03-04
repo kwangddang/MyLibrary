@@ -70,8 +70,8 @@ class LoginFragment: Fragment() {
         setTransparentStatusBar()
         autoLogin()
         observeData()
-        setFacebookLogin()
         setOnClickListeners()
+        setFacebookLogin()
     }
 
     private fun autoLogin(){
@@ -95,7 +95,6 @@ class LoginFragment: Fragment() {
             setPermissions("email","public_profile")
             fragment = this@LoginFragment
             registerCallback(callbackManager,facebookCallback)
-
         }
     }
 

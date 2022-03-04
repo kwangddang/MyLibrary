@@ -9,7 +9,7 @@ import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 
 class UserCategoryAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit, private val itemOnLongClickListener: (ItemClickArgs?) -> Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var content = mutableListOf<Category>()
+    var content = listOf<Category>()
 
     inner class UserCategoryViewHolder(private val binding: ItemUserCategoryBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category, position: Int){
@@ -28,8 +28,11 @@ class UserCategoryAdapter(private val itemOnClickListener: (ItemClickArgs?) -> U
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as UserCategoryViewHolder).bind(content[position],position)
+        if(position == 0)
+                (holder as UserCategoryViewHolder).bind(Category("전체"),position)
+        else
+                (holder as UserCategoryViewHolder).bind(content[position - 1],position)
     }
 
-    override fun getItemCount(): Int = content.size
+    override fun getItemCount(): Int = content.size + 1
 }

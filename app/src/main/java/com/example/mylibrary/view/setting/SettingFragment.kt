@@ -34,7 +34,7 @@ class SettingFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingBinding.inflate(inflater,container,false)
-
+        binding.vm = viewModel
         return binding.root
     }
 

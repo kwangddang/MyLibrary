@@ -72,17 +72,15 @@ class UserFragment : Fragment() {
     }
 
     private val userCategoryObserver: (List<Category>) -> Unit = { category ->
-        val list = setDefaultItem(category)
         categoryAdapter.apply {
-            content = list
+            content = category
             notifyDataSetChanged()
         }
     }
 
     private val myCategoryObserver: (List<Category>) -> Unit = { category ->
-        val list = setDefaultItem(category)
         categoryAdapter.apply {
-            content = list
+            content = category
             notifyDataSetChanged()
         }
     }
@@ -171,10 +169,5 @@ class UserFragment : Fragment() {
 //        binding.textUserDesc.text = filteringText(book.description)
 //    }
 
-    private fun setDefaultItem(category: List<Category>): MutableList<Category> {
-        val list = category as MutableList<Category>
-        list.add(0, Category("전체"))
-        return list
-    }
 }
 
