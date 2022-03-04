@@ -8,7 +8,7 @@
 
         <variable
             name="book"
-            type="com.example.mylibrary.data.dto.response.BookInfo"/>
+            type="com.example.mylibrary.data.dto.response.BookInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,10 +21,10 @@
             android:id="@+id/img_dlg_book_detail"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/view_dlg_book_detail_divider"
             app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_dlg_book_detail_title"
-            app:layout_constraintBottom_toTopOf="@id/view_dlg_book_detail_divider"
             bind:imageBook="@{book.image}"
             tools:background="@color/secondaryDarkColor" />
 
@@ -99,13 +99,25 @@
             bind:textPrice="@{book.price}"
             tools:text="15000원" />
 
+        <RatingBar
+            android:id="@+id/rating_dlg_book_detail"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:numStars="5"
+            android:paddingBottom="16dp"
+            android:stepSize="1"
+            app:layout_constraintStart_toEndOf="@id/img_dlg_book_detail"
+            app:layout_constraintTop_toBottomOf="@id/text_dlg_book_detail_label_price" />
+
         <View
             android:id="@+id/view_dlg_book_detail_divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginHorizontal="16dp"
             android:background="#373737"
-            app:layout_constraintBottom_toBottomOf="@id/text_dlg_book_detail_label_price"
+            app:layout_constraintBottom_toBottomOf="@id/rating_dlg_book_detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.309"
             app:layout_constraintStart_toStartOf="@id/text_dlg_book_detail_label_price" />
@@ -120,7 +132,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_dlg_book_detail"
             bind:textDescription="@{book.description}"
-            tools:text="미움 받을 용기입니다."/>
+            tools:text="미움 받을 용기입니다." />
 
         <TextView
             android:id="@+id/text_dlg_book_detail_link"
@@ -128,10 +140,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_ihome_link"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/lottie_dlg_book_detail_bookmark" />
+
+        <TextView
+            android:id="@+id/text_dlg_book_detail_review"
+            style="@style/SubHeadBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_dlg_book_detail_review"
+            android:textSize="12sp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"
+            app:layout_constraintEnd_toStartOf="@id/text_dlg_book_detail_review_num"
+            app:layout_constraintStart_toEndOf="@id/text_dlg_book_detail_link"
+            app:layout_constraintTop_toTopOf="@id/lottie_dlg_book_detail_bookmark" />
+
+        <TextView
+            android:id="@+id/text_dlg_book_detail_review_num"
+            style="@style/SubHeadBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"
+            app:layout_constraintStart_toEndOf="@id/text_dlg_book_detail_review"
+            app:layout_constraintEnd_toStartOf="@id/lottie_dlg_book_detail_bookmark"
             app:layout_constraintTop_toTopOf="@id/lottie_dlg_book_detail_bookmark"
-            app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"/>
+            android:text="(3)"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_dlg_book_detail_bookmark"
