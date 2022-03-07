@@ -1,6 +1,7 @@
 package com.example.mylibrary.view.root.user
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.mylibrary.R
-import com.example.mylibrary.common.CreateCategoryDialog
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.TagConstant
-import com.example.mylibrary.common.rootFrom1Depth
+import com.example.mylibrary.common.*
 import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.FragmentUserBinding
+import com.example.mylibrary.databinding.ItemSearchBinding
 import com.example.mylibrary.databinding.ItemUserBookBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.RootFragmentDirections
@@ -39,22 +38,25 @@ class UserFragment : Fragment() {
 
     private val bookItemOnLongClickListener: (ItemClickArgs?) -> Boolean = { args ->
         Navigation.findNavController(rootFrom1Depth().binding.root)
-            .navigate(RootFragmentDirections.actionRootFragmentToEditCategoryFragment((args?.item as ItemUserBookBinding).book!!.isbn))
+            .navigate(RootFragmentDirections.actionRootFragmentToEditCategoryFragment((args?.item as ItemUserBookBinding).book!!))
         true
     }
 
     private val bookItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-        when (args?.view?.id) {
-            //R.id.lottie_iuserbook_bookmark -> deleteBookMark(args.item as ItemUserBookBinding, args.position)
-            //R.id.card_iuserbook_innercontainer -> showBookDetail(args)
-        }
+        BookDetailDialog(bookToBookInfo((args?.item as ItemUserBookBinding).book!!), viewModel).show(childFragmentManager,TagConstant.BOOK_DETAIL_DIALOG)
     }
 
     private val categoryItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when(args?.view?.id){
             R.id.constraint_iusercategory_container -> {
-                if(args.position == 0) viewModel.getMyBook()
-                else viewModel.getMyCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
+                if(KotPrefModel.loginMethod == "noAccount") {
+                    if(args.position == 0) viewModel.getMyBook()
+                    else viewModel.getMyCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
+                }
+                else{
+                    if(args.position == 0) viewModel.getUserBook()
+                    else viewModel.getUserCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
+                }
             }
         }
     }
@@ -64,21 +66,14 @@ class UserFragment : Fragment() {
         true
     }
 
-    private val myBookObserver: (List<Book>) -> Unit = { book ->
+    private val bookObserver: (List<Book>) -> Unit = { book ->
         bookAdapter.apply {
             content = book as MutableList<Book>
             notifyDataSetChanged()
         }
     }
 
-    private val userCategoryObserver: (List<Category>) -> Unit = { category ->
-        categoryAdapter.apply {
-            content = category
-            notifyDataSetChanged()
-        }
-    }
-
-    private val myCategoryObserver: (List<Category>) -> Unit = { category ->
+    private val categoryObserver: (List<Category>) -> Unit = { category ->
         categoryAdapter.apply {
             content = category
             notifyDataSetChanged()
@@ -86,7 +81,7 @@ class UserFragment : Fragment() {
     }
 
     private val categoryAddOnClickListener: (View) -> Unit = {
-        CreateCategoryDialog().show(childFragmentManager, TagConstant.CREATE_CATEGORY_DIALOG)
+        CreateCategoryDialog(viewModel).show(childFragmentManager, TagConstant.CREATE_CATEGORY_DIALOG)
     }
 
     private val userObserver: (User) -> Unit = { user ->
@@ -107,15 +102,10 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getUser()
-        getCategory()
         observeData()
+        refresh()
         initAdapter()
         setOnClickListener()
-    }
-
-    private fun getUser(){
-        viewModel.getUserInfo()
     }
 
     private fun setOnClickListener(){
@@ -124,20 +114,21 @@ class UserFragment : Fragment() {
             .navigate(RootFragmentDirections.actionRootFragmentToSettingFragment()) }
     }
 
-    fun getCategory() {
+    fun refresh() {
         if(KotPrefModel.loginMethod == "noAccount"){
             viewModel.getMyBook()
             viewModel.getMyCategory()
         } else{
+            viewModel.getUserInfo()
             viewModel.getUserCategory()
+            viewModel.getUserBook()
         }
     }
 
     private fun observeData() {
         viewModel.user.observe(viewLifecycleOwner,userObserver)
-        viewModel.book.observe(viewLifecycleOwner, myBookObserver)
-        viewModel.myCategory.observe(viewLifecycleOwner, myCategoryObserver)
-        viewModel.userCategory.observe(viewLifecycleOwner,userCategoryObserver)
+        viewModel.book.observe(viewLifecycleOwner, bookObserver)
+        viewModel.category.observe(viewLifecycleOwner, categoryObserver)
     }
 
     private fun initAdapter() {

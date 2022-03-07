@@ -3,13 +3,15 @@ package com.example.mylibrary.view.root.user
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.common.bookInfoToBook
+import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.data.repository.BookRepository
 import com.example.mylibrary.data.repository.CategoryRepository
-import com.google.firebase.auth.FirebaseAuth
+import com.example.mylibrary.data.repository.FirebaseRepository
 import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -17,14 +19,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val bookRepository: BookRepository,
     private val categoryRepository: CategoryRepository,
-    private val firebaseAuth: FirebaseAuth,
-    private val firebaseDB: DatabaseReference
-): ViewModel() {
+    private val firebaseRepository: FirebaseRepository,
+    @Named("temp") private val firebaseDB: DatabaseReference
+) : DialogViewModel() {
+
+    private val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
@@ -32,42 +37,35 @@ class UserViewModel @Inject constructor(
     private val _book = MutableLiveData<List<Book>>()
     val book: LiveData<List<Book>> get() = _book
 
-    private val _myCategory = MutableLiveData<List<Category>>()
-    val myCategory: LiveData<List<Category>> get() = _myCategory
+    private val _category = MutableLiveData<List<Category>>()
+    val category: LiveData<List<Category>> get() = _category
 
-    private val _userCategory = MutableLiveData<List<Category>>()
-    val userCategory: LiveData<List<Category>> get() = _userCategory
+    private val _bookmarkStatus = MutableLiveData<Boolean?>()
+    override val bookmarkStatus: LiveData<Boolean?> get() = _bookmarkStatus
 
-    private val userId = firebaseAuth.currentUser?.uid.orEmpty()
-
-    fun getMyBook(){
+////////////////////////////////////////////////////////////////////////////////////////////////////
+    fun getMyBook() {
         CoroutineScope(Dispatchers.IO).launch {
             _book.postValue(bookRepository.getMyBook())
         }
     }
 
-    fun getMyCategory(){
+    fun getMyCategory() {
         CoroutineScope(Dispatchers.IO).launch {
             categoryRepository.getMyCategory().forEach {
                 firebaseDB.child("Category").child(it.category).setValue(it)
             }
-            _myCategory.postValue(categoryRepository.getMyCategory())
+            _category.postValue(categoryRepository.getMyCategory())
         }
     }
 
-    fun getMyCategoryBook(category: String){
+    fun getMyCategoryBook(category: String) {
         CoroutineScope(Dispatchers.IO).launch {
             _book.postValue(bookRepository.getMyCategoryBook(category))
         }
     }
 
-    fun deleteMyBook(isbn:String){
-        CoroutineScope(Dispatchers.IO).launch {
-            bookRepository.delete(isbn)
-        }
-    }
-
-    fun deleteMyCategory(category: String){
+    fun deleteMyCategory(category: String) {
         runBlocking {
             CoroutineScope(Dispatchers.IO).launch {
                 categoryRepository.delete(category)
@@ -78,7 +76,19 @@ class UserViewModel @Inject constructor(
         getMyCategory()
     }
 
-    fun insertMyCategory(category: Category){
+    override fun setMyBook(book: Book){
+        CoroutineScope(Dispatchers.IO).launch {
+            bookRepository.insert(book)
+        }
+    }
+
+    override fun deleteMyBook(isbn: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            bookRepository.delete(isbn)
+        }
+    }
+
+    override fun setMyCategory(category: Category) {
         runBlocking {
             CoroutineScope(Dispatchers.IO).launch {
                 categoryRepository.insert(category)
@@ -87,43 +97,84 @@ class UserViewModel @Inject constructor(
         getMyCategory()
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    fun getUserCategory(){
+
+    fun getUserCategory() {
         val tempList = mutableListOf<Category>()
-        firebaseDB.child("User").child(userId).child("category").get().addOnCompleteListener { task ->
-            task.result.children.forEach { category ->
+        firebaseRepository.getCategory().addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { category ->
                 tempList.add(Category(category.key.toString()))
             }
-            _userCategory.postValue(tempList)
+            _category.postValue(tempList)
         }
     }
 
-    fun getUserBook(){
-        firebaseDB.child("User").child(userId).child("category").get().addOnCompleteListener { task ->
-            task.result.children.forEach { book ->
+    fun getUserBook() {
+        val tempList = mutableListOf<Book>()
+        firebaseRepository.getAllBook().addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { book ->
+                tempList.add(bookInfoToBook(book.getValue(BookInfo::class.java)!!))
+            }
+            _book.postValue(tempList)
+        }
+    }
+
+    fun deleteUserCategory(category: String){
+        firebaseRepository.deleteCategory(category).addOnSuccessListener {
+            getUserCategory()
+        }
+    }
+
+    fun getUserCategoryBook(category: String) {
+        val tempList = mutableListOf<Book>()
+        firebaseRepository.getCategoryBook(category).addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { book ->
+                tempList.add(book.getValue(Book::class.java)!!)
+            }
+            _book.postValue(tempList)
+        }
+    }
+
+    fun setUserBookCategory(category: String, isbn: String) {
+
+    }
+
+    override fun setUserCategory(category: String) {
+        firebaseRepository.checkCategory(category).addOnSuccessListener { dataSnapshot ->
+            if (!dataSnapshot.hasChild(category)) {
+                firebaseRepository.setCategory(category).addOnSuccessListener {
+                    getUserCategory()
+                }
+            } else {
+                Log.d("Test", "이미 있음")
             }
         }
     }
 
-    fun getUserCategoryBook(category: String){
-        firebaseDB.child("User").child(userId).child("category").child(category).get().addOnSuccessListener {
-
-        }
-
-        firebaseDB.child("User").child(userId).child("category").child(category).get().addOnCompleteListener {
-
-        }
-    }
-
-    fun setUserBookCategory(){
-
-    }
-
-
     fun getUserInfo() {
-        firebaseDB.child("User").child(userId).get().addOnSuccessListener { data ->
-            val userInfo = data.getValue(User::class.java)
+        firebaseRepository.getUser().addOnSuccessListener { dataSnapshot ->
+            val userInfo = dataSnapshot.getValue(User::class.java)
             _user.postValue(userInfo!!)
+        }
+    }
+
+    override fun setUserBook(book: BookInfo) {
+        firebaseRepository.setBookmark(book)
+    }
+
+    override fun deleteUserBook(isbn: String) {
+        firebaseRepository.deleteBookmark(isbn)
+    }
+
+    override fun getBookmarked(isbn: String){
+        firebaseRepository.getBookmarked(isbn).addOnSuccessListener { dataSnapshot ->
+            if(dataSnapshot.hasChild(uid))
+                _bookmarkStatus.postValue(true)
+            else
+                _bookmarkStatus.postValue(false)
+        }.addOnFailureListener{
+            _bookmarkStatus.postValue(false)
         }
     }
 }

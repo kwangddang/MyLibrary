@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.showToast
 import com.example.mylibrary.databinding.FragmentFacebookUsernameBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,12 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class FacebookUsernameFragment: Fragment() {
     private var _binding: FragmentFacebookUsernameBinding? = null
     val binding get() = _binding!!
-
-    private val btnOnClickListener: (View) -> Unit = {
-        KotPrefModel.loginMethod = "facebook"
-        viewModel.setUserInfo(binding.editFacebookUsernameInput.text.toString())
-        Navigation.findNavController(binding.root).navigate(FacebookUsernameFragmentDirections.actionFacebookUsernameFragmentToRootFragment())
-    }
 
     private val usernameObserver:(String) -> Unit = { username ->
         if(username.length < 2)
@@ -50,10 +45,23 @@ class FacebookUsernameFragment: Fragment() {
 
     private fun observeData(){
         viewModel.username.observe(viewLifecycleOwner,usernameObserver)
+        viewModel.facebookUsernameSuccess.observe(viewLifecycleOwner,facebookUsernameObserver)
+    }
+    private val facebookUsernameObserver: (Boolean?) -> Unit = {
+        when(it){
+            true -> {
+                KotPrefModel.loginMethod = "facebook"
+                Navigation.findNavController(binding.root).navigate(FacebookUsernameFragmentDirections.actionFacebookUsernameFragmentToRootFragment())
+                viewModel.initSuccessValue()
+            }
+            false -> {
+                showToast("닉네임 설정에 실패하였습니다. 다시 시도해주세요.")
+            }
+        }
     }
 
     private fun setOnClickListeners(){
-        binding.btnFacebookUsernameConfirm.setOnClickListener(btnOnClickListener)
+        binding.btnFacebookUsernameConfirm.setOnClickListener{viewModel.setUserInfo(binding.editFacebookUsernameInput.text.toString())}
     }
 
     override fun onDestroyView() {

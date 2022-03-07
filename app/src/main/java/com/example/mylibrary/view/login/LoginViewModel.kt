@@ -1,72 +1,76 @@
 package com.example.mylibrary.view.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mylibrary.data.entity.firebase.User
+import com.example.mylibrary.data.repository.FirebaseRepository
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val firebaseAuth: FirebaseAuth,
-    private val firebaseDB: DatabaseReference
+    private val firebaseRepository: FirebaseRepository,
 ) : ViewModel() {
 
     private val _autoLoginSuccess = MutableLiveData<Boolean>()
     val autoLoginSuccess: LiveData<Boolean> get() = _autoLoginSuccess
 
-    private val _facebookSuccess = MutableLiveData<Boolean?>()
-    val facebookSuccess: LiveData<Boolean?> get() = _facebookSuccess
+    private val _facebookLoginSuccess = MutableLiveData<Boolean?>()
+    val facebookLoginSuccess: LiveData<Boolean?> get() = _facebookLoginSuccess
 
-    private val _emailSuccess = MutableLiveData<Boolean?>()
-    val emailSuccess: LiveData<Boolean?> get() = _emailSuccess
+    private val _emailLoginSuccess = MutableLiveData<Boolean?>()
+    val emailLoginSuccess: LiveData<Boolean?> get() = _emailLoginSuccess
 
-    private val userId = firebaseAuth.currentUser?.uid.orEmpty()
+    private val _facebookUsernameSuccess = MutableLiveData<Boolean?>()
+    val facebookUsernameSuccess: LiveData<Boolean?> get() = _facebookUsernameSuccess
 
     val username = MutableLiveData("")
 
     fun autoLogin(){
-        if(firebaseAuth.currentUser != null)
+        if(firebaseRepository.getUserAuth() != null)
             _autoLoginSuccess.postValue(true)
         else
             _autoLoginSuccess.postValue(false)
     }
 
     fun facebookLogin(credential: AuthCredential) {
-        firebaseAuth.signInWithCredential(credential).addOnSuccessListener {
-            checkUsername()
+        firebaseRepository.signInWithFacebook(credential).addOnSuccessListener {
+            getUsername()
         }.addOnFailureListener {
-            _facebookSuccess.postValue(null)
+            _facebookLoginSuccess.postValue(null)
+        }
+    }
+
+    private fun getUsername() {
+        firebaseRepository.getUsername().addOnSuccessListener {
+            _facebookLoginSuccess.postValue(true)
+        }.addOnFailureListener {
+            _facebookLoginSuccess.postValue(false)
         }
     }
 
     fun emailLogin(email: String, password: String){
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-            _emailSuccess.postValue(true)
+        firebaseRepository.signInWithEmail(email,password).addOnSuccessListener {
+            _emailLoginSuccess.postValue(true)
         }.addOnFailureListener {
-            _emailSuccess.postValue(false)
+            _emailLoginSuccess.postValue(false)
         }
     }
 
     fun initSuccessValue(){
-        _facebookSuccess.postValue(null)
-        _emailSuccess.postValue(null)
+        _facebookLoginSuccess.postValue(null)
+        _emailLoginSuccess.postValue(null)
+        _facebookUsernameSuccess.postValue(null)
     }
 
     fun setUserInfo(username: String) {
-        firebaseDB.child("User").child(userId).setValue(User(firebaseAuth.currentUser?.email,username))
-    }
-
-    private fun checkUsername() {
-        firebaseDB.child("User").child(userId).child("username").get().addOnSuccessListener {
-            _facebookSuccess.postValue(true)
+        firebaseRepository.setUser(firebaseRepository.getUserAuth()?.email!!,username).addOnSuccessListener {
+            _facebookUsernameSuccess.postValue(true)
         }.addOnFailureListener {
-            _facebookSuccess.postValue(false)
+            _facebookUsernameSuccess.postValue(false)
         }
     }
+
 }

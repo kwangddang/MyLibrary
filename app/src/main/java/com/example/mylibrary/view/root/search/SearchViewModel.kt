@@ -5,15 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.mylibrary.BaseViewModel
+import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.data.dto.response.BookResponse
-import com.example.mylibrary.data.entity.firebase.Book.UserBook
-import com.example.mylibrary.data.repository.BookRepository
-import com.example.mylibrary.data.repository.NaverRepository
 import com.example.mylibrary.data.entity.room.Book
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
+import com.example.mylibrary.data.repository.BookRepository
+import com.example.mylibrary.data.repository.FirebaseRepository
+import com.example.mylibrary.data.repository.NaverRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +23,13 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val naverRepository: NaverRepository,
     private val bookRepository: BookRepository,
-    private val firebaseAuth: FirebaseAuth,
-    private val firebaseDB: DatabaseReference
-) : BaseViewModel() {
+    private val firebaseRepository: FirebaseRepository
+) : DialogViewModel() {
 
-    private val userId = firebaseAuth.currentUser?.uid.orEmpty()
+    private val _bookmarkStatus = MutableLiveData<Boolean?>()
+    override val bookmarkStatus: LiveData<Boolean?> get() = _bookmarkStatus
+
+    private val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
 
     private val _book = MutableLiveData<BookResponse>()
     val book: LiveData<BookResponse> get() = _book
@@ -55,27 +55,35 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    override fun insertMyBook(book: Book){
+    override fun setMyBook(book: Book){
         CoroutineScope(Dispatchers.IO).launch {
             bookRepository.insert(book)
         }
     }
 
-    override fun insertUserBook(book: UserBook) {
-        //        val book = mutableMapOf<String,Any>()
-//        book["블랭"] = "19970411"
-//        db.updateChildren(book)
-        val db = firebaseDB.child("Book").child(book.isbn).child("Bookmark")
-        val bookmarkCount = mutableMapOf<String,Any>()
-        bookmarkCount["bookmarkCount"] = book.bookmark["bookmarkCount"]?.bookmarkCount!! + 1
-        val bookmarkedBy = mutableMapOf<String,Any>()
-        bookmarkedBy["bookmarkedBy"] = userId
-        db.updateChildren(bookmarkCount)
-        db.updateChildren(bookmarkedBy)
+    override fun setUserBook(book: BookInfo) {
+        firebaseRepository.setBookmark(book)
     }
 
     override fun deleteUserBook(isbn: String) {
-        TODO("Not yet implemented")
+        firebaseRepository.deleteBookmark(isbn)
+    }
+
+    fun getBookmarkCount(isbn: String) {
+        firebaseRepository.getBookmarkCount(isbn).addOnSuccessListener {
+
+        }
+    }
+
+    override fun getBookmarked(isbn: String){
+        firebaseRepository.getBookmarked(isbn).addOnSuccessListener { dataSnapshot ->
+            if(dataSnapshot.hasChild(uid))
+                _bookmarkStatus.postValue(true)
+            else
+                _bookmarkStatus.postValue(false)
+        }.addOnFailureListener{
+            _bookmarkStatus.postValue(false)
+        }
     }
 
 }

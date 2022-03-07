@@ -58,4 +58,5 @@
     <string name="edit_setting_username">두 글자 이상 입력</string>
     <string name="btn_setting_username_confirm">완료</string>
     <string name="text_dlg_book_detail_review"><u>후기</u></string>
+    <string name="text_edit_category_title">카테고리 설정</string>
 </resources>

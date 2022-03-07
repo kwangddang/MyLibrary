@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.mylibrary.data.api.NaverApi
 import com.example.mylibrary.data.dto.response.BookInfo
-import com.example.mylibrary.data.dto.response.BookResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +23,7 @@ class BookPagingSource (
 
             response.bookInfos.forEach { bookInfo ->
                 CoroutineScope(Dispatchers.IO).launch {
-                    bookInfo.isBookMark = bookInfo.isbn == bookRepository.checkMyBook(bookInfo.isbn)
+                    bookInfo.bookmark = bookInfo.isbn == bookRepository.checkMyBook(bookInfo.isbn)
                 }
             }
 

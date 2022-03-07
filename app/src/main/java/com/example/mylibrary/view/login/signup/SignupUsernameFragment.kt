@@ -30,13 +30,16 @@ class SignupUsernameFragment: Fragment() {
             binding.motionSignupUsernameContainer.transitionToEnd()
     }
 
-    private val successObserver: (Any?) -> Unit = {
-        if(it == null){
-            showToast(requireContext(),"오류가 발생하였습니다. 잠시 후 다시 시도해주세요.")
-        } else{
-            Navigation.findNavController(signupFrom2Depth().binding.root).navigate(
-                SignupFragmentDirections.actionSignupFragmentToRootFragment()
-            )
+    private val successObserver: (Boolean?) -> Unit = {
+        when (it) {
+            true -> {
+                Navigation.findNavController(signupFrom2Depth().binding.root).navigate(SignupFragmentDirections.actionSignupFragmentToRootFragment())
+                viewModel.initSuccess()
+            }
+
+            false -> {
+                showToast(requireContext(),"오류가 발생하였습니다. 잠시 후 다시 시도해주세요.")
+            }
         }
     }
 

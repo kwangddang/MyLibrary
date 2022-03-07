@@ -34,9 +34,12 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("textPrice")
-    fun setTextPrice(view: TextView, text: String){
-        view.text = "${text}원"
+    @BindingAdapter("textPrice", "textDiscount")
+    fun setTextPrice(view: TextView, price: String, discount: String){
+        if(discount != "")
+            view.text = "${discount}원"
+        else
+            view.text = "${price}원"
     }
 
     @JvmStatic

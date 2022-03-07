@@ -97,6 +97,7 @@
             app:layout_constraintStart_toEndOf="@id/text_dlg_book_detail_label_publisher"
             app:layout_constraintTop_toTopOf="@id/text_dlg_book_detail_label_price"
             bind:textPrice="@{book.price}"
+            bind:textDiscount="@{book.discount}"
             tools:text="15000원" />
 
         <RatingBar
@@ -175,13 +176,14 @@
             android:id="@+id/lottie_dlg_book_detail_bookmark"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
             android:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_dlg_book_detail_desc"
             app:lottie_autoPlay="false"
             app:lottie_loop="false"
             app:lottie_rawRes="@raw/bookmark"
-            bind:checkBookMark="@{book.isBookMark()}"
+            bind:checkBookMark="@{book.bookmark}"
             tools:src="@drawable/ic_home" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

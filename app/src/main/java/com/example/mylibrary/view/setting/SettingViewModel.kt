@@ -9,11 +9,12 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firebaseDB: DatabaseReference
+    @Named("temp")private val firebaseDB: DatabaseReference
 ): ViewModel() {
 
     private val _user = MutableLiveData<FirebaseUser?>()

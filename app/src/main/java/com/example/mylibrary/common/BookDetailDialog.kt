@@ -6,22 +6,30 @@ import android.content.Intent
 import android.graphics.Point
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.airbnb.lottie.LottieAnimationView
-import com.example.mylibrary.BaseViewModel
+import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.databinding.DlgBookDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: BaseViewModel): DialogFragment() {
+class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: DialogViewModel): DialogFragment() {
 
     private var _binding: DlgBookDetailBinding? = null
     private val binding get() = _binding!!
+
+    private val bookmarkStatusObserver: (Boolean?) -> Unit = { bookmarkStatus ->
+        when(bookmarkStatus){
+            true -> binding.book!!.bookmark = true
+            false -> binding.book!!.bookmark = false
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +43,17 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Ba
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        observeData()
+        getBookmarked()
         setOnClickListeners()
+    }
+
+    private fun observeData(){
+        viewModel.bookmarkStatus.observe(viewLifecycleOwner,bookmarkStatusObserver)
+    }
+
+    private fun getBookmarked(){
+        viewModel.getBookmarked(binding.book!!.isbn)
     }
 
     private fun setOnClickListeners(){
@@ -62,16 +79,23 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Ba
     }
 
     private fun setBookMark(view: LottieAnimationView, item: DlgBookDetailBinding) {
-        if (!(item.book?.isBookMark)!!) {
+        if (!(item.book?.bookmark)!!) {
             val animator = getValueAnimator(0f,0.5f, view)
             animator.start()
-            item.book?.isBookMark = true
-            viewModel.insertMyBook(bookInfoToBook(item.book!!))
+            item.book?.bookmark = true
+            if(KotPrefModel.loginMethod == "noAccount")
+                viewModel.setMyBook(bookInfoToBook(item.book!!))
+            else
+                viewModel.setUserBook(item.book!!)
         } else {
             val animator = getValueAnimator(0.5f,0.0f, view)
             animator.start()
-            item.book?.isBookMark = false
-            viewModel.deleteMyBook(item.book!!.isbn)
+            item.book?.bookmark = false
+
+            if(KotPrefModel.loginMethod == "noAccount")
+                viewModel.deleteMyBook(item.book!!.isbn)
+            else
+                viewModel.deleteUserBook(item.book!!.isbn)
         }
     }
 

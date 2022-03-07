@@ -14,6 +14,7 @@ import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import com.example.mylibrary.common.CreateCategoryDialog
+import com.example.mylibrary.common.KotPrefModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,7 +32,11 @@ class EditCategoryFragment: Fragment() {
     }
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-        viewModel.setBookCategory((args?.item as ItemUserCategoryBinding).category!!.category, navArgs.isbn)
+        if(KotPrefModel.loginMethod == "noAccount")
+            viewModel.setMyBookCategory((args?.item as ItemUserCategoryBinding).category!!.category, navArgs.book.isbn)
+        else
+            viewModel.setUserBookCategory((args?.item as ItemUserCategoryBinding).category!!.category, navArgs.book)
+
         Navigation.findNavController(binding.root).popBackStack()
     }
 
@@ -60,8 +65,8 @@ class EditCategoryFragment: Fragment() {
     }
 
     private fun setOnClickListener(){
-        binding.btnEditCategoryNocontent.setOnClickListener { CreateCategoryDialog().show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
-        binding.textEditCategoryAdd.setOnClickListener { CreateCategoryDialog().show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
+        binding.btnEditCategoryNocontent.setOnClickListener { CreateCategoryDialog(viewModel).show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
+        binding.textEditCategoryAdd.setOnClickListener { CreateCategoryDialog(viewModel).show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
     }
 
     private fun observeData() {
@@ -69,7 +74,10 @@ class EditCategoryFragment: Fragment() {
     }
 
     private fun refresh() {
-        viewModel.getCategory()
+        if(KotPrefModel.loginMethod == "noAccount")
+            viewModel.getMyCategory()
+        else
+            viewModel.getUserCategory()
     }
 
     private fun initAdapter() {

@@ -1,7 +1,6 @@
 package com.example.mylibrary.view.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +49,7 @@ class LoginEmailFragment: Fragment() {
     }
 
     private fun observeData(){
-        viewModel.emailSuccess.observe(viewLifecycleOwner,emailSuccessObserver)
+        viewModel.emailLoginSuccess.observe(viewLifecycleOwner,emailSuccessObserver)
     }
 
     private fun setOnClickListeners(){

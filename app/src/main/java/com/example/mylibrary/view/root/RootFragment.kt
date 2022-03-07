@@ -40,7 +40,7 @@ class RootFragment: Fragment() {
     private val userSetOnClickListener: (View) -> Unit = {
         SELECT = SELECTED_USER
         setSelected()
-        userFragment.getCategory()
+        userFragment.refresh()
         showUserFragment()
     }
 

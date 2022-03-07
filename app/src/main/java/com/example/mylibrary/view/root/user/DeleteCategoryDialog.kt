@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import com.example.mylibrary.common.KotPrefModel
 import com.example.mylibrary.common.showToast
 import com.example.mylibrary.databinding.DlgDeleteCategoryBinding
 
@@ -19,7 +20,7 @@ class DeleteCategoryDialog(private val category: String): DialogFragment() {
         if(category == "전체")
             showToast("'전체' 폴더는 삭제하실 수 없습니다.")
         else
-            viewModel.deleteMyCategory(category)
+            deleteCategory()
         dismiss()
     }
 
@@ -31,6 +32,13 @@ class DeleteCategoryDialog(private val category: String): DialogFragment() {
         _binding = DlgDeleteCategoryBinding.inflate(inflater,container,false)
 
         return binding.root
+    }
+
+    private fun deleteCategory(){
+        if(KotPrefModel.loginMethod == "noAccount")
+            viewModel.deleteMyCategory(category)
+        else
+            viewModel.deleteUserCategory(category)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

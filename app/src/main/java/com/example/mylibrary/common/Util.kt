@@ -15,6 +15,7 @@ import com.example.mylibrary.data.dto.response.BookInfo
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.view.login.signup.SignupFragment
 import com.example.mylibrary.view.root.RootFragment
+import com.google.firebase.database.DatabaseReference
 
 fun bookInfoToBook(bookInfo: BookInfo): Book =
     Book(bookInfo.author,
@@ -24,11 +25,32 @@ fun bookInfoToBook(bookInfo: BookInfo): Book =
         bookInfo.isbn,
         bookInfo.link,
         bookInfo.price,
-        bookInfo.pubdate,
         bookInfo.publisher,
         bookInfo.title,
-        bookInfo.isBookMark,
+        bookInfo.bookmark,
     )
+fun bookToBookInfo(book: Book): BookInfo =
+    BookInfo(
+        book.author,
+        book.description,
+        book.discount,
+        book.image,
+        book.isbn,
+        book.link,
+        book.price,
+        book.publisher,
+        book.title,
+        book.isBookMark
+    )
+
+fun getBookmarkCount(firebaseDB: DatabaseReference, isbn: String): Int {
+    var bookmarkCount = 0
+    firebaseDB.child("Book").child(isbn).child("bookmark").child("bookmarkCount").get().addOnSuccessListener {
+        bookmarkCount = it.value.toString().toInt()
+    }
+    return bookmarkCount
+}
+
 
 fun filteringText(text: String): String = text.replace("<b>","").replace("</b>","")
 
@@ -87,6 +109,7 @@ fun showToast(context: Context, text: String){
 }
 
 fun Fragment.rootFrom1Depth(): RootFragment = (parentFragment as RootFragment)
+
 fun Fragment.rootFrom2Depth(): RootFragment = (parentFragment?.parentFragment as RootFragment)
 
 fun Fragment.signupFrom2Depth(): SignupFragment = (parentFragment?.parentFragment as SignupFragment)

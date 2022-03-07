@@ -23,8 +23,8 @@
         android:label="EditCategoryFragment"
         tools:layout="@layout/fragment_edit_category">
         <argument
-            android:name="isbn"
-            app:argType="string" />
+            android:name="book"
+            app:argType="com.example.mylibrary.data.entity.room.Book" />
     </fragment>
     <fragment
         android:id="@+id/loginEmailFragment"

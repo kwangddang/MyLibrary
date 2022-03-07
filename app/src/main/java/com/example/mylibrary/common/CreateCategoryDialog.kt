@@ -8,23 +8,16 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
+import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.DlgCreateCategoryBinding
-import com.example.mylibrary.view.edit.EditCategoryFragment
-import com.example.mylibrary.view.edit.EditCategoryViewModel
-import com.example.mylibrary.view.root.user.UserFragment
-import com.example.mylibrary.view.root.user.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateCategoryDialog: DialogFragment() {
+class CreateCategoryDialog(private val viewModel: DialogViewModel): DialogFragment() {
 
     private var _binding: DlgCreateCategoryBinding? = null
     private val binding get() = _binding!!
-
-    private val userViewModel: UserViewModel by viewModels({requireParentFragment()})
-    private val editCategoryViewModel: EditCategoryViewModel by viewModels({ requireParentFragment() })
 
     private val searchEditActionListener: (TextView, Int, KeyEvent?) -> Boolean = { view, actionId, event ->
         when(actionId){
@@ -69,10 +62,10 @@ class CreateCategoryDialog: DialogFragment() {
     }
 
     private fun insertCategory() {
-        if (parentFragment is UserFragment) {
-            userViewModel.insertMyCategory(Category(binding.editCreateCategoryCreation.text.toString()))
-        } else if (parentFragment is EditCategoryFragment) {
-            editCategoryViewModel.insertCategory(Category(binding.editCreateCategoryCreation.text.toString()))
+        if (KotPrefModel.loginMethod == "noAccount") {
+            viewModel.setMyCategory(Category(binding.editCreateCategoryCreation.text.toString()))
+        } else {
+            viewModel.setUserCategory(binding.editCreateCategoryCreation.text.toString())
         }
     }
 }

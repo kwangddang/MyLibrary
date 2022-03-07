@@ -13,13 +13,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val bookRepository: BookRepository,
     private val categoryRepository: CategoryRepository,
     private val firebaseAuth: FirebaseAuth,
-    private val firebaseDB: DatabaseReference
+    @Named("temp")private val firebaseDB: DatabaseReference
 ): ViewModel(){
 
     private val _book = MutableLiveData<List<Book>>()

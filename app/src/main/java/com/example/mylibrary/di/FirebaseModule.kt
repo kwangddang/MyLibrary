@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -18,7 +20,18 @@ object FirebaseModule {
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
+    @Named("temp")
     @Singleton
     @Provides
     fun provideFirebaseDB(): DatabaseReference = Firebase.database.reference
+
+    @Named("UserDB")
+    @Singleton
+    @Provides
+    fun provideFirebaseUserDB(): DatabaseReference = Firebase.database.reference.child("User")
+
+    @Named("BookDB")
+    @Singleton
+    @Provides
+    fun provideFirebaseBookDB(): DatabaseReference = Firebase.database.reference.child("Book")
 }

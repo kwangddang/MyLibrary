@@ -23,4 +23,9 @@ abstract class RepositoryModule {
     abstract fun provideCategoryRepository(
         repository: CategoryRepositoryImpl
     ): CategoryRepository
+
+    @Binds
+    abstract fun provideFirebaseRepository(
+        repository: FirebaseRepositoryImpl
+    ): FirebaseRepository
 }
