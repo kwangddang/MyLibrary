@@ -1,34 +1,47 @@
 package com.example.mylibrary.view.root.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mylibrary.data.entity.room.Book
-import com.example.mylibrary.data.repository.BookRepository
-import com.example.mylibrary.data.repository.CategoryRepository
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
+import com.example.mylibrary.data.dto.BookInfo
+import com.example.mylibrary.data.repository.FirebaseRepository
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val bookRepository: BookRepository,
-    private val categoryRepository: CategoryRepository,
-    private val firebaseAuth: FirebaseAuth,
-    @Named("temp")private val firebaseDB: DatabaseReference
+    private val firebaseRepository: FirebaseRepository
 ): ViewModel(){
 
-    private val _book = MutableLiveData<List<Book>>()
-    val book: LiveData<List<Book>> get() = _book
+    private val _book = MutableLiveData<List<BookInfo>>()
+    val book: LiveData<List<BookInfo>> get() = _book
 
-    fun getMyBook(){
-        CoroutineScope(Dispatchers.IO).launch {
-            _book.postValue(bookRepository.getMyBook())
+    fun getPopularBook(){
+        val tempList = mutableListOf<BookInfo>()
+        firebaseRepository.getPopularBook().addChildEventListener( object: ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("Test",snapshot.toString())
+                tempList.add(snapshot.getValue(BookInfo::class.java)!!)
+                _book.postValue(tempList)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
         }
+        )
     }
+
 }

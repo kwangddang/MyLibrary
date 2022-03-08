@@ -7,6 +7,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.Query
 
 interface FirebaseRepository {
 
@@ -19,6 +20,7 @@ interface FirebaseRepository {
     fun getCategoryBook(category: String): Task<DataSnapshot>
     fun getReview(isbn: String): Task<DataSnapshot>
     fun getReviewCount(isbn: String): Task<DataSnapshot>
+    fun getPopularBook(): Query
     fun setReview(bookInfo: BookInfo, content: String): Task<DataSnapshot>
     fun setRating(ratingNum: Float, book: BookInfo)
     fun setBookmark(bookInfo: BookInfo)

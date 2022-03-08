@@ -1,6 +1,5 @@
 package com.example.mylibrary.view.root.user
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mylibrary.DialogViewModel
@@ -13,14 +12,12 @@ import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.data.repository.BookRepository
 import com.example.mylibrary.data.repository.CategoryRepository
 import com.example.mylibrary.data.repository.FirebaseRepository
-import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class UserViewModel @Inject constructor(

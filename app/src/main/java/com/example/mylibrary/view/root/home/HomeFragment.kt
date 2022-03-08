@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.databinding.FragmentHomeBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
@@ -29,9 +30,9 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private val bookObserver: (List<Book>) -> Unit = { book ->
+    private val bookObserver: (List<BookInfo>) -> Unit = { book ->
         bookAdapter.apply {
-            content = book as MutableList<Book>
+            content = book as MutableList<BookInfo>
             notifyDataSetChanged()
         }
     }
@@ -50,7 +51,7 @@ class HomeFragment: Fragment() {
 
         observeData()
         initAdapter()
-        viewModel.getMyBook()
+        viewModel.getPopularBook()
     }
 
     private fun initAdapter() {

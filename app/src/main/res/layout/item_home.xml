@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bookInfo"
+            type="com.example.mylibrary.data.dto.BookInfo" />
+
+        <variable
+            name="onClickItem"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_ihome_container"
+            style="@style/RippleEffect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:onClick="@{onClickItem}"
+            android:background="@drawable/background_radius"
+            android:elevation="1dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_ihome"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:imageBook="@{bookInfo.image}" />
+
+            <TextView
+                android:id="@+id/text_ihome_title"
+                style="@style/BookTitleSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_ihome"
+                bind:searchText="@{bookInfo.title}"
+                tools:text="달을 닮은 너에게" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

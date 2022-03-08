@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.Query
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -41,9 +42,8 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override fun setBookmark(bookInfo: BookInfo) {
         val bookDB = firebaseBookDB.child(bookInfo.isbn)
-        val bookmarkDB = bookDB.child(BOOKMARK)
-        val bookmarkCountDB = bookmarkDB.child(BOOKMARK_COUNT)
-        val bookmarkedByDB = bookmarkDB.child(BOOKMARKED_BY)
+        val bookmarkCountDB = bookDB.child(BOOKMARK_COUNT)
+        val bookmarkedByDB = bookDB.child(BOOKMARKED_BY)
         val bookmarkedBy = HashMap<String, Any>()
         bookmarkedBy[uid] = uid
 
@@ -98,7 +98,7 @@ class FirebaseRepositoryImpl @Inject constructor(
     }
 
     override fun getBookmarkCount(isbn: String): Task<DataSnapshot> =
-        firebaseBookDB.child(isbn).child(BOOKMARK).child(BOOKMARK_COUNT).get()
+        firebaseBookDB.child(isbn).child(BOOKMARK_COUNT).get()
 
     override fun getRatingAverage(isbn: String): Task<DataSnapshot> =
         firebaseBookDB.child(isbn).child(RATING).child(RATING_AVERAGE).get()
@@ -141,7 +141,7 @@ class FirebaseRepositoryImpl @Inject constructor(
     }
 
     override fun getBookmarked(isbn: String): Task<DataSnapshot> =
-        firebaseBookDB.child(isbn).child(BOOKMARK).child(BOOKMARKED_BY).get()
+        firebaseBookDB.child(isbn).child(BOOKMARKED_BY).get()
 
     override fun getAllBook(): Task<DataSnapshot> =
         firebaseUserDB.child(uid).child(BOOK).get()
@@ -154,6 +154,10 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override fun getReviewCount(isbn: String): Task<DataSnapshot> =
         firebaseBookDB.child(isbn).child(REVIEW).child(REVIEW_COUNT).get()
+
+    override fun getPopularBook(): Query =
+        firebaseBookDB.orderByChild(BOOKMARK_COUNT).limitToLast(9)
+
 
     override fun setReview(bookInfo: BookInfo, content: String): Task<DataSnapshot> {
         val reviewId = System.currentTimeMillis().toString()
