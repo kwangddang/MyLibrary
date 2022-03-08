@@ -1,4 +1,4 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.view.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.LoginMethodConstant
+import com.example.mylibrary.common.ToastConstant
+import com.example.mylibrary.common.showToast
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.databinding.DlgBookRatingBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +21,10 @@ class BookRatingDialog(private val viewModel: DialogViewModel, private val book:
     private val binding get() = _binding!!
 
     private val btnConfirmOnClickListener: (View) -> Unit = {
-        viewModel.setBookRating(binding.ratingDlgBookRating.rating, book)
+        if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT)
+            showToast(ToastConstant.NO_ACCOUNT_RATING)
+        else
+            viewModel.setBookRating(binding.ratingDlgBookRating.rating, book)
         dismiss()
     }
 
@@ -36,8 +43,8 @@ class BookRatingDialog(private val viewModel: DialogViewModel, private val book:
     }
 
     private fun setOnClickListeners(){
-        binding.textDlgRatingCancel.setOnClickListener { dismiss() }
-        binding.textDlgRatingConfirm.setOnClickListener(btnConfirmOnClickListener)
+        binding.textDlgBookRatingCancel.setOnClickListener { dismiss() }
+        binding.textDlgBookRatingConfirm.setOnClickListener(btnConfirmOnClickListener)
     }
 
     override fun onDestroyView() {

@@ -1,4 +1,4 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.view.common
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -9,6 +9,10 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.LoginMethodConstant
+import com.example.mylibrary.common.ToastConstant
+import com.example.mylibrary.common.showToast
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.DlgCreateCategoryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,8 +56,8 @@ class CreateCategoryDialog(private val viewModel: DialogViewModel): DialogFragme
     private fun setCategory(view: TextView): Boolean {
         view.text.toString().run {
             when {
-                isNullOrBlank() -> showToast(StringConstant.NO_NAME)
-                this == StringConstant.WHOLE -> showToast(StringConstant.NAME_ERROR)
+                isNullOrBlank() -> showToast(ToastConstant.NO_NAME)
+                this == ToastConstant.WHOLE -> showToast(ToastConstant.NAME_ERROR)
                 else -> insertCategory()
             }
         }
@@ -62,7 +66,7 @@ class CreateCategoryDialog(private val viewModel: DialogViewModel): DialogFragme
     }
 
     private fun insertCategory() {
-        if (KotPrefModel.loginMethod == StringConstant.NO_ACCOUNT) {
+        if (KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT) {
             viewModel.setMyCategory(Category(binding.editCreateCategoryCreation.text.toString()))
         } else {
             viewModel.setUserCategory(binding.editCreateCategoryCreation.text.toString())

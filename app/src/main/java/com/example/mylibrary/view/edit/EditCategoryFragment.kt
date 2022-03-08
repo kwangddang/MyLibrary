@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.LoginMethodConstant
 import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
+import com.example.mylibrary.view.common.CreateCategoryDialog
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
-import com.example.mylibrary.common.CreateCategoryDialog
-import com.example.mylibrary.common.KotPrefModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,7 +33,7 @@ class EditCategoryFragment: Fragment() {
     }
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-        if(KotPrefModel.loginMethod == "noAccount")
+        if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT)
             viewModel.setMyBookCategory((args?.item as ItemUserCategoryBinding).category!!.category, navArgs.book.isbn)
         else
             viewModel.setUserBookCategory((args?.item as ItemUserCategoryBinding).category!!.category, navArgs.book)
@@ -59,7 +60,7 @@ class EditCategoryFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeData()
-        refresh()
+        initViews()
         initAdapter()
         setOnClickListener()
     }
@@ -73,8 +74,8 @@ class EditCategoryFragment: Fragment() {
         viewModel.category.observe(viewLifecycleOwner, categoryObserver)
     }
 
-    private fun refresh() {
-        if(KotPrefModel.loginMethod == "noAccount")
+    private fun initViews() {
+        if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT)
             viewModel.getMyCategory()
         else
             viewModel.getUserCategory()

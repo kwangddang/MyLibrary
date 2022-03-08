@@ -64,4 +64,6 @@
     <string name="text_dlg_book_detail_label_rating">평점</string>
     <string name="text_bottomsheet_review_title">후기</string>
     <string name="edit_bottomsheet_review_input">후기를 남겨주세요</string>
+    <string name="text_dlg_book_rating_title">별점을 남겨\n이 책을 평가해주세요:)</string>
+    <string name="popupmenu_more">삭제</string>
 </resources>

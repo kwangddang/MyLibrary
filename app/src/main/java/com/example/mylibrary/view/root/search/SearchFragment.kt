@@ -11,14 +11,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.mylibrary.R
-import com.example.mylibrary.common.BookDetailDialog
 import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.common.hideKeyboard
 import com.example.mylibrary.common.showToast
 import com.example.mylibrary.data.dto.BookResponse
 import com.example.mylibrary.databinding.FragmentSearchBinding
 import com.example.mylibrary.databinding.ItemSearchBinding
+import com.example.mylibrary.view.common.BookDetailDialog
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -49,13 +48,7 @@ class SearchFragment : Fragment() {
     }
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-        when(args?.view?.id){
-            R.id.constraint_isearch_innercontainer -> {
-                BookDetailDialog((args.item as ItemSearchBinding).book!!, viewModel).show(childFragmentManager,TagConstant.BOOK_DETAIL_DIALOG)
-            }
-            //R.id.card_ihome_innercontainer -> startActivity(Intent(Intent.ACTION_VIEW,Uri.parse((args.item as ItemHomeBinding).book?.link)))
-            //R.id.lottie_ihome_bookmark -> setBookMark(args.view as LottieAnimationView, args.item as ItemHomeBinding)
-        }
+        BookDetailDialog((args?.item as ItemSearchBinding).book!!, viewModel).show(childFragmentManager,TagConstant.BOOK_DETAIL_DIALOG)
     }
 
     override fun onCreateView(

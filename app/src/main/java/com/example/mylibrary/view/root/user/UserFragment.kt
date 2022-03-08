@@ -1,7 +1,6 @@
 package com.example.mylibrary.view.root.user
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,10 @@ import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.FragmentUserBinding
-import com.example.mylibrary.databinding.ItemSearchBinding
 import com.example.mylibrary.databinding.ItemUserBookBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
+import com.example.mylibrary.view.common.BookDetailDialog
+import com.example.mylibrary.view.common.CreateCategoryDialog
 import com.example.mylibrary.view.root.RootFragmentDirections
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,7 +49,7 @@ class UserFragment : Fragment() {
     private val categoryItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when(args?.view?.id){
             R.id.constraint_iusercategory_container -> {
-                if(KotPrefModel.loginMethod == "noAccount") {
+                if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT) {
                     if(args.position == 0) viewModel.getMyBook()
                     else viewModel.getMyCategoryBook((args.item as ItemUserCategoryBinding).category!!.category)
                 }
@@ -115,7 +115,8 @@ class UserFragment : Fragment() {
     }
 
     fun refresh() {
-        if(KotPrefModel.loginMethod == "noAccount"){
+        if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT){
+            binding.textUserTitle.text = "비계정"
             viewModel.getMyBook()
             viewModel.getMyCategory()
         } else{
@@ -140,25 +141,5 @@ class UserFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
-//    private fun deleteBookMark(item: ItemUserBookBinding, position: Int) {
-//        viewModel.deleteBook(item.book!!.isbn)
-//        bookAdapter.apply {
-//            content.removeAt(position)
-//            notifyItemRemoved(position)
-//            notifyItemRangeChanged(position,content.size)
-//            if(content.isEmpty()) hideBookDetail()
-//        }
-//    }
-
-//    private fun showBookDetail(args: ItemClickArgs) {
-//        binding.textUserDesc.visibility = View.VISIBLE
-//        binding.textUserTitle.visibility = View.VISIBLE
-//        val book = (args.item as ItemUserBookBinding).book
-//        binding.textUserTitle.text = filteringText(book!!.title)
-//        binding.textUserDesc.text = filteringText(book.description)
-//    }
-
 }
 

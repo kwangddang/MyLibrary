@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.LoginMethodConstant
 import com.example.mylibrary.common.showToast
 import com.example.mylibrary.databinding.FragmentFacebookUsernameBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +53,7 @@ class FacebookUsernameFragment: Fragment() {
     private val facebookUsernameObserver: (Boolean?) -> Unit = {
         when(it){
             true -> {
-                KotPrefModel.loginMethod = "facebook"
+                KotPrefModel.loginMethod = LoginMethodConstant.FACEBOOK
                 Navigation.findNavController(binding.root).navigate(FacebookUsernameFragmentDirections.actionFacebookUsernameFragmentToRootFragment())
                 viewModel.initSuccessValue()
             }

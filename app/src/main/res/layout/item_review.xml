@@ -6,7 +6,7 @@
     <data>
         <variable
             name="review"
-            type="com.example.mylibrary.data.entity.firebase.book.Review" />
+            type="com.example.mylibrary.data.entity.firebase.Review" />
 
         <variable
             name="onClickItem"

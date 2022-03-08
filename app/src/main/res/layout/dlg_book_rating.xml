@@ -4,6 +4,18 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/text_dlg_book_rating_title"
+        style="@style/Head"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/text_dlg_book_rating_title"
+        android:gravity="center"
+        android:paddingVertical="16dp"
+        app:layout_constraintStart_toStartOf="@id/rating_dlg_book_rating"
+        app:layout_constraintEnd_toEndOf="@id/rating_dlg_book_rating"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <RatingBar
         android:id="@+id/rating_dlg_book_rating"
         style="@style/Widget.AppCompat.RatingBar"
@@ -14,22 +26,22 @@
         android:isIndicator="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/text_dlg_book_rating_title"/>
 
     <TextView
-        android:id="@+id/text_dlg_rating_cancel"
+        android:id="@+id/text_dlg_book_rating_cancel"
         style="@style/BottomSheetButton"
         android:text="@string/text_dlg_rating_cancel"
         app:layout_constraintTop_toBottomOf="@id/rating_dlg_book_rating"
         app:layout_constraintStart_toStartOf="@id/rating_dlg_book_rating"
-        app:layout_constraintEnd_toStartOf="@id/text_dlg_rating_confirm"/>
+        app:layout_constraintEnd_toStartOf="@id/text_dlg_book_rating_confirm"/>
 
     <TextView
-        android:id="@+id/text_dlg_rating_confirm"
+        android:id="@+id/text_dlg_book_rating_confirm"
         style="@style/BottomSheetButton"
         android:text="@string/text_dlg_rating_confirm"
         app:layout_constraintTop_toBottomOf="@id/rating_dlg_book_rating"
-        app:layout_constraintStart_toEndOf="@id/text_dlg_rating_cancel"
+        app:layout_constraintStart_toEndOf="@id/text_dlg_book_rating_cancel"
         app:layout_constraintEnd_toEndOf="@id/rating_dlg_book_rating"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.common.bookInfoToBook
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.User
-import com.example.mylibrary.data.entity.firebase.book.Review
+import com.example.mylibrary.data.entity.firebase.Review
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.data.repository.BookRepository
@@ -193,6 +193,10 @@ class UserViewModel @Inject constructor(
             }
             _review.postValue(tempList)
         }
+    }
+
+    override fun setBookRating(ratingNum: Float, book: BookInfo) {
+        firebaseRepository.setRating(ratingNum, book)
     }
 
     override fun getReviewCount(isbn: String) {

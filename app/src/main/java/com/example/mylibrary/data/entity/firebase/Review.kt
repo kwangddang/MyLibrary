@@ -1,4 +1,4 @@
-package com.example.mylibrary.data.entity.firebase.book
+package com.example.mylibrary.data.entity.firebase
 
 data class Review(
     val reviewId: String = "",

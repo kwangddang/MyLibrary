@@ -1,4 +1,4 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.view.common
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Point
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,10 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.airbnb.lottie.LottieAnimationView
 import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.LoginMethodConstant
+import com.example.mylibrary.common.TagConstant
+import com.example.mylibrary.common.bookInfoToBook
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.databinding.DlgBookDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,23 +62,26 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Di
     }
 
     private fun observeData(){
-        if(KotPrefModel.loginMethod != StringConstant.NO_ACCOUNT) {
-            viewModel.bookmarkStatus.observe(viewLifecycleOwner,bookmarkStatusObserver)
-            viewModel.ratingAverage.observe(viewLifecycleOwner, ratingAverageObserver)
-        }
-
+        viewModel.bookmarkStatus.observe(viewLifecycleOwner,bookmarkStatusObserver)
+        viewModel.ratingAverage.observe(viewLifecycleOwner, ratingAverageObserver)
     }
 
     private fun getBookInfo(){
-        viewModel.getBookmarked(binding.book!!.isbn)
+        if(KotPrefModel.loginMethod != LoginMethodConstant.NO_ACCOUNT)
+            viewModel.getBookmarked(binding.book!!.isbn)
+
         viewModel.getRatingAverage(binding.book!!.isbn)
     }
 
     private fun setOnClickListeners(){
         binding.textDlgBookDetailLink.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(binding.book?.link))) }
         binding.lottieDlgBookDetailBookmark.apply { setOnClickListener { setBookMark(this,binding) } }
-        binding.viewDlgBookRating.setOnClickListener { BookRatingDialog(viewModel, binding.book!!).show(childFragmentManager,TagConstant.BOOK_RATING_DIALOG) }
-        binding.textDlgBookDetailReview.setOnClickListener { ReviewBottomSheetDialog(bookInfo,viewModel).show(childFragmentManager,TagConstant.REVIEW_BOTTOM_SHEET_DIALOG) }
+        binding.viewDlgBookRating.setOnClickListener { BookRatingDialog(viewModel, binding.book!!).show(childFragmentManager,
+            TagConstant.BOOK_RATING_DIALOG
+        ) }
+        binding.textDlgBookDetailReview.setOnClickListener { ReviewBottomSheetDialog(bookInfo,viewModel).show(childFragmentManager,
+            TagConstant.REVIEW_BOTTOM_SHEET_DIALOG
+        ) }
     }
 
     override fun onResume() {
@@ -100,7 +106,7 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Di
             val animator = getValueAnimator(0f,0.5f, view)
             animator.start()
             item.book?.bookmark = true
-            if(KotPrefModel.loginMethod == StringConstant.NO_ACCOUNT)
+            if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT)
                 viewModel.setMyBook(bookInfoToBook(item.book!!))
             else
                 viewModel.setUserBook(item.book!!)
@@ -109,7 +115,7 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Di
             animator.start()
             item.book?.bookmark = false
 
-            if(KotPrefModel.loginMethod == StringConstant.NO_ACCOUNT)
+            if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT)
                 viewModel.deleteMyBook(item.book!!.isbn)
             else
                 viewModel.deleteUserBook(item.book!!.isbn)

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.LoginMethodConstant
 import com.example.mylibrary.common.setStatusBarOrigin
 import com.example.mylibrary.common.setTransparentStatusBar
 import com.example.mylibrary.databinding.FragmentLoginBinding
@@ -49,7 +50,7 @@ class LoginFragment: Fragment() {
     private val facebookSuccessObserver: (Boolean?) -> Unit = {
         when(it){
             true -> {
-                KotPrefModel.loginMethod = "facebook"
+                KotPrefModel.loginMethod = LoginMethodConstant.FACEBOOK
                 Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
             }
             false -> Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToFacebookUsernameFragment())

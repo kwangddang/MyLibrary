@@ -1,13 +1,16 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.view.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.LoginMethodConstant
+import com.example.mylibrary.common.ToastConstant
+import com.example.mylibrary.common.showToast
 import com.example.mylibrary.data.dto.BookInfo
-import com.example.mylibrary.data.entity.firebase.book.Review
-import com.example.mylibrary.data.entity.room.Book
+import com.example.mylibrary.data.entity.firebase.Review
 import com.example.mylibrary.databinding.BottomsheetReviewBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -29,11 +32,17 @@ class ReviewBottomSheetDialog(private val bookInfo: BookInfo, private val viewMo
 
     private val imageSendOnClickListener: (View) -> Unit = {
         binding.editBottomsheetReviewInput.run {
-            if(this.text.toString() == ""){
-                showToast(StringConstant.NO_NAME)
-            } else{
-                viewModel.setReview(bookInfo,this.text.toString())
-                this.setText("")
+            when {
+                KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT -> showToast(ToastConstant.NO_ACCOUNT_REVIEW)
+
+                this.text.toString() == "" -> {
+                    showToast(ToastConstant.NO_NAME)
+                }
+
+                else -> {
+                    viewModel.setReview(bookInfo,this.text.toString())
+                    this.setText("")
+                }
             }
         }
     }

@@ -54,10 +54,12 @@ class LoginViewModel @Inject constructor(
     }
 
     fun emailLogin(email: String, password: String){
-        firebaseRepository.signInWithEmail(email,password).addOnSuccessListener {
-            _emailLoginSuccess.postValue(true)
-        }.addOnFailureListener {
-            _emailLoginSuccess.postValue(false)
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+            firebaseRepository.signInWithEmail(email, password).addOnSuccessListener {
+                _emailLoginSuccess.postValue(true)
+            }.addOnFailureListener {
+                _emailLoginSuccess.postValue(false)
+            }
         }
     }
 

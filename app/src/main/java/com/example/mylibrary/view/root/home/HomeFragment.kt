@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.databinding.FragmentHomeBinding
+import com.example.mylibrary.databinding.ItemHomeBinding
+import com.example.mylibrary.databinding.ItemSearchBinding
+import com.example.mylibrary.view.common.BookDetailDialog
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,10 +28,7 @@ class HomeFragment: Fragment() {
     }
 
     private val bookItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
-        when (args?.view?.id) {
-            //R.id.lottie_iuserbook_bookmark -> deleteBookMark(args.item as ItemUserBookBinding, args.position)
-            //R.id.card_iuserbook_innercontainer -> showBookDetail(args)
-        }
+        BookDetailDialog((args?.item as ItemHomeBinding).bookInfo!!, viewModel).show(childFragmentManager, TagConstant.BOOK_DETAIL_DIALOG)
     }
 
     private val bookObserver: (List<BookInfo>) -> Unit = { book ->

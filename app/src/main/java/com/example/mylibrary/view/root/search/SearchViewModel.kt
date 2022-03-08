@@ -1,6 +1,5 @@
 package com.example.mylibrary.view.root.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,7 @@ import androidx.paging.cachedIn
 import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.dto.BookResponse
-import com.example.mylibrary.data.entity.firebase.book.Review
+import com.example.mylibrary.data.entity.firebase.Review
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.repository.BookRepository
 import com.example.mylibrary.data.repository.FirebaseRepository

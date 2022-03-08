@@ -1,9 +1,9 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.view.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mylibrary.data.entity.firebase.book.Review
+import com.example.mylibrary.data.entity.firebase.Review
 import com.example.mylibrary.databinding.ItemReviewBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 

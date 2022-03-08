@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.example.mylibrary.common.rootFrom1Depth
-import com.example.mylibrary.common.rootFrom2Depth
+import com.example.mylibrary.common.*
 import com.example.mylibrary.databinding.FragmentSettingBinding
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +25,13 @@ class SettingFragment: Fragment() {
         if(user == null){
             Navigation.findNavController(binding.root).navigate(SettingFragmentDirections.actionSettingFragmentToLoginFragment())
         }
+    }
+
+    private val labelUsernameOnClickListener: (View) -> Unit = {
+        if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT)
+            showToast(ToastConstant.NO_ACCOUNT_USERNAME)
+        else
+            Navigation.findNavController(binding.root).navigate(SettingFragmentDirections.actionSettingFragmentToSettingUsernameFragment())
     }
 
     override fun onCreateView(
@@ -50,10 +56,7 @@ class SettingFragment: Fragment() {
 
     private fun setOnClickListener(){
         binding.textSettingLabelLogout.setOnClickListener { viewModel.logout() }
-        binding.textSettingLabelUsername.setOnClickListener {
-            Navigation.findNavController(binding.root)
-                .navigate(SettingFragmentDirections.actionSettingFragmentToSettingUsernameFragment())
-        }
+        binding.textSettingLabelUsername.setOnClickListener (labelUsernameOnClickListener)
     }
 
     override fun onDestroyView() {
