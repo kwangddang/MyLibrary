@@ -76,12 +76,8 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Di
     private fun setOnClickListeners(){
         binding.textDlgBookDetailLink.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(binding.book?.link))) }
         binding.lottieDlgBookDetailBookmark.apply { setOnClickListener { setBookMark(this,binding) } }
-        binding.viewDlgBookRating.setOnClickListener { BookRatingDialog(viewModel, binding.book!!).show(childFragmentManager,
-            TagConstant.BOOK_RATING_DIALOG
-        ) }
-        binding.textDlgBookDetailReview.setOnClickListener { ReviewBottomSheetDialog(bookInfo,viewModel).show(childFragmentManager,
-            TagConstant.REVIEW_BOTTOM_SHEET_DIALOG
-        ) }
+        binding.viewDlgBookRating.setOnClickListener { BookRatingDialog(viewModel, binding.book!!).show(childFragmentManager, TagConstant.BOOK_RATING_DIALOG) }
+        binding.textDlgBookDetailReview.setOnClickListener { ReviewBottomSheetDialog(bookInfo,viewModel).show(childFragmentManager, TagConstant.REVIEW_BOTTOM_SHEET_DIALOG) }
     }
 
     override fun onResume() {

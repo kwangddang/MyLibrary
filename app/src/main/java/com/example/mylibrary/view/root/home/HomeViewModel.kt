@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
     private val _review = MutableLiveData<List<Review?>>()
     override val review: LiveData<List<Review?>> get() = _review
 
-    private val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
+    override val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
 
     fun getPopularBook(){
         val tempList = mutableListOf<BookInfo>()

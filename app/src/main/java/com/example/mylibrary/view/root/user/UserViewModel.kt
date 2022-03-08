@@ -26,7 +26,7 @@ class UserViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : DialogViewModel() {
 
-    private val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
+    override val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user

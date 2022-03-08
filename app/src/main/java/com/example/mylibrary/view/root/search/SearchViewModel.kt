@@ -33,7 +33,7 @@ class SearchViewModel @Inject constructor(
     private val _ratingAverage = MutableLiveData<Float?>()
     override val ratingAverage: LiveData<Float?> get() = _ratingAverage
 
-    private val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
+    override val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
 
     private val _book = MutableLiveData<BookResponse>()
     val book: LiveData<BookResponse> get() = _book
@@ -119,6 +119,12 @@ class SearchViewModel @Inject constructor(
     override fun setReview(bookInfo: BookInfo, content: String) {
         firebaseRepository.setReview(bookInfo,content).addOnSuccessListener {
             getReview(bookInfo.isbn)
+        }
+    }
+
+    override fun deleteReview(isbn: String, reviewId: String) {
+        firebaseRepository.deleteReview(isbn,reviewId).addOnSuccessListener {
+            getReview(isbn)
         }
     }
 

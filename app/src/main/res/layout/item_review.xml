@@ -33,6 +33,7 @@
 
         <ImageView
             android:id="@+id/img_ireview_more"
+            style="@style/RippleEffect"
             android:padding="8dp"
             android:layout_width="32dp"
             android:layout_height="32dp"

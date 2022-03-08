@@ -1,6 +1,5 @@
 package com.example.mylibrary.data.repository
 
-import android.util.Log
 import com.example.mylibrary.common.KeyName.BOOK
 import com.example.mylibrary.common.KeyName.BOOKMARK
 import com.example.mylibrary.common.KeyName.BOOKMARKED_BY
@@ -97,6 +96,16 @@ class FirebaseRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun deleteReview(isbn: String, reviewId: String): Task<Void> {
+        val reviewDB = firebaseBookDB.child(isbn).child(REVIEW)
+        return reviewDB.child(REVIEW_ID).child(reviewId).removeValue()
+            .addOnSuccessListener {
+                reviewDB.child(REVIEW_ID).get().addOnSuccessListener { dataSnapshot ->
+                    reviewDB.child(REVIEW_COUNT).setValue(dataSnapshot.childrenCount)
+                }
+            }
+    }
+
     override fun getBookmarkCount(isbn: String): Task<DataSnapshot> =
         firebaseBookDB.child(isbn).child(BOOKMARK_COUNT).get()
 
@@ -174,14 +183,14 @@ class FirebaseRepositoryImpl @Inject constructor(
         return firebaseBookDB.get().addOnSuccessListener {
             if(it.hasChild(bookInfo.isbn)){
                 reviewIdDB.updateChildren(review).addOnSuccessListener {
-                    reviewDB.get().addOnSuccessListener { dataSnapShot ->
+                    reviewDB.child(REVIEW_ID).get().addOnSuccessListener { dataSnapShot ->
                         reviewCountDB.setValue(dataSnapShot.childrenCount)
                     }
                 }
             } else{
                 bookDB.setValue(bookInfo).addOnSuccessListener {
                     reviewIdDB.updateChildren(review).addOnSuccessListener {
-                        reviewDB.get().addOnSuccessListener { dataSnapShot ->
+                        reviewDB.child(REVIEW_ID).get().addOnSuccessListener { dataSnapShot ->
                             reviewCountDB.setValue(dataSnapShot.childrenCount)
                         }
                     }

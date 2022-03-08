@@ -25,6 +25,7 @@ interface FirebaseRepository {
     fun setRating(ratingNum: Float, book: BookInfo)
     fun setBookmark(bookInfo: BookInfo)
     fun deleteBookmark(isbn: String)
+    fun deleteReview(isbn: String, reviewId: String): Task<Void>
 
     fun signUp(email: String, password: String, username: String): Task<AuthResult>
     fun signInWithFacebook(credential: AuthCredential): Task<AuthResult>
@@ -40,4 +41,5 @@ interface FirebaseRepository {
     fun deleteCategory(category: String): Task<Void>
     fun setCategory(category: String): Task<Void>
     fun setBookCategory(category: String, book: Book)
+
 }

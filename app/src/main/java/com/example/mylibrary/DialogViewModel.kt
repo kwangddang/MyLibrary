@@ -9,6 +9,7 @@ import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
 
 open class DialogViewModel: ViewModel() {
+    open val uid: String = ""
     open val review: LiveData<List<Review?>> = liveData {  }
     open val ratingAverage: LiveData<Float?> = liveData {  }
     open val bookmarkStatus: LiveData<Boolean?> = liveData {  }
@@ -24,4 +25,5 @@ open class DialogViewModel: ViewModel() {
     open fun getReview(isbn: String){}
     open fun getReviewCount(isbn: String){}
     open fun setReview(bookInfo: BookInfo, content: String){}
+    open fun deleteReview(isbn: String, reviewId: String){}
 }

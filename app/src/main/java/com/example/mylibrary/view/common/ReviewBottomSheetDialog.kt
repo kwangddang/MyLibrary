@@ -2,9 +2,11 @@ package com.example.mylibrary.view.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.R
 import com.example.mylibrary.common.KotPrefModel
 import com.example.mylibrary.common.LoginMethodConstant
 import com.example.mylibrary.common.ToastConstant
@@ -12,6 +14,7 @@ import com.example.mylibrary.common.showToast
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.Review
 import com.example.mylibrary.databinding.BottomsheetReviewBinding
+import com.example.mylibrary.databinding.ItemReviewBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,6 +25,8 @@ class ReviewBottomSheetDialog(private val bookInfo: BookInfo, private val viewMo
 
     private var _binding: BottomsheetReviewBinding? = null
     val binding get() = _binding!!
+
+    private var reviewId = ""
 
     private val reviewObserver: (List<Review?>) -> Unit = { review ->
         reviewAdapter.apply {
@@ -53,8 +58,21 @@ class ReviewBottomSheetDialog(private val bookInfo: BookInfo, private val viewMo
 
     private val reviewItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
         when(args?.view?.id){
-
+            R.id.img_ireview_more -> {
+                reviewId = (args.item as ItemReviewBinding).review!!.reviewId
+                if(args.item.review?.userId == viewModel.uid)
+                   MorePopupMenu(requireContext(), args.view, menuItemClickListener).show()
+                else
+                    showToast(ToastConstant.CANT_ERASE)
+            }
         }
+    }
+
+    private val menuItemClickListener: (item: MenuItem) -> Boolean = { item ->
+        when (item.itemId) {
+            R.id.popupmenu_more -> viewModel.deleteReview(bookInfo.isbn,reviewId)
+        }
+        true
     }
 
     override fun onCreateView(

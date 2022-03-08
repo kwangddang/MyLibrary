@@ -7,4 +7,5 @@ object ToastConstant {
     const val NO_ACCOUNT_REVIEW = "계정이 없으면 후기를 남길 수 없습니다."
     const val NO_ACCOUNT_RATING = "계정이 없으면 별점을 남길 수 없습니다."
     const val NO_ACCOUNT_USERNAME = "계정이 없으면 이름을 바꿀 수 없습니다."
+    const val CANT_ERASE = "자신의 글만 삭제할 수 있습니다."
 }
