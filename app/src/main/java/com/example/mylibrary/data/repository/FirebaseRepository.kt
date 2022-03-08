@@ -1,6 +1,6 @@
 package com.example.mylibrary.data.repository
 
-import com.example.mylibrary.data.dto.response.BookInfo
+import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.room.Book
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
@@ -16,9 +16,8 @@ interface FirebaseRepository {
     fun getRatingAverage(isbn: String): Task<DataSnapshot>
     fun getBookmarked(isbn: String): Task<DataSnapshot>
     fun getAllBook(): Task<DataSnapshot>
-    fun setUserBook(book: BookInfo)
     fun getCategoryBook(category: String): Task<DataSnapshot>
-    fun setRating(isbn: String, num: Int)
+    fun setRating(ratingNum: Float, book: BookInfo)
     fun setBookmark(bookInfo: BookInfo)
     fun deleteBookmark(isbn: String)
 

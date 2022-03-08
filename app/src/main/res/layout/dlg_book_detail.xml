@@ -8,7 +8,7 @@
 
         <variable
             name="book"
-            type="com.example.mylibrary.data.dto.response.BookInfo" />
+            type="com.example.mylibrary.data.dto.BookInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,17 +100,34 @@
             bind:textDiscount="@{book.discount}"
             tools:text="15000원" />
 
+        <TextView
+            android:id="@+id/text_dlg_book_detail_label_rating"
+            style="@style/BookInfoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_dlg_book_detail_label_rating"
+            app:layout_constraintStart_toEndOf="@id/img_dlg_book_detail"
+            app:layout_constraintTop_toBottomOf="@+id/text_dlg_book_detail_label_price" />
+
         <RatingBar
             android:id="@+id/rating_dlg_book_detail"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:numStars="5"
             android:paddingBottom="16dp"
             android:stepSize="1"
-            app:layout_constraintStart_toEndOf="@id/img_dlg_book_detail"
+            app:layout_constraintStart_toStartOf="@+id/text_dlg_book_detail_price"
             app:layout_constraintTop_toBottomOf="@id/text_dlg_book_detail_label_price" />
+
+        <View
+            android:id="@+id/view_dlg_book_rating"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/rating_dlg_book_detail"
+            app:layout_constraintEnd_toEndOf="@id/rating_dlg_book_detail"
+            app:layout_constraintTop_toTopOf="@id/rating_dlg_book_detail"
+            app:layout_constraintBottom_toBottomOf="@id/rating_dlg_book_detail"/>
 
         <View
             android:id="@+id/view_dlg_book_detail_divider"

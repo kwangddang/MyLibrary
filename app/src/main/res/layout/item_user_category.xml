@@ -25,7 +25,8 @@
         android:layout_height="wrap_content"
         android:onClick="@{onClickItem}"
         android:onLongClick="@{onLongClickItem}"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
 
     <ImageView
         android:id="@+id/img_iusercategory_folder"

@@ -16,7 +16,7 @@ import com.example.mylibrary.common.BookDetailDialog
 import com.example.mylibrary.common.TagConstant
 import com.example.mylibrary.common.hideKeyboard
 import com.example.mylibrary.common.showToast
-import com.example.mylibrary.data.dto.response.BookResponse
+import com.example.mylibrary.data.dto.BookResponse
 import com.example.mylibrary.databinding.FragmentSearchBinding
 import com.example.mylibrary.databinding.ItemSearchBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs

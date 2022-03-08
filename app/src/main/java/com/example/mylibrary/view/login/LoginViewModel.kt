@@ -1,5 +1,6 @@
 package com.example.mylibrary.view.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,10 +45,11 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun getUsername() {
-        firebaseRepository.getUsername().addOnSuccessListener {
-            _facebookLoginSuccess.postValue(true)
-        }.addOnFailureListener {
-            _facebookLoginSuccess.postValue(false)
+        firebaseRepository.getUsername().addOnSuccessListener { dataSnapshot ->
+            if(dataSnapshot.value == null)
+                _facebookLoginSuccess.postValue(false)
+            else
+                _facebookLoginSuccess.postValue(true)
         }
     }
 

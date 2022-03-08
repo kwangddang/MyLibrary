@@ -1,4 +1,4 @@
-package com.example.mylibrary.data.dto.response
+package com.example.mylibrary.data.dto
 
 data class BookInfo(
     val author: String = "",

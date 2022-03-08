@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.mylibrary.common.KotPrefModel
+import com.example.mylibrary.common.StringConstant.NO_ACCOUNT
 import com.example.mylibrary.common.showToast
 import com.example.mylibrary.databinding.DlgDeleteCategoryBinding
 
@@ -35,7 +36,7 @@ class DeleteCategoryDialog(private val category: String): DialogFragment() {
     }
 
     private fun deleteCategory(){
-        if(KotPrefModel.loginMethod == "noAccount")
+        if(KotPrefModel.loginMethod == NO_ACCOUNT)
             viewModel.deleteMyCategory(category)
         else
             viewModel.deleteUserCategory(category)

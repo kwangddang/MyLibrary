@@ -52,8 +52,8 @@ class CreateCategoryDialog(private val viewModel: DialogViewModel): DialogFragme
     private fun setCategory(view: TextView): Boolean {
         view.text.toString().run {
             when {
-                isNullOrBlank() -> showToast("폴더명을 입력해주세요.")
-                this == "전체" -> showToast("'전체' 폴더명은 사용하실 수 없습니다.")
+                isNullOrBlank() -> showToast(StringConstant.NO_NAME)
+                this == StringConstant.WHOLE -> showToast(StringConstant.NAME_ERROR)
                 else -> insertCategory()
             }
         }
@@ -62,7 +62,7 @@ class CreateCategoryDialog(private val viewModel: DialogViewModel): DialogFragme
     }
 
     private fun insertCategory() {
-        if (KotPrefModel.loginMethod == "noAccount") {
+        if (KotPrefModel.loginMethod == StringConstant.NO_ACCOUNT) {
             viewModel.setMyCategory(Category(binding.editCreateCategoryCreation.text.toString()))
         } else {
             viewModel.setUserCategory(binding.editCreateCategoryCreation.text.toString())

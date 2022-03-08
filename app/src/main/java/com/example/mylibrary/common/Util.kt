@@ -11,11 +11,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
-import com.example.mylibrary.data.dto.response.BookInfo
+import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.view.login.signup.SignupFragment
 import com.example.mylibrary.view.root.RootFragment
-import com.google.firebase.database.DatabaseReference
 
 fun bookInfoToBook(bookInfo: BookInfo): Book =
     Book(bookInfo.author,
@@ -42,17 +41,6 @@ fun bookToBookInfo(book: Book): BookInfo =
         book.title,
         book.isBookMark
     )
-
-fun getBookmarkCount(firebaseDB: DatabaseReference, isbn: String): Int {
-    var bookmarkCount = 0
-    firebaseDB.child("Book").child(isbn).child("bookmark").child("bookmarkCount").get().addOnSuccessListener {
-        bookmarkCount = it.value.toString().toInt()
-    }
-    return bookmarkCount
-}
-
-
-fun filteringText(text: String): String = text.replace("<b>","").replace("</b>","")
 
 fun Activity.hideKeyboard(editText: EditText) {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

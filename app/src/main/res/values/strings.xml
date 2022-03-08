@@ -59,4 +59,9 @@
     <string name="btn_setting_username_confirm">완료</string>
     <string name="text_dlg_book_detail_review"><u>후기</u></string>
     <string name="text_edit_category_title">카테고리 설정</string>
+    <string name="text_dlg_rating_confirm">확인</string>
+    <string name="text_dlg_rating_cancel">취소</string>
+    <string name="text_dlg_book_detail_label_rating">평점</string>
+    <string name="text_bottomsheet_review_title">후기</string>
+    <string name="edit_bottomsheet_review_input">후기를 남겨주세요</string>
 </resources>

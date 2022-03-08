@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.mylibrary.DialogViewModel
-import com.example.mylibrary.data.dto.response.BookInfo
-import com.example.mylibrary.data.dto.response.BookResponse
+import com.example.mylibrary.data.dto.BookInfo
+import com.example.mylibrary.data.dto.BookResponse
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.repository.BookRepository
 import com.example.mylibrary.data.repository.FirebaseRepository
@@ -28,6 +28,9 @@ class SearchViewModel @Inject constructor(
 
     private val _bookmarkStatus = MutableLiveData<Boolean?>()
     override val bookmarkStatus: LiveData<Boolean?> get() = _bookmarkStatus
+
+    private val _ratingAverage = MutableLiveData<Float?>()
+    override val ratingAverage: LiveData<Float?> get() = _ratingAverage
 
     private val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
 
@@ -69,9 +72,16 @@ class SearchViewModel @Inject constructor(
         firebaseRepository.deleteBookmark(isbn)
     }
 
-    fun getBookmarkCount(isbn: String) {
-        firebaseRepository.getBookmarkCount(isbn).addOnSuccessListener {
+    override fun setBookRating(ratingNum: Float, book: BookInfo) {
+        firebaseRepository.setRating(ratingNum, book)
+    }
 
+    override fun getRatingAverage(isbn: String) {
+        firebaseRepository.getRatingAverage(isbn).addOnSuccessListener { dataSnapshot ->
+            if(dataSnapshot.value != null)
+                _ratingAverage.postValue(dataSnapshot.value.toString().toFloat())
+            else
+                _ratingAverage.postValue(0f)
         }
     }
 

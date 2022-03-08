@@ -9,7 +9,7 @@ import com.example.mylibrary.common.KeyName.RATED_BY
 import com.example.mylibrary.common.KeyName.RATING
 import com.example.mylibrary.common.KeyName.RATING_AVERAGE
 import com.example.mylibrary.common.KeyName.USERNAME
-import com.example.mylibrary.data.dto.response.BookInfo
+import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.room.Book
 import com.google.android.gms.tasks.Task
@@ -63,24 +63,28 @@ class FirebaseRepositoryImpl @Inject constructor(
     }
 
     override fun deleteBookmark(isbn: String) {
-        val bookmarkDB = firebaseBookDB.child(isbn).child(BOOKMARK)
+        val bookDB = firebaseBookDB.child(isbn)
+        val bookmarkDB = bookDB.child(BOOKMARK)
         val bookmarkCountDB = bookmarkDB.child(BOOKMARK_COUNT)
         val bookmarkedByDB = bookmarkDB.child(BOOKMARKED_BY)
+
         bookmarkedByDB.child(uid).removeValue().addOnSuccessListener {
             bookmarkedByDB.get().addOnSuccessListener { dataSnapshot ->
-                if (dataSnapshot.childrenCount.toInt() == 0)
-                    firebaseBookDB.child(isbn).removeValue()
-                else
-                    bookmarkCountDB.setValue(dataSnapshot.childrenCount)
+                bookmarkCountDB.setValue(dataSnapshot.childrenCount)
             }
         }
 
         firebaseUserDB.child(uid).child(BOOK).child(isbn).removeValue()
 
-        firebaseUserDB.child(uid).child(CATEGORY).get().addOnSuccessListener { category ->
+        val categoryDB = firebaseUserDB.child(uid).child(CATEGORY)
+        categoryDB.get().addOnSuccessListener { category ->
             category.children.forEach { book ->
                 if(book.hasChild(isbn)){
-                    firebaseUserDB.child(uid).child(CATEGORY).child(book.key!!).removeValue()
+                    if(book.childrenCount.toInt() == 1){
+                        categoryDB.child(book.key!!).setValue(0)
+                    } else{
+                        categoryDB.child(book.key!!).child(isbn).removeValue()
+                    }
                 }
             }
         }
@@ -92,22 +96,41 @@ class FirebaseRepositoryImpl @Inject constructor(
     override fun getRatingAverage(isbn: String): Task<DataSnapshot> =
         firebaseBookDB.child(isbn).child(RATING).child(RATING_AVERAGE).get()
 
-    override fun setRating(isbn: String, num: Int) {
-        val ratingDB = firebaseBookDB.child(isbn).child(RATING)
+    override fun setRating(ratingNum: Float, book: BookInfo) {
+        val bookDB = firebaseBookDB.child(book.isbn)
+        val ratingDB = firebaseBookDB.child(book.isbn).child(RATING)
         val ratedByDB = ratingDB.child(RATED_BY)
         val ratingAverageDB = ratingDB.child(RATING_AVERAGE)
         val ratedBy = HashMap<String, Any>()
-        ratedBy[uid] = num
+        ratedBy[uid] = ratingNum
 
-        ratedByDB.updateChildren(ratedBy).addOnSuccessListener {
-            ratedByDB.get().addOnSuccessListener { dataSnapshot ->
-                var sum: Double = 0.0
-                dataSnapshot.children.forEach {
-                    sum += it.value.toString().toDouble()
+        firebaseBookDB.get().addOnSuccessListener {
+
+            if(it.hasChild(book.isbn)){
+                ratedByDB.updateChildren(ratedBy).addOnSuccessListener {
+                    ratedByDB.get().addOnSuccessListener { dataSnapshot ->
+                        var sum = 0.0
+                        dataSnapshot.children.forEach {
+                            sum += it.value.toString().toDouble()
+                        }
+                        ratingAverageDB.setValue(sum / dataSnapshot.childrenCount)
+                    }
                 }
-                ratingAverageDB.setValue(sum / dataSnapshot.childrenCount)
+            } else{
+                bookDB.setValue(book).addOnSuccessListener {
+                    ratedByDB.updateChildren(ratedBy).addOnSuccessListener {
+                        ratedByDB.get().addOnSuccessListener { dataSnapshot ->
+                            var sum = 0.0
+                            dataSnapshot.children.forEach {
+                                sum += it.value.toString().toDouble()
+                            }
+                            ratingAverageDB.setValue(sum / dataSnapshot.childrenCount)
+                        }
+                    }
+                }
             }
         }
+
     }
 
     override fun getBookmarked(isbn: String): Task<DataSnapshot> =
@@ -115,11 +138,6 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override fun getAllBook(): Task<DataSnapshot> =
         firebaseUserDB.child(uid).child(BOOK).get()
-
-
-    override fun setUserBook(book: BookInfo) {
-        firebaseUserDB.child(uid).child(CATEGORY).child(book.isbn).setValue(book)
-    }
 
     override fun getCategoryBook(category: String): Task<DataSnapshot> =
         firebaseUserDB.child(uid).child(CATEGORY).child(category).get()
@@ -135,7 +153,7 @@ class FirebaseRepositoryImpl @Inject constructor(
 
 
     override fun getUsername(): Task<DataSnapshot> =
-        firebaseUserDB.child(uid).child(USERNAME).get()
+        firebaseUserDB.child(getUserAuth()?.uid.orEmpty()).child(USERNAME).get()
 
     override fun getUser(): Task<DataSnapshot> =
         firebaseUserDB.child(uid).get()

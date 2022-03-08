@@ -8,7 +8,7 @@
 
         <variable
             name="book"
-            type="com.example.mylibrary.data.dto.response.BookInfo" />
+            type="com.example.mylibrary.data.dto.BookInfo" />
 
         <variable
             name="onClickItem"

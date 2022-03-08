@@ -3,7 +3,7 @@ package com.example.mylibrary.data.repository
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.mylibrary.data.api.NaverApi
-import com.example.mylibrary.data.dto.response.BookInfo
+import com.example.mylibrary.data.dto.BookInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ class BookPagingSource (
     private val naverApi: NaverApi,
     private val bookRepository: BookRepository,
     private val query: String
-): PagingSource<Int,BookInfo>(){
+): PagingSource<Int, BookInfo>(){
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, BookInfo> {
         val position = params.key ?: 0

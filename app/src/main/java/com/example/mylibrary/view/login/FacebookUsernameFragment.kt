@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -33,6 +34,7 @@ class FacebookUsernameFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFacebookUsernameBinding.inflate(inflater,container,false)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding.vm = viewModel
         return binding.root
     }

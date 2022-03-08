@@ -1,8 +1,7 @@
 package com.example.mylibrary.data.api
 
 import com.example.mylibrary.BuildConfig
-import com.example.mylibrary.data.dto.response.BookResponse
-import io.reactivex.rxjava3.core.Single
+import com.example.mylibrary.data.dto.BookResponse
 import retrofit2.Retrofit
 import retrofit2.create
 import retrofit2.http.GET

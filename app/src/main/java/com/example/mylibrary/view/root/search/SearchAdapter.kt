@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mylibrary.data.dto.response.BookInfo
+import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.databinding.ItemSearchBinding
 import com.example.mylibrary.view.root.search.dto.ItemClickArgs
 

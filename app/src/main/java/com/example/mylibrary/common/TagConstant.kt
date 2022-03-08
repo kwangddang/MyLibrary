@@ -7,4 +7,5 @@ object TagConstant {
     const val CREATE_CATEGORY_DIALOG = "CreateCategoryDialog"
     const val DELETE_CATEGORY_DIALOG = "DeleteCategoryDialog"
     const val BOOK_DETAIL_DIALOG = "BookDetailDialog"
+    const val BOOK_RATING_DIALOG = "BookRatingDialog"
 }

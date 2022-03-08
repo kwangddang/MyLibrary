@@ -1,4 +1,4 @@
-package com.example.mylibrary.data.dto.response
+package com.example.mylibrary.data.dto
 
 import com.google.gson.annotations.SerializedName
 

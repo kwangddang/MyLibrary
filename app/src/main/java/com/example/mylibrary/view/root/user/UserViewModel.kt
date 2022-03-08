@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.common.bookInfoToBook
-import com.example.mylibrary.data.dto.response.BookInfo
+import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
@@ -25,8 +25,7 @@ import javax.inject.Named
 class UserViewModel @Inject constructor(
     private val bookRepository: BookRepository,
     private val categoryRepository: CategoryRepository,
-    private val firebaseRepository: FirebaseRepository,
-    @Named("temp") private val firebaseDB: DatabaseReference
+    private val firebaseRepository: FirebaseRepository
 ) : DialogViewModel() {
 
     private val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
@@ -43,6 +42,9 @@ class UserViewModel @Inject constructor(
     private val _bookmarkStatus = MutableLiveData<Boolean?>()
     override val bookmarkStatus: LiveData<Boolean?> get() = _bookmarkStatus
 
+    private val _ratingAverage = MutableLiveData<Float?>()
+    override val ratingAverage: LiveData<Float?> get() = _ratingAverage
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     fun getMyBook() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -52,9 +54,6 @@ class UserViewModel @Inject constructor(
 
     fun getMyCategory() {
         CoroutineScope(Dispatchers.IO).launch {
-            categoryRepository.getMyCategory().forEach {
-                firebaseDB.child("Category").child(it.category).setValue(it)
-            }
             _category.postValue(categoryRepository.getMyCategory())
         }
     }
@@ -83,9 +82,12 @@ class UserViewModel @Inject constructor(
     }
 
     override fun deleteMyBook(isbn: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            bookRepository.delete(isbn)
+        runBlocking {
+            CoroutineScope(Dispatchers.IO).launch {
+                bookRepository.delete(isbn)
+            }.join()
         }
+        getMyBook()
     }
 
     override fun setMyCategory(category: Category) {
@@ -136,10 +138,6 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun setUserBookCategory(category: String, isbn: String) {
-
-    }
-
     override fun setUserCategory(category: String) {
         firebaseRepository.checkCategory(category).addOnSuccessListener { dataSnapshot ->
             if (!dataSnapshot.hasChild(category)) {
@@ -165,6 +163,16 @@ class UserViewModel @Inject constructor(
 
     override fun deleteUserBook(isbn: String) {
         firebaseRepository.deleteBookmark(isbn)
+        getUserBook()
+    }
+
+    override fun getRatingAverage(isbn: String) {
+        firebaseRepository.getRatingAverage(isbn).addOnSuccessListener { dataSnapshot ->
+            if(dataSnapshot.value != null)
+                _ratingAverage.postValue(dataSnapshot.value.toString().toFloat())
+            else
+                _ratingAverage.postValue(0f)
+        }
     }
 
     override fun getBookmarked(isbn: String){
