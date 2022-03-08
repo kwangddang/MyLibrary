@@ -1,5 +1,6 @@
 package com.example.mylibrary.view.root.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import androidx.paging.cachedIn
 import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.dto.BookResponse
+import com.example.mylibrary.data.entity.firebase.book.Review
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.repository.BookRepository
 import com.example.mylibrary.data.repository.FirebaseRepository
@@ -36,6 +38,9 @@ class SearchViewModel @Inject constructor(
 
     private val _book = MutableLiveData<BookResponse>()
     val book: LiveData<BookResponse> get() = _book
+
+    private val _review = MutableLiveData<List<Review?>>()
+    override val review: LiveData<List<Review?>> get() = _review
 
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<BookInfo>>? = null
@@ -93,6 +98,28 @@ class SearchViewModel @Inject constructor(
                 _bookmarkStatus.postValue(false)
         }.addOnFailureListener{
             _bookmarkStatus.postValue(false)
+        }
+    }
+
+    override fun getReview(isbn: String) {
+        val tempList = mutableListOf<Review?>()
+        firebaseRepository.getReview(isbn).addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { review ->
+                tempList.add(review.getValue(Review::class.java))
+            }
+            _review.postValue(tempList)
+        }
+    }
+
+    override fun getReviewCount(isbn: String) {
+        firebaseRepository.getReviewCount(isbn).addOnSuccessListener {
+
+        }
+    }
+
+    override fun setReview(bookInfo: BookInfo, content: String) {
+        firebaseRepository.setReview(bookInfo,content).addOnSuccessListener {
+            getReview(bookInfo.isbn)
         }
     }
 

@@ -67,8 +67,6 @@ class EditCategoryViewModel @Inject constructor(
                 firebaseRepository.setCategory(category).addOnSuccessListener {
                     getUserCategory()
                 }
-            } else {
-                Log.d("Test", "이미 있음")
             }
         }
     }

@@ -10,4 +10,10 @@ object KeyName {
     const val RATING_AVERAGE: String = "ratingAverage"
     const val USERNAME: String = "username"
     const val CATEGORY: String = "category"
+    const val REVIEW: String = "review"
+    const val REVIEW_ID: String = "reviewId"
+    const val REVIEW_COUNT: String = "reviewCount"
+    const val USER_ID: String = "userId"
+    const val EMAIL: String = "email"
+    const val CONTENT: String = "content"
 }

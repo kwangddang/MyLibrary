@@ -7,6 +7,7 @@ import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.common.bookInfoToBook
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.User
+import com.example.mylibrary.data.entity.firebase.book.Review
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.data.repository.BookRepository
@@ -44,6 +45,9 @@ class UserViewModel @Inject constructor(
 
     private val _ratingAverage = MutableLiveData<Float?>()
     override val ratingAverage: LiveData<Float?> get() = _ratingAverage
+
+    private val _review = MutableLiveData<List<Review?>>()
+    override val review: LiveData<List<Review?>> get() = _review
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     fun getMyBook() {
@@ -144,8 +148,6 @@ class UserViewModel @Inject constructor(
                 firebaseRepository.setCategory(category).addOnSuccessListener {
                     getUserCategory()
                 }
-            } else {
-                Log.d("Test", "이미 있음")
             }
         }
     }
@@ -183,6 +185,28 @@ class UserViewModel @Inject constructor(
                 _bookmarkStatus.postValue(false)
         }.addOnFailureListener{
             _bookmarkStatus.postValue(false)
+        }
+    }
+
+    override fun getReview(isbn: String) {
+        val tempList = mutableListOf<Review?>()
+        firebaseRepository.getReview(isbn).addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { review ->
+                tempList.add(review.getValue(Review::class.java))
+            }
+            _review.postValue(tempList)
+        }
+    }
+
+    override fun getReviewCount(isbn: String) {
+        firebaseRepository.getReviewCount(isbn).addOnSuccessListener {
+
+        }
+    }
+
+    override fun setReview(bookInfo: BookInfo, content: String) {
+        firebaseRepository.setReview(bookInfo,content).addOnSuccessListener {
+            getReview(bookInfo.isbn)
         }
     }
 }

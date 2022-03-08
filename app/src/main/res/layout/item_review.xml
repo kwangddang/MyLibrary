@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="android.view.View" />
+        <variable
+            name="review"
+            type="com.example.mylibrary.data.entity.firebase.book.Review" />
 
         <variable
             name="onClickItem"
@@ -15,8 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_ireview_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="16dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/text_ireview_username"
@@ -25,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@{review.email}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="hsw0715" />
@@ -48,9 +50,20 @@
             android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
+            android:text="@{review.content}"
             app:layout_constraintStart_toStartOf="@id/text_ireview_username"
             app:layout_constraintTop_toBottomOf="@id/text_ireview_username"
             tools:text="개발 진행중" />
+
+        <View
+            android:id="@+id/view_ireview_divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_ireview_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/divider"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -25,7 +25,6 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Di
     private val binding get() = _binding!!
 
     private val bookmarkStatusObserver: (Boolean?) -> Unit = { bookmarkStatus ->
-        Log.d("Test",bookmarkStatus.toString())
         when(bookmarkStatus){
             true -> {
                 binding.lottieDlgBookDetailBookmark.progress = 0.5f
@@ -39,7 +38,6 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Di
     }
 
     private val ratingAverageObserver: (Float?) -> Unit = { ratingAverage ->
-        Log.d("Test",ratingAverage.toString())
         binding.ratingDlgBookDetail.rating = ratingAverage!!
     }
 
@@ -77,6 +75,7 @@ class BookDetailDialog(private val bookInfo: BookInfo, private val viewModel: Di
         binding.textDlgBookDetailLink.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(binding.book?.link))) }
         binding.lottieDlgBookDetailBookmark.apply { setOnClickListener { setBookMark(this,binding) } }
         binding.viewDlgBookRating.setOnClickListener { BookRatingDialog(viewModel, binding.book!!).show(childFragmentManager,TagConstant.BOOK_RATING_DIALOG) }
+        binding.textDlgBookDetailReview.setOnClickListener { ReviewBottomSheetDialog(bookInfo,viewModel).show(childFragmentManager,TagConstant.REVIEW_BOTTOM_SHEET_DIALOG) }
     }
 
     override fun onResume() {

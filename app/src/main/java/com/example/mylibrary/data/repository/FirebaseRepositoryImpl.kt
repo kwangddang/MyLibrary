@@ -1,14 +1,21 @@
 package com.example.mylibrary.data.repository
 
+import android.util.Log
 import com.example.mylibrary.common.KeyName.BOOK
 import com.example.mylibrary.common.KeyName.BOOKMARK
 import com.example.mylibrary.common.KeyName.BOOKMARKED_BY
 import com.example.mylibrary.common.KeyName.BOOKMARK_COUNT
 import com.example.mylibrary.common.KeyName.CATEGORY
+import com.example.mylibrary.common.KeyName.CONTENT
+import com.example.mylibrary.common.KeyName.EMAIL
 import com.example.mylibrary.common.KeyName.RATED_BY
 import com.example.mylibrary.common.KeyName.RATING
 import com.example.mylibrary.common.KeyName.RATING_AVERAGE
+import com.example.mylibrary.common.KeyName.REVIEW
+import com.example.mylibrary.common.KeyName.REVIEW_COUNT
+import com.example.mylibrary.common.KeyName.REVIEW_ID
 import com.example.mylibrary.common.KeyName.USERNAME
+import com.example.mylibrary.common.KeyName.USER_ID
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.room.Book
@@ -141,6 +148,43 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override fun getCategoryBook(category: String): Task<DataSnapshot> =
         firebaseUserDB.child(uid).child(CATEGORY).child(category).get()
+
+    override fun getReview(isbn: String): Task<DataSnapshot> =
+        firebaseBookDB.child(isbn).child(REVIEW).child(REVIEW_ID).get()
+
+    override fun getReviewCount(isbn: String): Task<DataSnapshot> =
+        firebaseBookDB.child(isbn).child(REVIEW).child(REVIEW_COUNT).get()
+
+    override fun setReview(bookInfo: BookInfo, content: String): Task<DataSnapshot> {
+        val reviewId = System.currentTimeMillis().toString()
+        val bookDB = firebaseBookDB.child(bookInfo.isbn)
+        val reviewDB = bookDB.child(REVIEW)
+        val reviewIdDB = reviewDB.child(REVIEW_ID).child(reviewId)
+        val reviewCountDB = reviewDB.child(REVIEW_COUNT)
+        val review = HashMap<String,Any>()
+        review[REVIEW_ID] = reviewId
+        review[USER_ID] = uid.orEmpty()
+        review[EMAIL] = getUserAuth()?.email.orEmpty()
+        review[CONTENT] = content
+
+        return firebaseBookDB.get().addOnSuccessListener {
+            if(it.hasChild(bookInfo.isbn)){
+                reviewIdDB.updateChildren(review).addOnSuccessListener {
+                    reviewDB.get().addOnSuccessListener { dataSnapShot ->
+                        reviewCountDB.setValue(dataSnapShot.childrenCount)
+                    }
+                }
+            } else{
+                bookDB.setValue(bookInfo).addOnSuccessListener {
+                    reviewIdDB.updateChildren(review).addOnSuccessListener {
+                        reviewDB.get().addOnSuccessListener { dataSnapShot ->
+                            reviewCountDB.setValue(dataSnapShot.childrenCount)
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     override fun signUp(email: String, password: String, username: String): Task<AuthResult> =
         firebaseAuth.createUserWithEmailAndPassword(email, password)

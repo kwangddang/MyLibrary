@@ -155,10 +155,11 @@
         <TextView
             android:id="@+id/text_dlg_book_detail_link"
             style="@style/SubHeadBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:text="@string/text_ihome_link"
             android:textSize="12sp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/lottie_dlg_book_detail_bookmark" />
@@ -166,28 +167,29 @@
         <TextView
             android:id="@+id/text_dlg_book_detail_review"
             style="@style/SubHeadBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:text="@string/text_dlg_book_detail_review"
             android:textSize="12sp"
+            android:gravity="center"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"
-            app:layout_constraintEnd_toStartOf="@id/text_dlg_book_detail_review_num"
+            app:layout_constraintEnd_toStartOf="@id/lottie_dlg_book_detail_bookmark"
             app:layout_constraintStart_toEndOf="@id/text_dlg_book_detail_link"
             app:layout_constraintTop_toTopOf="@id/lottie_dlg_book_detail_bookmark" />
 
-        <TextView
-            android:id="@+id/text_dlg_book_detail_review_num"
-            style="@style/SubHeadBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_marginStart="4dp"
-            app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"
-            app:layout_constraintStart_toEndOf="@id/text_dlg_book_detail_review"
-            app:layout_constraintEnd_toStartOf="@id/lottie_dlg_book_detail_bookmark"
-            app:layout_constraintTop_toTopOf="@id/lottie_dlg_book_detail_bookmark"
-            android:text="(3)"/>
+<!--        <TextView-->
+<!--            android:id="@+id/text_dlg_book_detail_review_num"-->
+<!--            style="@style/SubHeadBold"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="12sp"-->
+<!--            android:layout_marginStart="4dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/lottie_dlg_book_detail_bookmark"-->
+<!--            app:layout_constraintStart_toEndOf="@id/text_dlg_book_detail_review"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/lottie_dlg_book_detail_bookmark"-->
+<!--            app:layout_constraintTop_toTopOf="@id/lottie_dlg_book_detail_bookmark"-->
+<!--            android:text="(3)"/>-->
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_dlg_book_detail_bookmark"

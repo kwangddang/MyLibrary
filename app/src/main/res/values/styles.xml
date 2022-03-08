@@ -45,14 +45,12 @@
     <style name="HeadBold">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="SubHeadBold">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="SubHead">
@@ -134,5 +132,16 @@
     <style name="Body">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:colorBackground">@color/white</item>
+    </style>
+
+    <style name="BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
     </style>
 </resources>

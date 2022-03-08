@@ -17,6 +17,9 @@ interface FirebaseRepository {
     fun getBookmarked(isbn: String): Task<DataSnapshot>
     fun getAllBook(): Task<DataSnapshot>
     fun getCategoryBook(category: String): Task<DataSnapshot>
+    fun getReview(isbn: String): Task<DataSnapshot>
+    fun getReviewCount(isbn: String): Task<DataSnapshot>
+    fun setReview(bookInfo: BookInfo, content: String): Task<DataSnapshot>
     fun setRating(ratingNum: Float, book: BookInfo)
     fun setBookmark(bookInfo: BookInfo)
     fun deleteBookmark(isbn: String)
