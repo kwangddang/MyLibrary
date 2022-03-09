@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.mylibrary.common.TagConstant
+import com.example.mylibrary.util.TagConstant
 import com.example.mylibrary.data.dto.BookInfo
-import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.databinding.FragmentHomeBinding
 import com.example.mylibrary.databinding.ItemHomeBinding
-import com.example.mylibrary.databinding.ItemSearchBinding
 import com.example.mylibrary.view.common.BookDetailDialog
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,6 +50,10 @@ class HomeFragment: Fragment() {
 
         observeData()
         initAdapter()
+        initViews()
+    }
+
+    private fun initViews() {
         viewModel.getPopularBook()
     }
 

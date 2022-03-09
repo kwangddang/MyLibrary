@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.view.common.DialogViewModel
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.dto.BookResponse
 import com.example.mylibrary.data.entity.firebase.Review
@@ -34,9 +34,6 @@ class SearchViewModel @Inject constructor(
     override val ratingAverage: LiveData<Float?> get() = _ratingAverage
 
     override val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
-
-    private val _book = MutableLiveData<BookResponse>()
-    val book: LiveData<BookResponse> get() = _book
 
     private val _review = MutableLiveData<List<Review?>>()
     override val review: LiveData<List<Review?>> get() = _review

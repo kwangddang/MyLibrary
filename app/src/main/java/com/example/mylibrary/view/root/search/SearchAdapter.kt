@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.databinding.ItemSearchBinding
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 
 class SearchAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): PagingDataAdapter<BookInfo, SearchAdapter.SearchViewHolder>(
     COMPARATOR

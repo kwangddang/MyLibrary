@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.LoginMethodConstant
-import com.example.mylibrary.common.setStatusBarOrigin
-import com.example.mylibrary.common.setTransparentStatusBar
+import com.example.mylibrary.util.KotPrefModel
+import com.example.mylibrary.util.LoginMethodConstant
+import com.example.mylibrary.util.setStatusBarOrigin
+import com.example.mylibrary.util.setTransparentStatusBar
 import com.example.mylibrary.databinding.FragmentLoginBinding
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -108,7 +108,7 @@ class LoginFragment: Fragment() {
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToLoginEmailFragment())
         }
         binding.constraintLoginBtnContainer.setOnClickListener{
-            KotPrefModel.loginMethod = "noAccount"
+            KotPrefModel.loginMethod = LoginMethodConstant.NO_ACCOUNT
             Navigation.findNavController(binding.root).navigate(LoginFragmentDirections.actionLoginFragmentToRootFragment())
         }
         binding.textLoginSignup.setOnClickListener {

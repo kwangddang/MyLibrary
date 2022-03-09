@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.mylibrary.view.common
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

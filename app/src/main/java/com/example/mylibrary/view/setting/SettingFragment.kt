@@ -1,18 +1,16 @@
 package com.example.mylibrary.view.setting
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.example.mylibrary.common.*
+import com.example.mylibrary.util.*
 import com.example.mylibrary.databinding.FragmentSettingBinding
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class SettingFragment: Fragment() {
@@ -57,6 +55,7 @@ class SettingFragment: Fragment() {
     private fun setOnClickListener(){
         binding.textSettingLabelLogout.setOnClickListener { viewModel.logout() }
         binding.textSettingLabelUsername.setOnClickListener (labelUsernameOnClickListener)
+        binding.imgSettingBack.setOnClickListener { Navigation.findNavController(binding.root).popBackStack() }
     }
 
     override fun onDestroyView() {

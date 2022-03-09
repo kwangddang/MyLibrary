@@ -1,14 +1,16 @@
 package com.example.mylibrary.view.setting
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.mylibrary.common.showToast
+import androidx.navigation.Navigation
+import com.example.mylibrary.util.showToast
 import com.example.mylibrary.databinding.FragmentSettingUsernameBinding
+import com.example.mylibrary.util.ToastConstant
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,12 +30,12 @@ class SettingUsernameFragment: Fragment() {
     private val usernameSuccessObserver: (Boolean?) -> Unit = {
         when(it){
             true -> {
-                showToast("닉네임 변경에 성공하였습니다.")
+                showToast(ToastConstant.SUCCESS_USERNAME_CHANGE)
                 requireActivity().onBackPressed()
                 initUsername()
             }
             false -> {
-                showToast("닉네임 변경에 실패하였습니다.")
+                showToast(ToastConstant.FAIL_USERNAME_CHANGE)
                 initUsername()
             }
         }
@@ -63,6 +65,7 @@ class SettingUsernameFragment: Fragment() {
 
     private fun setOnClickListeners(){
         binding.btnSettingUsernameConfirm.setOnClickListener { viewModel.setUsername() }
+        binding.imgSettingUsernameBack.setOnClickListener { Navigation.findNavController(binding.root).popBackStack() }
     }
 
     private fun observeData(){

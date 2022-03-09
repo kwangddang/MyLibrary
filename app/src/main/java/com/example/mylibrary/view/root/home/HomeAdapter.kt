@@ -4,10 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibrary.data.dto.BookInfo
-import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.databinding.ItemHomeBinding
-import com.example.mylibrary.databinding.ItemUserBookBinding
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 
 class HomeAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -11,14 +11,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.mylibrary.common.TagConstant
-import com.example.mylibrary.common.hideKeyboard
-import com.example.mylibrary.common.showToast
-import com.example.mylibrary.data.dto.BookResponse
+import com.example.mylibrary.util.TagConstant
+import com.example.mylibrary.util.hideKeyboard
+import com.example.mylibrary.util.showToast
 import com.example.mylibrary.databinding.FragmentSearchBinding
 import com.example.mylibrary.databinding.ItemSearchBinding
+import com.example.mylibrary.util.ToastConstant
 import com.example.mylibrary.view.common.BookDetailDialog
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -41,10 +41,6 @@ class SearchFragment : Fragment() {
             }
             else -> false
         }
-    }
-
-    private val bookObserver: (BookResponse?) -> Unit = { response ->
-        showProperViews(response)
     }
 
     private val itemOnClickListener: (ItemClickArgs?) -> Unit = { args ->
@@ -70,7 +66,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.book.observe(viewLifecycleOwner, bookObserver)
+
     }
 
     private fun setOnEditorActionListener() {
@@ -88,7 +84,7 @@ class SearchFragment : Fragment() {
 
     private fun setSearchResult(view: TextView): Boolean {
         view.text.toString().run {
-            if (isNullOrBlank()) showToast("검색어를 입력해주세요.")
+            if (isNullOrBlank()) showToast(ToastConstant.NO_SEARCH_TEXT)
             else {
                 lifecycleScope.launch {
                     viewModel.getBook(view.text.toString()).collect {
@@ -101,17 +97,4 @@ class SearchFragment : Fragment() {
         return true
     }
 
-    private fun showProperViews(response: BookResponse?) {
-        if (response?.bookInfos!!.isEmpty()) {
-            binding.imgSearchNosearch.visibility = View.VISIBLE
-            binding.textSearchNosearchHead.visibility = View.VISIBLE
-            binding.textSearchNosearchSubhead.visibility = View.VISIBLE
-            binding.recyclerSearch.visibility = View.INVISIBLE
-        } else {
-            binding.imgSearchNosearch.visibility = View.INVISIBLE
-            binding.textSearchNosearchHead.visibility = View.INVISIBLE
-            binding.textSearchNosearchSubhead.visibility = View.INVISIBLE
-            binding.recyclerSearch.visibility = View.VISIBLE
-        }
-    }
 }

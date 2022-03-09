@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 
 class EditCategoryAdapter(private val itemOnClickListener: (ItemClickArgs?) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

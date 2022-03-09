@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.mylibrary.R
-import com.example.mylibrary.common.*
+import com.example.mylibrary.util.*
 import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
@@ -18,7 +18,7 @@ import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.common.BookDetailDialog
 import com.example.mylibrary.view.common.CreateCategoryDialog
 import com.example.mylibrary.view.root.RootFragmentDirections
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -116,7 +116,7 @@ class UserFragment : Fragment() {
 
     fun refresh() {
         if(KotPrefModel.loginMethod == LoginMethodConstant.NO_ACCOUNT){
-            binding.textUserTitle.text = "비계정"
+            binding.textUserTitle.text = StringConstant.NO_ACCOUNT
             viewModel.getMyBook()
             viewModel.getMyCategory()
         } else{

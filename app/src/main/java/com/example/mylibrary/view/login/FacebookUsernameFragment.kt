@@ -1,7 +1,6 @@
 package com.example.mylibrary.view.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,11 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.LoginMethodConstant
-import com.example.mylibrary.common.showToast
+import com.example.mylibrary.util.KotPrefModel
+import com.example.mylibrary.util.LoginMethodConstant
+import com.example.mylibrary.util.showToast
 import com.example.mylibrary.databinding.FragmentFacebookUsernameBinding
+import com.example.mylibrary.util.ToastConstant
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,7 +58,7 @@ class FacebookUsernameFragment: Fragment() {
                 viewModel.initSuccessValue()
             }
             false -> {
-                showToast("닉네임 설정에 실패하였습니다. 다시 시도해주세요.")
+                showToast(ToastConstant.ERROR)
             }
         }
     }

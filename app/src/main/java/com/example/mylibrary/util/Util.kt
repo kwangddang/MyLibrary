@@ -1,4 +1,4 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.util
 
 import android.app.Activity
 import android.content.Context
@@ -90,10 +90,6 @@ fun Context.navigationHeight(): Int {
 
     return if (resourceId > 0) resources.getDimensionPixelSize(resourceId)
     else 0
-}
-
-fun showToast(context: Context, text: String){
-    Toast.makeText(context,text,Toast.LENGTH_SHORT).show()
 }
 
 fun Fragment.rootFrom1Depth(): RootFragment = (parentFragment as RootFragment)

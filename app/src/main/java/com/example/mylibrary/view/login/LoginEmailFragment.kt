@@ -8,9 +8,11 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.showToast
+import com.example.mylibrary.util.KotPrefModel
+import com.example.mylibrary.util.showToast
 import com.example.mylibrary.databinding.FragmentLoginEmailBinding
+import com.example.mylibrary.util.LoginMethodConstant
+import com.example.mylibrary.util.ToastConstant
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,11 +25,11 @@ class LoginEmailFragment: Fragment() {
     private val emailSuccessObserver: (Boolean?) -> Unit = {
         when(it){
             true -> {
-                KotPrefModel.loginMethod = "email"
+                KotPrefModel.loginMethod = LoginMethodConstant.EMAIL
                 Navigation.findNavController(binding.root).navigate(LoginEmailFragmentDirections.actionLoginEmailFragmentToRootFragment())
                 viewModel.initSuccessValue()
             }
-            false -> showToast(requireContext(),"유효하지 않은 계정입니다. 다시 한번 입력해주세요.")
+            false -> showToast(ToastConstant.NO_ACCOUNT)
         }
     }
 
@@ -54,6 +56,7 @@ class LoginEmailFragment: Fragment() {
 
     private fun setOnClickListeners(){
         binding.btnLoginEmailConfirm.setOnClickListener { viewModel.emailLogin(binding.editLoginEmailEmail.text.toString(),binding.editLoginEmailPwd.text.toString()) }
+        binding.imgLoginEmailBack.setOnClickListener { Navigation.findNavController(binding.root).popBackStack() }
     }
 
     override fun onDestroyView() {

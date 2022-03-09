@@ -5,17 +5,16 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.example.mylibrary.DialogViewModel
 import com.example.mylibrary.R
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.LoginMethodConstant
-import com.example.mylibrary.common.ToastConstant
-import com.example.mylibrary.common.showToast
+import com.example.mylibrary.util.KotPrefModel
+import com.example.mylibrary.util.LoginMethodConstant
+import com.example.mylibrary.util.ToastConstant
+import com.example.mylibrary.util.showToast
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.Review
 import com.example.mylibrary.databinding.BottomsheetReviewBinding
 import com.example.mylibrary.databinding.ItemReviewBinding
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +26,10 @@ class ReviewBottomSheetDialog(private val bookInfo: BookInfo, private val viewMo
     val binding get() = _binding!!
 
     private var reviewId = ""
+
+    private val reviewAdapter: ReviewAdapter by lazy{
+        ReviewAdapter(reviewItemOnClickListener)
+    }
 
     private val reviewObserver: (List<Review?>) -> Unit = { review ->
         reviewAdapter.apply {
@@ -50,10 +53,6 @@ class ReviewBottomSheetDialog(private val bookInfo: BookInfo, private val viewMo
                 }
             }
         }
-    }
-
-    private val reviewAdapter: ReviewAdapter by lazy{
-        ReviewAdapter(reviewItemOnClickListener)
     }
 
     private val reviewItemOnClickListener: (ItemClickArgs?) -> Unit = { args ->

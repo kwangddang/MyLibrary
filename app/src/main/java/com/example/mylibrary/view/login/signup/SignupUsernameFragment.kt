@@ -10,11 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.LoginMethodConstant
-import com.example.mylibrary.common.showToast
-import com.example.mylibrary.common.signupFrom2Depth
 import com.example.mylibrary.databinding.FragmentSignupUsernameBinding
+import com.example.mylibrary.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +37,7 @@ class SignupUsernameFragment: Fragment() {
             }
 
             false -> {
-                showToast(requireContext(),"오류가 발생하였습니다. 잠시 후 다시 시도해주세요.")
+                showToast(ToastConstant.ERROR)
             }
         }
     }

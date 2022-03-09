@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.LoginMethodConstant
-import com.example.mylibrary.common.TagConstant
+import com.example.mylibrary.util.KotPrefModel
+import com.example.mylibrary.util.LoginMethodConstant
+import com.example.mylibrary.util.TagConstant
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.databinding.FragmentEditCategoryBinding
 import com.example.mylibrary.databinding.ItemUserCategoryBinding
 import com.example.mylibrary.view.common.CreateCategoryDialog
-import com.example.mylibrary.view.root.search.dto.ItemClickArgs
+import com.example.mylibrary.view.common.dto.ItemClickArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -68,6 +68,7 @@ class EditCategoryFragment: Fragment() {
     private fun setOnClickListener(){
         binding.btnEditCategoryNocontent.setOnClickListener { CreateCategoryDialog(viewModel).show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
         binding.textEditCategoryAdd.setOnClickListener { CreateCategoryDialog(viewModel).show(childFragmentManager,TagConstant.CREATE_CATEGORY_DIALOG) }
+        binding.imgEditCategoryBack.setOnClickListener { Navigation.findNavController(binding.root).popBackStack() }
     }
 
     private fun observeData() {

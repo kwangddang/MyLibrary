@@ -1,10 +1,9 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.util
 
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter

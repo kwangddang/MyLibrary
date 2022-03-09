@@ -2,8 +2,8 @@ package com.example.mylibrary.view.root.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mylibrary.DialogViewModel
-import com.example.mylibrary.common.bookInfoToBook
+import com.example.mylibrary.view.common.DialogViewModel
+import com.example.mylibrary.util.bookInfoToBook
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.User
 import com.example.mylibrary.data.entity.firebase.Review
@@ -208,6 +208,12 @@ class UserViewModel @Inject constructor(
     override fun setReview(bookInfo: BookInfo, content: String) {
         firebaseRepository.setReview(bookInfo,content).addOnSuccessListener {
             getReview(bookInfo.isbn)
+        }
+    }
+
+    override fun deleteReview(isbn: String, reviewId: String) {
+        firebaseRepository.deleteReview(isbn,reviewId).addOnSuccessListener {
+            getReview(isbn)
         }
     }
 }

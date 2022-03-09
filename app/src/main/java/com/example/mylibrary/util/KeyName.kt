@@ -1,4 +1,4 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.util
 
 object KeyName {
     const val BOOK: String = "book"

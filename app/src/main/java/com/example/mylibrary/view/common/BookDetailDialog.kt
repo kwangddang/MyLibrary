@@ -12,11 +12,10 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.airbnb.lottie.LottieAnimationView
-import com.example.mylibrary.DialogViewModel
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.LoginMethodConstant
-import com.example.mylibrary.common.TagConstant
-import com.example.mylibrary.common.bookInfoToBook
+import com.example.mylibrary.util.KotPrefModel
+import com.example.mylibrary.util.LoginMethodConstant
+import com.example.mylibrary.util.TagConstant
+import com.example.mylibrary.util.bookInfoToBook
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.databinding.DlgBookDetailBinding
 import dagger.hilt.android.AndroidEntryPoint

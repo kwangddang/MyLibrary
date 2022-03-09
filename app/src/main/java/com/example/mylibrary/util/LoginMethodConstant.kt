@@ -1,4 +1,4 @@
-package com.example.mylibrary.common
+package com.example.mylibrary.util
 
 object LoginMethodConstant {
     const val NO_ACCOUNT = "noAccount"

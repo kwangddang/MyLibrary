@@ -1,10 +1,8 @@
 package com.example.mylibrary.view.edit
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.mylibrary.DialogViewModel
+import com.example.mylibrary.view.common.DialogViewModel
 import com.example.mylibrary.data.entity.room.Book
 import com.example.mylibrary.data.entity.room.Category
 import com.example.mylibrary.data.repository.BookRepository

@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.root.search.dto
+package com.example.mylibrary.view.common.dto
 
 import android.view.View
 import androidx.databinding.ViewDataBinding

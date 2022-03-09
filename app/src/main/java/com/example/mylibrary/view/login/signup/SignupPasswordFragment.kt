@@ -2,7 +2,6 @@ package com.example.mylibrary.view.login.signup
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.mylibrary.R
-import com.example.mylibrary.common.signupFrom2Depth
+import com.example.mylibrary.util.signupFrom2Depth
 import com.example.mylibrary.databinding.FragmentSignupPwdBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.mylibrary.DialogViewModel
-import com.example.mylibrary.common.KotPrefModel
-import com.example.mylibrary.common.LoginMethodConstant
-import com.example.mylibrary.common.ToastConstant
-import com.example.mylibrary.common.showToast
+import com.example.mylibrary.util.KotPrefModel
+import com.example.mylibrary.util.LoginMethodConstant
+import com.example.mylibrary.util.ToastConstant
+import com.example.mylibrary.util.showToast
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.databinding.DlgBookRatingBinding
 import dagger.hilt.android.AndroidEntryPoint

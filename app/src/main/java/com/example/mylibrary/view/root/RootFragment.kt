@@ -8,8 +8,8 @@ import android.widget.ImageView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.example.mylibrary.R
-import com.example.mylibrary.common.TagConstant
-import com.example.mylibrary.common.getColor
+import com.example.mylibrary.util.TagConstant
+import com.example.mylibrary.util.getColor
 import com.example.mylibrary.databinding.FragmentRootBinding
 import com.example.mylibrary.view.root.home.HomeFragment
 import com.example.mylibrary.view.root.search.SearchFragment
