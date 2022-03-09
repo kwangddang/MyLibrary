@@ -25,7 +25,7 @@ class LoginFragment: Fragment() {
     private var _binding: FragmentLoginBinding? = null
     val binding get() = _binding!!
 
-    private lateinit var callbackManager: CallbackManager
+    private lateinit var callbackManagers: CallbackManager
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -59,7 +59,7 @@ class LoginFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        callbackManager = CallbackManager.Factory.create()
+        callbackManagers = CallbackManager.Factory.create()
     }
 
     override fun onCreateView(
@@ -94,7 +94,7 @@ class LoginFragment: Fragment() {
         binding.btnLoginFacebook.run{
             setPermissions("email","public_profile")
             fragment = this@LoginFragment
-            registerCallback(callbackManager,facebookCallback)
+            registerCallback(callbackManagers,facebookCallback)
         }
     }
 
@@ -118,7 +118,7 @@ class LoginFragment: Fragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager.onActivityResult(requestCode,resultCode,data)
+        callbackManagers.onActivityResult(requestCode,resultCode,data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
