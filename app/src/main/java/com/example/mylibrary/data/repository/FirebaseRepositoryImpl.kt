@@ -155,9 +155,8 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override fun deleteBookmark(isbn: String) {
         val bookDB = firebaseBookDB.child(isbn)
-        val bookmarkDB = bookDB.child(BOOKMARK)
-        val bookmarkCountDB = bookmarkDB.child(BOOKMARK_COUNT)
-        val bookmarkedByDB = bookmarkDB.child(BOOKMARKED_BY)
+        val bookmarkCountDB = bookDB.child(BOOKMARK_COUNT)
+        val bookmarkedByDB = bookDB.child(BOOKMARKED_BY)
 
         bookmarkedByDB.child(uid).removeValue().addOnSuccessListener {
             bookmarkedByDB.get().addOnSuccessListener { dataSnapshot ->

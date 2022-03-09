@@ -5,16 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mylibrary.view.common.DialogViewModel
 import com.example.mylibrary.data.dto.BookInfo
 import com.example.mylibrary.data.entity.firebase.Review
+import com.example.mylibrary.data.entity.room.Book
+import com.example.mylibrary.data.repository.BookRepository
 import com.example.mylibrary.data.repository.FirebaseRepository
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val firebaseRepository: FirebaseRepository
+    private val firebaseRepository: FirebaseRepository,
+    private val bookRepository: BookRepository
 ): DialogViewModel(){
 
     private val _book = MutableLiveData<List<BookInfo>>()
@@ -30,6 +36,12 @@ class HomeViewModel @Inject constructor(
     override val review: LiveData<List<Review?>> get() = _review
 
     override val uid = firebaseRepository.getUserAuth()?.uid.orEmpty()
+
+    override fun setMyBook(book: Book){
+        CoroutineScope(Dispatchers.IO).launch {
+            bookRepository.insert(book)
+        }
+    }
 
     fun getPopularBook(){
         val tempList = mutableListOf<BookInfo>()
@@ -68,6 +80,10 @@ class HomeViewModel @Inject constructor(
         }.addOnFailureListener{
             _bookmarkStatus.postValue(false)
         }
+    }
+
+    override fun deleteUserBook(isbn: String) {
+        firebaseRepository.deleteBookmark(isbn)
     }
 
     override fun setBookRating(ratingNum: Float, book: BookInfo) {
