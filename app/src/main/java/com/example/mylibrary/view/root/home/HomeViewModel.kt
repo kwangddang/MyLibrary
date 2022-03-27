@@ -1,5 +1,6 @@
 package com.example.mylibrary.view.root.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mylibrary.view.common.DialogViewModel
@@ -48,7 +49,11 @@ class HomeViewModel @Inject constructor(
         firebaseRepository.getPopularBook().addChildEventListener( object: ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 if(tempList.size > 8) tempList.removeAt(0)
-                tempList.add(snapshot.getValue(BookInfo::class.java)!!)
+                val book = snapshot.getValue(BookInfo::class.java)!!
+                CoroutineScope(Dispatchers.IO).launch {
+                    book.bookmark = book.isbn == bookRepository.checkMyBook(book.isbn)
+                }
+                tempList.add(book)
                 _book.postValue(tempList)
             }
 
