@@ -19,11 +19,13 @@
 	상세화면은 네이버에서 불러온 책 정보와 파이어베이스에 저장되어 있는 후기, 별점, 북마크 상태를 불러옵니다. </br></br>
 	(비계정일시 북마크는 Room에 저장되어 있는 정보를 가져와 표시합니다.)</br></br>
 <img src="https://user-images.githubusercontent.com/77563227/157431842-73a55aa1-a224-4827-9fab-b2bb8d0ff078.jpg" width="270" height="480"> <img src="https://user-images.githubusercontent.com/77563227/157431845-95187874-72f6-44b3-b97b-62282a8d7cad.jpg" width="270" height="480"></br>
-5. 유저화면 </br></br> 파이어베이스에 저장되어 있는 유저의 이름과 책, 카테고리를 불러옵니다.</br></br>
-	(책을 표시하는 리사이클러뷰는 GridLayoutManager로 수정 예정)</br></br></br>
+5. 유저화면 
+   </br></br> 
+   파이어베이스에 저장되어 있는 유저의 이름과 책, 카테고리를 불러옵니다.</br></br>
+   (비계정인 경우 Room 에 저장되어 있는 유저의 이름과 책, 카테고리를 불러옵니다.)</br></br>
+ 
 6. 설정화면 </br></br> 
 	닉네임을 변경할 수 있고, 로그아웃을 할 수 있습니다. </br></br>
-	(서비스 탈퇴는 구현 예정)
 	</br></br>
 	# 사용한 기술
 	- Firebase
